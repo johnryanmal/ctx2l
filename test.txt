@@ -1,0 +1,18 @@
+expr
+| sum
+
+sum
+| prod ('+' | '-') prod
+
+prod
+| pow ('*' | '/') pow
+
+pow
+| value '**' value
+
+value
+| '(' expr ')'
+| DIGITS
+
+DIGITS
+| [0-9]+
