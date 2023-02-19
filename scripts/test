@@ -1,0 +1,3 @@
+#!/bin/sh -eu
+cd "$(dirname "$0")/../python"
+cat ../test.txt | pygrun -t ctx2l program
