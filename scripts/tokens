@@ -1,0 +1,3 @@
+#!/bin/sh -eu
+cd "$(dirname "$0")/../python"
+python3 tokens.py ../test.txt

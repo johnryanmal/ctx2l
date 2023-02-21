@@ -8,12 +8,10 @@ from ctx2lVisitor import ctx2lVisitor
 def main(argv):
     input_stream = FileStream(argv[1])
     lexer = ctx2lLexer(input_stream)
-    stream = CommonTokenStream(lexer)
-    parser = ctx2lParser(stream)
-    tree = parser.program()
-    visitor = ctx2lVisitor()
-    ast = visitor.visitProgram(tree)
-    print(ast)
+    for token in lexer.getAllTokens():
+        type = lexer.symbolicNames[token.type]
+        text = repr(token.text)[1:-1]
+        print(f"{text:10}{type}")
 
 
 if __name__ == '__main__':
