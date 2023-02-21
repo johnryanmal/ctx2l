@@ -5,3 +5,6 @@ options {
 }
 
 import ANTLRv4Lexer;
+
+LBRACE: LBrace;
+RBRACE: RBrace;
