@@ -1,18 +1,18 @@
-expr
+expr:
 | sum
 
-sum
+sum:
 | prod ('+' | '-') prod
 
-prod
+prod:
 | pow ('*' | '/') pow
 
-pow
+pow:
 | value '**' value
 
-value
+value:
 | '(' expr ')'
 | DIGITS
 
-DIGITS
+DIGITS:
 | [0-9]+
