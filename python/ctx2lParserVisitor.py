@@ -54,18 +54,38 @@ class ctx2lParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ctx2lParser#ruleAtom.
-    def visitRuleAtom(self, ctx:ctx2lParser.RuleAtomContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by ctx2lParser#tokenAlt.
     def visitTokenAlt(self, ctx:ctx2lParser.TokenAltContext):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by ctx2lParser#ruleAtom.
+    def visitRuleAtom(self, ctx:ctx2lParser.RuleAtomContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ctx2lParser#ruleEbnf.
+    def visitRuleEbnf(self, ctx:ctx2lParser.RuleEbnfContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ctx2lParser#ruleLiteral.
+    def visitRuleLiteral(self, ctx:ctx2lParser.RuleLiteralContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by ctx2lParser#tokenAtom.
     def visitTokenAtom(self, ctx:ctx2lParser.TokenAtomContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ctx2lParser#tokenEbnf.
+    def visitTokenEbnf(self, ctx:ctx2lParser.TokenEbnfContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ctx2lParser#tokenLiteral.
+    def visitTokenLiteral(self, ctx:ctx2lParser.TokenLiteralContext):
         return self.visitChildren(ctx)
 
 

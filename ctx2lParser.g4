@@ -16,9 +16,13 @@ ruleSub: LPAREN OR? ruleAlts RPAREN;
 tokenSub: LPAREN OR? tokenAlts RPAREN;
 ruleAlts: ruleAlt (OR ruleAlt)*;
 tokenAlts: tokenAlt (OR tokenAlt)*;
+ruleAlt: ruleAtom+;
+tokenAlt: tokenAtom+;
 
-ruleAlt: (ruleSub | ruleAtom)+;
-ruleAtom: RULE_REF | TOKEN_REF | STRING_LITERAL;
+ruleAtom: ruleEbnf ebnfSuffix?;
+ruleEbnf: ruleSub | ruleLiteral;
+ruleLiteral: RULE_REF | TOKEN_REF | STRING_LITERAL;
 
-tokenAlt: (tokenSub | tokenAtom)+;
-tokenAtom: TOKEN_REF | LEXER_CHAR_SET;
+tokenAtom: tokenEbnf ebnfSuffix?;
+tokenEbnf: tokenSub | tokenLiteral;
+tokenLiteral: TOKEN_REF | LEXER_CHAR_SET;
