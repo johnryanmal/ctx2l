@@ -14,6 +14,61 @@ class ctx2lParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by ctx2lParser#def.
+    def visitDef(self, ctx:ctx2lParser.DefContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ctx2lParser#ruleDef.
+    def visitRuleDef(self, ctx:ctx2lParser.RuleDefContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ctx2lParser#tokenDef.
+    def visitTokenDef(self, ctx:ctx2lParser.TokenDefContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ctx2lParser#ruleSub.
+    def visitRuleSub(self, ctx:ctx2lParser.RuleSubContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ctx2lParser#tokenSub.
+    def visitTokenSub(self, ctx:ctx2lParser.TokenSubContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ctx2lParser#ruleAlts.
+    def visitRuleAlts(self, ctx:ctx2lParser.RuleAltsContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ctx2lParser#tokenAlts.
+    def visitTokenAlts(self, ctx:ctx2lParser.TokenAltsContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ctx2lParser#ruleAlt.
+    def visitRuleAlt(self, ctx:ctx2lParser.RuleAltContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ctx2lParser#ruleAtom.
+    def visitRuleAtom(self, ctx:ctx2lParser.RuleAtomContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ctx2lParser#tokenAlt.
+    def visitTokenAlt(self, ctx:ctx2lParser.TokenAltContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ctx2lParser#tokenAtom.
+    def visitTokenAtom(self, ctx:ctx2lParser.TokenAtomContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by ctx2lParser#grammarSpec.
     def visitGrammarSpec(self, ctx:ctx2lParser.GrammarSpecContext):
         return self.visitChildren(ctx)
