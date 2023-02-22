@@ -21,4 +21,4 @@ ruleAlt: (ruleSub | ruleAtom)+;
 ruleAtom: RULE_REF | TOKEN_REF | STRING_LITERAL;
 
 tokenAlt: (tokenSub | tokenAtom)+;
-tokenAtom: TOKEN_REF | argActionBlock;
+tokenAtom: TOKEN_REF | LEXER_CHAR_SET;

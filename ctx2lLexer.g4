@@ -1,7 +1,7 @@
 lexer grammar ctx2lLexer;
 
 options {
-	superClass = LexerAdaptor;
+	superClass = ctx2lLexerAdaptor;
 }
 
 import ANTLRv4Lexer;

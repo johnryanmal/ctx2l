@@ -9,9 +9,9 @@ else:
 
 
 if __name__ is not None and "." in __name__:
-    from .LexerAdaptor import LexerAdaptor
+    from .ctx2lLexerAdaptor import ctx2lLexerAdaptor
 else:
-    from LexerAdaptor import LexerAdaptor
+    from ctx2lLexerAdaptor import ctx2lLexerAdaptor
 
 def serializedATN():
     return [
@@ -298,7 +298,7 @@ def serializedATN():
         0
     ]
 
-class ctx2lLexer(LexerAdaptor):
+class ctx2lLexer(ctx2lLexerAdaptor):
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
