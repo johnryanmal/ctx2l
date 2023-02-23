@@ -12,8 +12,11 @@ def main(argv):
     parser = ctx2lParser(stream)
     tree = parser.program()
     visitor = ctx2lVisitor()
-    ast = visitor.visitProgram(tree)
-    print(ast)
+    tokens, rules = visitor.visitProgram(tree)
+    print('=== lexer.g4 ===')
+    print(tokens)
+    print('=== parser.g4 ===')
+    print(rules)
 
 
 if __name__ == '__main__':
