@@ -36,10 +36,6 @@ class ctx2lVisitor(ctx2lParserVisitor):
     def visitEbnfSuffix(self, ctx):
         return ctx.getText()
 
-    def visitTokenEbnf(self, ctx):
-        result = self.visitChildren(ctx)
-        return result
-
     def visitTokenAtom(self, ctx):
         ebnf = ctx.tokenEbnf()
         suffix = ctx.ebnfSuffix()

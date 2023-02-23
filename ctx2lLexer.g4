@@ -15,7 +15,7 @@ fragment BlockComment
 fragment DocComment
 	: '?--' .*? ('---' ~ [\r\n]* | EOF)
 	;
-   
+
 fragment LineComment
 	: '--' ~ [\r\n]*
 	;
