@@ -72,7 +72,11 @@ class ctx2lVisitor(ctx2lParserVisitor):
 
     def visitTokenSub(self, ctx):
         alts = self.visit(ctx.tokenAlts())
-        return ' '.join(alts)
+        return (
+            '('
+            + spaced('|').join(map(spaced, alts))
+            + spaced(')')
+        )
 
     def visitRuleSub(self, ctx):
         alts = self.visit(ctx.ruleAlts())

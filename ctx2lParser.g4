@@ -23,4 +23,4 @@ ruleLiteral: RULE_REF | TOKEN_REF | STRING_LITERAL;
 
 tokenAtom: tokenEbnf ebnfSuffix?;
 tokenEbnf: tokenSub | tokenLiteral;
-tokenLiteral: TOKEN_REF | LEXER_CHAR_SET;
+tokenLiteral: TOKEN_REF | STRING_LITERAL | LEXER_CHAR_SET;
