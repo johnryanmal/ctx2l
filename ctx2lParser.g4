@@ -6,9 +6,7 @@ options {
 
 import ANTLRv4Parser;
 
-program: def+ EOF;
-
-def: ruleDef | tokenDef;
+program: (ruleDef | tokenDef)+ EOF;
 ruleDef: RULE_REF COLON OR ruleAlts;
 tokenDef: TOKEN_REF COLON OR tokenAlts;
 
