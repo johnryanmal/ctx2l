@@ -14,11 +14,6 @@ class ctx2lParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ctx2lParser#def.
-    def visitDef(self, ctx:ctx2lParser.DefContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by ctx2lParser#ruleDef.
     def visitRuleDef(self, ctx:ctx2lParser.RuleDefContext):
         return self.visitChildren(ctx)
