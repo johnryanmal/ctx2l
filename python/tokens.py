@@ -1,8 +1,6 @@
 import sys
 from antlr4 import *
 from ctx2lLexer import ctx2lLexer
-from ctx2lParser import ctx2lParser
-from ctx2lVisitor import ctx2lVisitor
 
 
 def main(path):

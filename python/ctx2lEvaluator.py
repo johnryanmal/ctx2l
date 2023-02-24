@@ -1,5 +1,3 @@
-import inspect
-
 def extract(dict, keys):
     return {key: dict[key] for key in keys}
 
