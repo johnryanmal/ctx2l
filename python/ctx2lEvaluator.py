@@ -1,3 +1,5 @@
+import inspect
+
 def extract(dict, keys):
     return {key: dict[key] for key in keys}
 
@@ -47,10 +49,18 @@ class ctx2lEvaluator():
     def eval(self, node):
         node_, type_ = destructure(node, ['type'])
         attr = 'eval' + type_[0].upper() + type_[1:]
-        if method := getattr(self, attr, None):
-            return method(**node_)
-        else:
-            raise NotImplementedError(f'{repr(attr)} was not implemented in {self.__class__.__name__}')
+
+        try:
+            method = getattr(self, attr)
+        except AttributeError:
+            raise NotImplementedError(f'{self.__class__.__name__}.{attr}() was not implemented -- could not evaluate node {repr(type_)}')
+
+        try:
+            result = method(**node_)
+        except TypeError as error:
+            raise ValueError(f'invalid node {repr(type_)} -- {str(error)}')
+
+        return result
 
     def evals(self, nodes):
         return tuple(self.eval(node) for node in nodes)
