@@ -5,8 +5,8 @@ from ctx2lParser import ctx2lParser
 from ctx2lVisitor import ctx2lVisitor
 
 
-def main(argv):
-    input_stream = FileStream(argv[1])
+def main(path):
+    input_stream = FileStream(path)
     lexer = ctx2lLexer(input_stream)
     for token in lexer.getAllTokens():
         type = lexer.symbolicNames[token.type]
@@ -15,4 +15,4 @@ def main(argv):
 
 
 if __name__ == '__main__':
-    main(sys.argv)
+    main(*sys.argv[1:])
