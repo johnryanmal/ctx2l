@@ -8,6 +8,9 @@ if sys.version_info[1] > 5:
 else:
 	from typing.io import TextIO
 
+
+from RuleContextWithAltNum import RuleContextWithAltNum
+
 def serializedATN():
     return [
         4,1,61,747,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
@@ -495,7 +498,7 @@ class ctx2lParser ( Parser ):
 
 
 
-    class ProgramContext(ParserRuleContext):
+    class ProgramContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -573,7 +576,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RuleDefContext(ParserRuleContext):
+    class RuleDefContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -628,7 +631,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class TokenDefContext(ParserRuleContext):
+    class TokenDefContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -683,7 +686,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RuleSubContext(ParserRuleContext):
+    class RuleSubContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -745,7 +748,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class TokenSubContext(ParserRuleContext):
+    class TokenSubContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -807,7 +810,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RuleAltsContext(ParserRuleContext):
+    class RuleAltsContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -869,7 +872,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class TokenAltsContext(ParserRuleContext):
+    class TokenAltsContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -931,7 +934,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RuleAltContext(ParserRuleContext):
+    class RuleAltContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -986,7 +989,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class TokenAltContext(ParserRuleContext):
+    class TokenAltContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1041,7 +1044,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RuleAtomContext(ParserRuleContext):
+    class RuleAtomContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1094,7 +1097,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RuleEbnfContext(ParserRuleContext):
+    class RuleEbnfContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1160,7 +1163,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RuleRefContext(ParserRuleContext):
+    class RuleRefContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1208,7 +1211,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RuleLiteralContext(ParserRuleContext):
+    class RuleLiteralContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1247,7 +1250,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class TokenAtomContext(ParserRuleContext):
+    class TokenAtomContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1300,7 +1303,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class TokenEbnfContext(ParserRuleContext):
+    class TokenEbnfContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1366,7 +1369,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class TokenRefContext(ParserRuleContext):
+    class TokenRefContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1405,7 +1408,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class TokenLiteralContext(ParserRuleContext):
+    class TokenLiteralContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1453,7 +1456,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class GrammarSpecContext(ParserRuleContext):
+    class GrammarSpecContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1539,7 +1542,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class GrammarDeclContext(ParserRuleContext):
+    class GrammarDeclContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1590,7 +1593,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class GrammarTypeContext(ParserRuleContext):
+    class GrammarTypeContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1655,7 +1658,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class PrequelConstructContext(ParserRuleContext):
+    class PrequelConstructContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1739,7 +1742,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class OptionsSpecContext(ParserRuleContext):
+    class OptionsSpecContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1809,7 +1812,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class OptionContext(ParserRuleContext):
+    class OptionContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1860,7 +1863,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class OptionValueContext(ParserRuleContext):
+    class OptionValueContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1955,7 +1958,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class DelegateGrammarsContext(ParserRuleContext):
+    class DelegateGrammarsContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -2027,7 +2030,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class DelegateGrammarContext(ParserRuleContext):
+    class DelegateGrammarContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -2090,7 +2093,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class TokensSpecContext(ParserRuleContext):
+    class TokensSpecContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -2147,7 +2150,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class ChannelsSpecContext(ParserRuleContext):
+    class ChannelsSpecContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -2204,7 +2207,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class IdListContext(ParserRuleContext):
+    class IdListContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -2275,7 +2278,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class Action_Context(ParserRuleContext):
+    class Action_Context(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -2343,7 +2346,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class ActionScopeNameContext(ParserRuleContext):
+    class ActionScopeNameContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -2407,7 +2410,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class ActionBlockContext(ParserRuleContext):
+    class ActionBlockContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -2468,7 +2471,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class ArgActionBlockContext(ParserRuleContext):
+    class ArgActionBlockContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -2529,7 +2532,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class ModeSpecContext(ParserRuleContext):
+    class ModeSpecContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -2597,7 +2600,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RulesContext(ParserRuleContext):
+    class RulesContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -2649,7 +2652,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RuleSpecContext(ParserRuleContext):
+    class RuleSpecContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -2706,7 +2709,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class ParserRuleSpecContext(ParserRuleContext):
+    class ParserRuleSpecContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -2845,7 +2848,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class ExceptionGroupContext(ParserRuleContext):
+    class ExceptionGroupContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -2909,7 +2912,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class ExceptionHandlerContext(ParserRuleContext):
+    class ExceptionHandlerContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -2960,7 +2963,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class FinallyClauseContext(ParserRuleContext):
+    class FinallyClauseContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -3005,7 +3008,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RulePrequelContext(ParserRuleContext):
+    class RulePrequelContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -3062,7 +3065,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RuleReturnsContext(ParserRuleContext):
+    class RuleReturnsContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -3107,7 +3110,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class ThrowsSpecContext(ParserRuleContext):
+    class ThrowsSpecContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -3174,7 +3177,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class LocalsSpecContext(ParserRuleContext):
+    class LocalsSpecContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -3219,7 +3222,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RuleActionContext(ParserRuleContext):
+    class RuleActionContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -3270,7 +3273,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RuleModifiersContext(ParserRuleContext):
+    class RuleModifiersContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -3324,7 +3327,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RuleModifierContext(ParserRuleContext):
+    class RuleModifierContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -3378,7 +3381,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RuleBlockContext(ParserRuleContext):
+    class RuleBlockContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -3418,7 +3421,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RuleAltListContext(ParserRuleContext):
+    class RuleAltListContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -3480,7 +3483,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class LabeledAltContext(ParserRuleContext):
+    class LabeledAltContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -3538,7 +3541,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class LexerRuleSpecContext(ParserRuleContext):
+    class LexerRuleSpecContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -3617,7 +3620,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class LexerRuleBlockContext(ParserRuleContext):
+    class LexerRuleBlockContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -3657,7 +3660,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class LexerAltListContext(ParserRuleContext):
+    class LexerAltListContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -3719,7 +3722,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class LexerAltContext(ParserRuleContext):
+    class LexerAltContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -3784,7 +3787,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class LexerElementsContext(ParserRuleContext):
+    class LexerElementsContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -3850,7 +3853,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class LexerElementContext(ParserRuleContext):
+    class LexerElementContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -3967,7 +3970,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class LabeledLexerElementContext(ParserRuleContext):
+    class LabeledLexerElementContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -4043,7 +4046,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class LexerBlockContext(ParserRuleContext):
+    class LexerBlockContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -4093,7 +4096,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class LexerCommandsContext(ParserRuleContext):
+    class LexerCommandsContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -4160,7 +4163,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class LexerCommandContext(ParserRuleContext):
+    class LexerCommandContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -4229,7 +4232,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class LexerCommandNameContext(ParserRuleContext):
+    class LexerCommandNameContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -4285,7 +4288,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class LexerCommandExprContext(ParserRuleContext):
+    class LexerCommandExprContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -4341,7 +4344,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class AltListContext(ParserRuleContext):
+    class AltListContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -4403,7 +4406,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class AlternativeContext(ParserRuleContext):
+    class AlternativeContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -4481,7 +4484,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class ElementContext(ParserRuleContext):
+    class ElementContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -4598,7 +4601,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class LabeledElementContext(ParserRuleContext):
+    class LabeledElementContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -4674,7 +4677,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class EbnfContext(ParserRuleContext):
+    class EbnfContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -4727,7 +4730,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class BlockSuffixContext(ParserRuleContext):
+    class BlockSuffixContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -4767,7 +4770,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class EbnfSuffixContext(ParserRuleContext):
+    class EbnfSuffixContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -4858,7 +4861,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class LexerAtomContext(ParserRuleContext):
+    class LexerAtomContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -4956,7 +4959,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class AtomContext(ParserRuleContext):
+    class AtomContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -5043,7 +5046,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class NotSetContext(ParserRuleContext):
+    class NotSetContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -5107,7 +5110,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class BlockSetContext(ParserRuleContext):
+    class BlockSetContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -5179,7 +5182,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class SetElementContext(ParserRuleContext):
+    class SetElementContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -5274,7 +5277,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class BlockContext(ParserRuleContext):
+    class BlockContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -5365,7 +5368,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RulerefContext(ParserRuleContext):
+    class RulerefContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -5429,7 +5432,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class CharacterRangeContext(ParserRuleContext):
+    class CharacterRangeContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -5478,7 +5481,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class TerminalContext(ParserRuleContext):
+    class TerminalContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -5554,7 +5557,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class ElementOptionsContext(ParserRuleContext):
+    class ElementOptionsContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -5626,7 +5629,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class ElementOptionContext(ParserRuleContext):
+    class ElementOptionContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -5704,7 +5707,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class IdentifierContext(ParserRuleContext):
+    class IdentifierContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):

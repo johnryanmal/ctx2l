@@ -2,6 +2,11 @@ parser grammar ctx2lParser;
 
 options {
 	tokenVocab = ctx2lLexer;
+	contextSuperClass = RuleContextWithAltNum;
+}
+
+@parser::header {
+from RuleContextWithAltNum import RuleContextWithAltNum
 }
 
 import ANTLRv4Parser;
