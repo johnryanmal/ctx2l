@@ -23,6 +23,18 @@ class ctx2lVisitor(ctx2lParserVisitor):
             text=ctx.getText()
         )
 
+    def visitRuleRef(self, ctx):
+        return dict(
+            type='ref',
+            name=ctx.getText()
+        )
+
+    def visitTokenRef(self, ctx):
+        return dict(
+            type='ref',
+            name=ctx.getText()
+        )
+
     def visitEbnfSuffix(self, ctx):
         return ctx.getText()
 

@@ -65,7 +65,7 @@ def pythonVisit(name, keys):
     return (
         f'def visit{cap(name)}(self, ctx):'
         + pythonBlock(
-            'return ' + pythonDict((key, f'ctx.{key}') for key in keys)
+            'return ' + pythonDict((key, f'ctx.{key}()') for key in keys)
         )
     )
 
@@ -89,6 +89,9 @@ class Evaluator:
 class ctx2lEvaluator(Evaluator):
     def evalLiteral(self, *, text):
         return text
+
+    def evalRef(self, *, name):
+        return name
 
     def evalAtom(self, *, ebnf, suffix):
         return self.eval(ebnf) + (suffix or '')
@@ -115,7 +118,10 @@ class ctx2lEvaluator(Evaluator):
 
 class ctx2lPythonEvaluator(Evaluator):
     def evalLiteral(self, *, text):
-        return {text}
+        return set()
+
+    def evalRef(self, *, name):
+        return {name}
 
     def evalAtom(self, *, ebnf, suffix):
         return self.eval(ebnf)

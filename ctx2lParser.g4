@@ -18,9 +18,11 @@ ruleAlt: ruleAtom+;
 tokenAlt: tokenAtom+;
 
 ruleAtom: ruleEbnf ebnfSuffix?;
-ruleEbnf: ruleSub | ruleLiteral;
-ruleLiteral: RULE_REF | TOKEN_REF | STRING_LITERAL;
+ruleEbnf: ruleSub | ruleRef | ruleLiteral;
+ruleRef: RULE_REF | TOKEN_REF;
+ruleLiteral: STRING_LITERAL;
 
 tokenAtom: tokenEbnf ebnfSuffix?;
-tokenEbnf: tokenSub | tokenLiteral;
-tokenLiteral: TOKEN_REF | STRING_LITERAL | LEXER_CHAR_SET;
+tokenEbnf: tokenSub | tokenRef | tokenLiteral;
+tokenRef: TOKEN_REF;
+tokenLiteral: STRING_LITERAL | LEXER_CHAR_SET;
