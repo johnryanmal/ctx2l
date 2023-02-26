@@ -12,10 +12,16 @@ class ctx2lVisitor(ctx2lParserVisitor):
             return ctx
 
     def visitRuleLiteral(self, ctx):
-        return ctx.getText()
+        return dict(
+            type='literal',
+            text=ctx.getText()
+        )
 
     def visitTokenLiteral(self, ctx):
-        return ctx.getText()
+        return dict(
+            type='literal',
+            text=ctx.getText()
+        )
 
     def visitEbnfSuffix(self, ctx):
         return ctx.getText()

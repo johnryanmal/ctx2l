@@ -7,13 +7,16 @@ def retract(dict, keys):
 def destructure(dict, keys):
     return retract(dict, keys), *extract(dict, keys).values()
 
+def cap(str):
+    return str[:1].upper() + str[1:]
+
 def spaces(n=1):
     return n*' '
 
 def newlines(n=1):
     return n*'\n'
 
-def indent(n, str):
+def indent(n, str=''):
     return '\n' + spaces(n) + str
 
 def spaced(str):
@@ -33,38 +36,62 @@ def antlrRule(name, alts):
 def antlrSub(alts):
     return (
         '('
-        + spaced('|').join(map(spaced, alts))
-        + spaced(')')
+        + ' |'.join(map(spaced, alts))
+        + ' )'
     )
 
-class ctx2lEvaluator():
-    def evalable(self, node):
-        if type(node) is dict:
-            return self.eval(node)
-        else:
-            return node
+def quote(str):
+    return "'" + str + "'"
 
+def pythonIndent(str=''):
+    return indent(4, str)
+
+def pythonBlock(str):
+    return pythonIndent() + str.replace('\n', pythonIndent())
+
+def pythonKeyValue(key, value):
+    return quote(key) + ': ' + value + ','
+
+def pythonDict(items):
+    return (
+        '{'
+        + pythonBlock(
+            newlines().join(pythonKeyValue(k, v) for k, v in items)
+        )
+        + '\n}'
+    )
+
+def pythonVisit(name, keys):
+    return (
+        f'def visit{cap(name)}(self, ctx):'
+        + pythonBlock(
+            'return ' + pythonDict((key, f'ctx.{key}') for key in keys)
+        )
+    )
+
+
+class Evaluator:
     def eval(self, node):
         node_, type_ = destructure(node, ['type'])
-        attr = 'eval' + type_[0].upper() + type_[1:]
+        attr = 'eval' + cap(type_)
 
         try:
             method = getattr(self, attr)
         except AttributeError:
             raise NotImplementedError(f'{self.__class__.__name__}.{attr}() was not implemented -- could not evaluate node {repr(type_)}')
 
-        try:
-            result = method(**node_)
-        except TypeError as error:
-            raise ValueError(f'invalid node {repr(type_)} -- {str(error)}')
-
-        return result
+        return method(**node_)
 
     def evals(self, nodes):
         return tuple(self.eval(node) for node in nodes)
 
+
+class ctx2lEvaluator(Evaluator):
+    def evalLiteral(self, *, text):
+        return text
+
     def evalAtom(self, *, ebnf, suffix):
-        return self.evalable(ebnf) + (suffix or '')
+        return self.eval(ebnf) + (suffix or '')
 
     def evalAlt(self, *, atoms):
         return spaces().join(self.evals(atoms))
@@ -84,3 +111,24 @@ class ctx2lEvaluator():
         tokenGrammar = newlines(2).join(tokenDefs)
         ruleGrammar = newlines(2).join(ruleDefs)
         return tokenGrammar, ruleGrammar
+
+
+class ctx2lPythonEvaluator(Evaluator):
+    def evalLiteral(self, *, text):
+        return {text}
+
+    def evalAtom(self, *, ebnf, suffix):
+        return self.eval(ebnf)
+
+    def evalAlt(self, *, atoms):
+        return set.union(*self.evals(atoms))
+
+    def evalSub(self, *, alts):
+        return set.union(*self.evals(alts))
+
+    def evalRule(self, *, name, alts):
+        return pythonVisit(name, set.union(*self.evals(alts)))
+
+    def evalProgram(self, *, tokens, rules):
+        methods = newlines(2).join(self.evals(rules))
+        return pythonBlock(methods)

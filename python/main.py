@@ -4,7 +4,7 @@ from antlr4 import *
 from ctx2lLexer import ctx2lLexer
 from ctx2lParser import ctx2lParser
 from ctx2lVisitor import ctx2lVisitor
-from ctx2lEvaluator import ctx2lEvaluator
+from ctx2lEvaluator import ctx2lEvaluator, ctx2lPythonEvaluator
 
 
 def main(path):
@@ -16,22 +16,29 @@ def main(path):
     visitor = ctx2lVisitor()
     ast = visitor.visit(tree)
     evaluator = ctx2lEvaluator()
-    tokens, rules = evaluator.eval(ast)
+    generator = ctx2lPythonEvaluator()
+    lexerGrammar, parserGrammar = evaluator.eval(ast)
+    visitorMethods = generator.eval(ast)
 
     name = Path(path).stem
-    lexer_name = f'{name}Lexer'
-    parser_name = f'{name}Parser'
     
-    print(f'=== {lexer_name}.g4 ===')
-    print(f'lexer grammar {lexer_name};\n')
-    print(tokens)
+    print(f'=== {name}Lexer.g4 ===')
+    print(f'lexer grammar {name}Lexer;\n')
+    print(lexerGrammar)
 
     print()
 
-    print(f'=== {parser_name}.g4 ===')
-    print(f'parser grammar {parser_name};\n')
-    print(f'options {{ tokenVocab = {lexer_name}; }}\n')
-    print(rules)
+    print(f'=== {name}Parser.g4 ===')
+    print(f'parser grammar {name}Parser;\n')
+    print(f'options {{ tokenVocab = {name}Lexer; }}\n')
+    print(parserGrammar)
+
+    print()
+
+    print(f'=== {name}Visitor.py ===')
+    print(f'from {name}ParserVisitor import {name}ParserVisitor\n\n')
+    print(f'class {name}Visitor({name}ParserVisitor):')
+    print(visitorMethods)
 
 
 if __name__ == '__main__':
