@@ -22,7 +22,7 @@ tokenAlts: tokenAlt (OR tokenAlt)*;
 ruleAlt: ruleAtom+ (ARROW expr)?;
 tokenAlt: tokenAtom+;
 
-ruleAtom: ruleEbnf ebnfSuffix?;
+ruleAtom: label? ruleEbnf ebnfSuffix?;
 ruleEbnf: ruleSub | ruleRef | ruleLiteral;
 ruleRef: RULE_REF | TOKEN_REF;
 ruleLiteral: STRING_LITERAL;
@@ -31,7 +31,10 @@ expr: identifier call?;
 call: LPAREN args? RPAREN;
 args: expr (COMMA expr)* COMMA?;
 
-tokenAtom: tokenEbnf ebnfSuffix?;
+tokenAtom: label? tokenEbnf ebnfSuffix?;
 tokenEbnf: tokenSub | tokenRef | tokenLiteral;
 tokenRef: TOKEN_REF;
 tokenLiteral: STRING_LITERAL | LEXER_CHAR_SET;
+
+label: identifier assign;
+assign: ASSIGN | PLUS_ASSIGN;
