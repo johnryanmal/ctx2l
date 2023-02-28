@@ -38,6 +38,22 @@ class ctx2lVisitor(ctx2lParserVisitor):
     def visitEbnfSuffix(self, ctx):
         return ctx.getText()
 
+    def visitArgs(self, ctx):
+        return self.visits(ctx.expr())
+
+    def visitCall(self, ctx):
+        return dict(
+            type='call',
+            args=ctx.visitable(ctx.args())
+        )
+
+    def visitExpr(self, ctx):
+        return dict(
+            type='expr',
+            id=self.visit(ctx.identifier()),
+            call=self.visitable(ctx.call())
+        )
+
     def visitTokenAtom(self, ctx):
         return dict(
             type='atom',
@@ -55,13 +71,15 @@ class ctx2lVisitor(ctx2lParserVisitor):
     def visitTokenAlt(self, ctx):
         return dict(
             type='alt',
-            atoms=self.visits(ctx.tokenAtom())
+            atoms=self.visits(ctx.tokenAtom()),
+            expr=None
         )
 
     def visitRuleAlt(self, ctx):
         return dict(
             type='alt',
-            atoms=self.visits(ctx.ruleAtom())
+            atoms=self.visits(ctx.ruleAtom()),
+            expr=self.visitable(ctx.expr())
         )
 
     def visitTokenAlts(self, ctx):

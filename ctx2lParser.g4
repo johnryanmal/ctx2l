@@ -27,7 +27,7 @@ ruleEbnf: ruleSub | ruleRef | ruleLiteral;
 ruleRef: RULE_REF | TOKEN_REF;
 ruleLiteral: STRING_LITERAL;
 
-expr : identifier call?;
+expr: identifier call?;
 call: LPAREN args? RPAREN;
 args: expr (COMMA expr)* COMMA?;
 

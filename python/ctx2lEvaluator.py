@@ -96,7 +96,7 @@ class ctx2lEvaluator(Evaluator):
     def evalAtom(self, *, ebnf, suffix):
         return self.eval(ebnf) + (suffix or '')
 
-    def evalAlt(self, *, atoms):
+    def evalAlt(self, *, atoms, expr):
         return spaces().join(self.evals(atoms))
 
     def evalSub(self, *, alts):
@@ -126,7 +126,7 @@ class ctx2lPythonEvaluator(Evaluator):
     def evalAtom(self, *, ebnf, suffix):
         return self.eval(ebnf)
 
-    def evalAlt(self, *, atoms):
+    def evalAlt(self, *, atoms, expr):
         return set.union(*self.evals(atoms))
 
     def evalSub(self, *, alts):
