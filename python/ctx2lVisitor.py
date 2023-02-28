@@ -44,7 +44,7 @@ class ctx2lVisitor(ctx2lParserVisitor):
     def visitCall(self, ctx):
         return dict(
             type='call',
-            args=ctx.visitable(ctx.args())
+            args=self.visitable(ctx.args())
         )
 
     def visitExpr(self, ctx):
