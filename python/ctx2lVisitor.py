@@ -1,6 +1,14 @@
 from ctx2lParserVisitor import ctx2lParserVisitor
 
 
+def node(**kwargs):
+    pairs = {}
+    for k, v in kwargs.items():
+        if v is not None:
+            pairs[k] = v
+    return pairs
+
+
 class ctx2lVisitor(ctx2lParserVisitor):
     def visits(self, ctxs):
         return tuple(self.visit(ctx) for ctx in ctxs)
@@ -12,25 +20,25 @@ class ctx2lVisitor(ctx2lParserVisitor):
             return ctx
 
     def visitRuleLiteral(self, ctx):
-        return dict(
+        return node(
             type='literal',
             text=ctx.getText()
         )
 
     def visitTokenLiteral(self, ctx):
-        return dict(
+        return node(
             type='literal',
             text=ctx.getText()
         )
 
     def visitRuleRef(self, ctx):
-        return dict(
+        return node(
             type='ref',
             name=ctx.getText()
         )
 
     def visitTokenRef(self, ctx):
-        return dict(
+        return node(
             type='ref',
             name=ctx.getText()
         )
@@ -45,20 +53,20 @@ class ctx2lVisitor(ctx2lParserVisitor):
         return self.visits(ctx.expr())
 
     def visitCall(self, ctx):
-        return dict(
+        return node(
             type='call',
             args=self.visitable(ctx.args())
         )
 
     def visitExpr(self, ctx):
-        return dict(
+        return node(
             type='expr',
             id=self.visit(ctx.identifier()),
             call=self.visitable(ctx.call())
         )
 
     def visitTokenAtom(self, ctx):
-        return dict(
+        return node(
             type='atom',
             label=self.visitable(ctx.label()),
             ebnf=self.visit(ctx.tokenEbnf()),
@@ -66,7 +74,7 @@ class ctx2lVisitor(ctx2lParserVisitor):
         )
 
     def visitRuleAtom(self, ctx):
-        return dict(
+        return node(
             type='atom',
             label=self.visitable(ctx.label()),
             ebnf=self.visit(ctx.ruleEbnf()),
@@ -74,14 +82,14 @@ class ctx2lVisitor(ctx2lParserVisitor):
         )
 
     def visitTokenAlt(self, ctx):
-        return dict(
+        return node(
             type='alt',
             atoms=self.visits(ctx.tokenAtom()),
             expr=None
         )
 
     def visitRuleAlt(self, ctx):
-        return dict(
+        return node(
             type='alt',
             atoms=self.visits(ctx.ruleAtom()),
             expr=self.visitable(ctx.expr())
@@ -94,33 +102,33 @@ class ctx2lVisitor(ctx2lParserVisitor):
         return self.visits(ctx.ruleAlt())
 
     def visitTokenSub(self, ctx):
-        return dict(
+        return node(
             type='sub',
             alts=self.visit(ctx.tokenAlts())
         )
 
     def visitRuleSub(self, ctx):
-        return dict(
+        return node(
             type='sub',
             alts=self.visit(ctx.ruleAlts())
         )
 
     def visitTokenDef(self, ctx):
-        return dict(
+        return node(
             type='token',
             name=ctx.TOKEN_REF().getText(),
             alts=self.visit(ctx.tokenAlts())
         )
 
     def visitRuleDef(self, ctx):
-        return dict(
+        return node(
             type='rule',
             name=ctx.RULE_REF().getText(),
             alts=self.visit(ctx.ruleAlts())
         )
 
     def visitProgram(self, ctx):
-        return dict(
+        return node(
             type='program',
             tokens=self.visits(ctx.tokenDef()),
             rules=self.visits(ctx.ruleDef())

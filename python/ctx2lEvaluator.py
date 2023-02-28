@@ -98,53 +98,53 @@ class Evaluator:
 
 
 class ctx2lEvaluator(Evaluator):
-    def evalLiteral(self, *, text):
+    def evalLiteral(self, *, text, **_):
         return text
 
-    def evalRef(self, *, name):
+    def evalRef(self, *, name, **_):
         return name
 
-    def evalAtom(self, *, label, ebnf, suffix):
-        return (label or '') + self.eval(ebnf) + (suffix or '')
+    def evalAtom(self, *, label='', ebnf, suffix='', **_):
+        return label + self.eval(ebnf) + suffix
 
-    def evalAlt(self, *, atoms, expr):
+    def evalAlt(self, *, atoms, **_):
         return spaces().join(self.evals(atoms))
 
-    def evalSub(self, *, alts):
+    def evalSub(self, *, alts, **_):
         return antlrSub(self.evals(alts))
 
-    def evalToken(self, *, name, alts):
+    def evalToken(self, *, name, alts, **_):
         return antlrRule(name, self.evals(alts))
 
-    def evalRule(self, *, name, alts):
+    def evalRule(self, *, name, alts, **_):
         return antlrRule(name, self.evals(alts))
 
-    def evalProgram(self, *, tokens, rules):
+    def evalProgram(self, *, tokens, rules, **_):
         tokenGrammar = newlines(2).join(self.evals(tokens))
         ruleGrammar = newlines(2).join(self.evals(rules))
         return tokenGrammar, ruleGrammar
 
 
 class ctx2lPythonEvaluator(Evaluator):
-    def evalLiteral(self, *, text):
+    def evalLiteral(self, **_):
         return ()
 
-    def evalRef(self, *, name):
+    def evalRef(self, *, name, **_):
         return (name,)
 
-    def evalAtom(self, *, label, ebnf, suffix):
+    def evalAtom(self, *, ebnf, **_):
         return self.eval(ebnf)
 
-    def evalAlt(self, *, atoms, expr):
+    def evalAlt(self, *, atoms, **_):
         return chain.from_iterable(self.evals(atoms))
 
-    def evalSub(self, *, alts):
+    def evalSub(self, *, alts, **_):
         return chain.from_iterable(self.evals(alts))
 
-    def evalRule(self, *, name, alts):
+    def evalRule(self, *, name, alts, **_):
         keys = set(chain.from_iterable(self.evals(alts)))
         return pythonVisit(name, keys)
 
-    def evalProgram(self, *, tokens, rules):
+    def evalProgram(self, *, rules, **_):
         methods = newlines(2).join(self.evals(rules))
         return pythonBlock(methods)
