@@ -52,7 +52,7 @@ def pythonBlock(str):
     return pythonIndent() + str.replace('\n', pythonIndent())
 
 def pythonKeyValue(key, value):
-    return quote(key) + ': ' + value + ','
+    return f'{quote(key)}: {value},'
 
 def pythonDict(items):
     return (
@@ -63,11 +63,20 @@ def pythonDict(items):
         + '\n}'
     )
 
+def pythonKwarg(key, value):
+    return f'{key}={value},'
+
+def pythonKwargs(kwargs):
+    return newlines().join(pythonKwarg(k, v) for k, v in kwargs)
+
+def pythonObject(name, items):
+    return f"type('{name}', (), {pythonDict(items)})()"
+
 def pythonVisit(name, keys):
     return (
         f'def visit{cap(name)}(self, ctx):'
         + pythonBlock(
-            'return ' + pythonDict((key, f'ctx.{key}()') for key in keys)
+            'return ' + pythonObject(name, ((key, f'ctx.{key}()') for key in keys))
         )
     )
 
