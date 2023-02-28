@@ -104,8 +104,8 @@ class ctx2lEvaluator(Evaluator):
     def evalRef(self, *, name):
         return name
 
-    def evalAtom(self, *, ebnf, suffix):
-        return self.eval(ebnf) + (suffix or '')
+    def evalAtom(self, *, label, ebnf, suffix):
+        return (label or '') + self.eval(ebnf) + (suffix or '')
 
     def evalAlt(self, *, atoms, expr):
         return spaces().join(self.evals(atoms))
@@ -132,7 +132,7 @@ class ctx2lPythonEvaluator(Evaluator):
     def evalRef(self, *, name):
         return (name,)
 
-    def evalAtom(self, *, ebnf, suffix):
+    def evalAtom(self, *, label, ebnf, suffix):
         return self.eval(ebnf)
 
     def evalAlt(self, *, atoms, expr):

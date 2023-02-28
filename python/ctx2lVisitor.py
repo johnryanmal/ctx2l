@@ -38,6 +38,9 @@ class ctx2lVisitor(ctx2lParserVisitor):
     def visitEbnfSuffix(self, ctx):
         return ctx.getText()
 
+    def visitLabel(self, ctx):
+        return ctx.getText()
+
     def visitArgs(self, ctx):
         return self.visits(ctx.expr())
 
@@ -57,6 +60,7 @@ class ctx2lVisitor(ctx2lParserVisitor):
     def visitTokenAtom(self, ctx):
         return dict(
             type='atom',
+            label=self.visitable(ctx.label()),
             ebnf=self.visit(ctx.tokenEbnf()),
             suffix=self.visitable(ctx.ebnfSuffix())
         )
@@ -64,6 +68,7 @@ class ctx2lVisitor(ctx2lParserVisitor):
     def visitRuleAtom(self, ctx):
         return dict(
             type='atom',
+            label=self.visitable(ctx.label()),
             ebnf=self.visit(ctx.ruleEbnf()),
             suffix=self.visitable(ctx.ebnfSuffix())
         )
