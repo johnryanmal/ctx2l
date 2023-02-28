@@ -19,13 +19,17 @@ ruleSub: LPAREN OR? ruleAlts RPAREN;
 tokenSub: LPAREN OR? tokenAlts RPAREN;
 ruleAlts: ruleAlt (OR ruleAlt)*;
 tokenAlts: tokenAlt (OR tokenAlt)*;
-ruleAlt: ruleAtom+;
+ruleAlt: ruleAtom+ (ARROW expr)?;
 tokenAlt: tokenAtom+;
 
 ruleAtom: ruleEbnf ebnfSuffix?;
 ruleEbnf: ruleSub | ruleRef | ruleLiteral;
 ruleRef: RULE_REF | TOKEN_REF;
 ruleLiteral: STRING_LITERAL;
+
+expr : identifier call?;
+call: LPAREN args? RPAREN;
+args: expr (COMMA expr)* COMMA?;
 
 tokenAtom: tokenEbnf ebnfSuffix?;
 tokenEbnf: tokenSub | tokenRef | tokenLiteral;
