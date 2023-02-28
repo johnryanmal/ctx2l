@@ -109,6 +109,16 @@ class ctx2lParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by ctx2lParser#label.
+    def visitLabel(self, ctx:ctx2lParser.LabelContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ctx2lParser#assign.
+    def visitAssign(self, ctx:ctx2lParser.AssignContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by ctx2lParser#grammarSpec.
     def visitGrammarSpec(self, ctx:ctx2lParser.GrammarSpecContext):
         return self.visitChildren(ctx)
