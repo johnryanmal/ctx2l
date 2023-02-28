@@ -1,3 +1,5 @@
+from itertools import chain
+
 def extract(dict, keys):
     return {key: dict[key] for key in keys}
 
@@ -83,7 +85,7 @@ class Evaluator:
         return method(**node_)
 
     def evals(self, nodes):
-        return tuple(self.eval(node) for node in nodes)
+        return (self.eval(node) for node in nodes)
 
 
 class ctx2lEvaluator(Evaluator):
@@ -109,31 +111,30 @@ class ctx2lEvaluator(Evaluator):
         return antlrRule(name, self.evals(alts))
 
     def evalProgram(self, *, tokens, rules):
-        tokenDefs = self.evals(tokens)
-        ruleDefs = self.evals(rules)
-        tokenGrammar = newlines(2).join(tokenDefs)
-        ruleGrammar = newlines(2).join(ruleDefs)
+        tokenGrammar = newlines(2).join(self.evals(tokens))
+        ruleGrammar = newlines(2).join(self.evals(rules))
         return tokenGrammar, ruleGrammar
 
 
 class ctx2lPythonEvaluator(Evaluator):
     def evalLiteral(self, *, text):
-        return set()
+        return ()
 
     def evalRef(self, *, name):
-        return {name}
+        return (name,)
 
     def evalAtom(self, *, ebnf, suffix):
         return self.eval(ebnf)
 
     def evalAlt(self, *, atoms, expr):
-        return set.union(*self.evals(atoms))
+        return chain.from_iterable(self.evals(atoms))
 
     def evalSub(self, *, alts):
-        return set.union(*self.evals(alts))
+        return chain.from_iterable(self.evals(alts))
 
     def evalRule(self, *, name, alts):
-        return pythonVisit(name, set.union(*self.evals(alts)))
+        keys = set(chain.from_iterable(self.evals(alts)))
+        return pythonVisit(name, keys)
 
     def evalProgram(self, *, tokens, rules):
         methods = newlines(2).join(self.evals(rules))
