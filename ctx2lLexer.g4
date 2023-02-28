@@ -22,5 +22,10 @@ fragment LineComment
 
 // overwrite tokens
 
+BEGIN_LEXER_CHAR_SET: LBrack -> more, pushMode(LexerCharSet);
 LBRACE: LBrace;
 RBRACE: RBrace;
+
+// new tokens
+
+ARROW: '->';
