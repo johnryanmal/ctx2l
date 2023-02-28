@@ -74,6 +74,21 @@ class ctx2lParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by ctx2lParser#expr.
+    def visitExpr(self, ctx:ctx2lParser.ExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ctx2lParser#call.
+    def visitCall(self, ctx:ctx2lParser.CallContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ctx2lParser#args.
+    def visitArgs(self, ctx:ctx2lParser.ArgsContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by ctx2lParser#tokenAtom.
     def visitTokenAtom(self, ctx:ctx2lParser.TokenAtomContext):
         return self.visitChildren(ctx)
