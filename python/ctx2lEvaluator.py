@@ -61,8 +61,8 @@ def antlrSub(alts):
         + ' )'
     )
 
-def antlrHeader(name, grammar):
-    return f'{grammar} grammar {name + cap(grammar)};'
+def antlrHeader(grammar, name):
+    return f'{grammar} grammar {name};'
 
 def antlrOption(key, value):
     return f'{key} = {value};'
@@ -188,14 +188,16 @@ class ctx2lEvaluator(Evaluator):
         return antlrLabeledRule(name, self.evals(alts))
 
     def evalProgram(self, *, tokens, rules, **_):
+        lexerName = f'{self.name}Lexer'
+        parserName = f'{self.name}Parser'
         tokenGrammar = newlines(2).join([
-            antlrHeader(self.name, 'lexer'),
+            antlrHeader('lexer', lexerName),
             *self.evals(tokens)
         ])
         ruleGrammar = newlines(2).join([
-            antlrHeader(self.name, 'parser'),
+            antlrHeader('parser', parserName),
             antlrOptions('options', {
-                'tokenVocab': f'{self.name}Lexer'
+                'tokenVocab': parserName
             }.items()),
             *self.evals(tokens)
         ])
@@ -244,12 +246,15 @@ class ctx2lPythonEvaluator(Evaluator):
         return methods
 
     def evalProgram(self, *, rules, **_):
+        visitor = f'{self.name}Visitor'
+        parserVisitor = f'{self.name}ParserVisitor'
+
         return (
-            pythonFileImport(f'{self.name}ParserVisitor')
+            pythonFileImport(parserVisitor)
             + newlines(3)
             + pythonClass(
-                f'{self.name}Visitor',
-                (f'{self.name}ParserVisitor',),
+                visitor,
+                (parserVisitor,),
                 newlines(2).join(chain(*self.evals(rules)))
             )
         )
