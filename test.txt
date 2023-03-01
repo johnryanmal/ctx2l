@@ -1,18 +1,19 @@
 expr:
-| V=sum -> test(V)
+| V=sum -> V
 
 sum:
-| prod ('+' | '-') prod
+| L=prod '+' R=prod -> add(L, R)
+| L=prod '-' R=prod -> sub(L, R)
 
 prod:
-| pow ('*' | '/') pow
+| L=pow '*' R=pow -> mul(L, R)
 
 pow:
-| value '**' value
+| L=value '**' R=value -> pow(L, R)
 
 value:
-| '(' expr ')'
-| DIGITS -> test
+| '(' V=expr ')' -> V
+| V=DIGITS -> V
 
 DIGITS:
 | [0-9]+
