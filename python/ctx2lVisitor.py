@@ -46,8 +46,18 @@ class ctx2lVisitor(ctx2lParserVisitor):
     def visitEbnfSuffix(self, ctx):
         return ctx.getText()
 
-    def visitLabel(self, ctx):
+    def visitAssign(self, ctx):
         return ctx.getText()
+
+    def visitIdentifier(self, ctx):
+        return ctx.getText()
+
+    def visitLabel(self, ctx):
+        return node(
+            type='label',
+            id=ctx.identifier().getText(),
+            op=self.visit(ctx.assign())
+        )
 
     def visitArgs(self, ctx):
         return self.visits(ctx.expr())
@@ -61,7 +71,7 @@ class ctx2lVisitor(ctx2lParserVisitor):
     def visitExpr(self, ctx):
         return node(
             type='expr',
-            id=self.visit(ctx.identifier()),
+            id=ctx.identifier().getText(),
             call=self.visitable(ctx.call())
         )
 

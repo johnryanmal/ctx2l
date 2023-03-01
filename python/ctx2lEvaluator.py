@@ -55,13 +55,15 @@ def pythonKeyValue(key, value):
     return f'{quote(key)}: {value},'
 
 def pythonDict(items):
-    return (
-        '{'
-        + pythonBlock(
-            newlines().join(pythonKeyValue(k, v) for k, v in items)
+    pairs = tuple(pythonKeyValue(k, v) for k, v in items)
+    if pairs:
+        return (
+            '{'
+            + pythonBlock(newlines().join(pairs))
+            + '\n}'
         )
-        + '\n}'
-    )
+    else:
+        return '{}'
 
 def pythonKwarg(key, value):
     return f'{key}={value},'
@@ -96,6 +98,12 @@ class Evaluator:
     def evals(self, nodes):
         return (self.eval(node) for node in nodes)
 
+    def evalable(self, node):
+        if type(node) is dict:
+            return self.eval(node)
+        else:
+            return node
+
 
 class ctx2lEvaluator(Evaluator):
     def evalLiteral(self, *, text, **_):
@@ -104,8 +112,11 @@ class ctx2lEvaluator(Evaluator):
     def evalRef(self, *, name, **_):
         return name
 
+    def evalLabel(self, *, id, op, **_):
+        return id + op
+
     def evalAtom(self, *, label='', ebnf, suffix='', **_):
-        return label + self.eval(ebnf) + suffix
+        return self.evalable(label) + self.eval(ebnf) + suffix
 
     def evalAlt(self, *, atoms, **_):
         return spaces().join(self.evals(atoms))
@@ -126,14 +137,13 @@ class ctx2lEvaluator(Evaluator):
 
 
 class ctx2lPythonEvaluator(Evaluator):
-    def evalLiteral(self, **_):
+    def evalLabel(self, *, id, **_):
+        return id
+
+    def evalAtom(self, *, label=None, **_):
+        if label:
+            return (self.eval(label),)
         return ()
-
-    def evalRef(self, *, name, **_):
-        return (name,)
-
-    def evalAtom(self, *, ebnf, **_):
-        return self.eval(ebnf)
 
     def evalAlt(self, *, atoms, **_):
         return chain.from_iterable(self.evals(atoms))
@@ -142,8 +152,8 @@ class ctx2lPythonEvaluator(Evaluator):
         return chain.from_iterable(self.evals(alts))
 
     def evalRule(self, *, name, alts, **_):
-        keys = set(chain.from_iterable(self.evals(alts)))
-        return pythonVisit(name, keys)
+        items = set(chain.from_iterable(self.evals(alts)))
+        return pythonVisit(name, items)
 
     def evalProgram(self, *, rules, **_):
         methods = newlines(2).join(self.evals(rules))
