@@ -2,18 +2,22 @@ expr:
 | V=sum -> V
 
 sum:
-| L=prod '+' R=prod -> add(L, R)
-| L=prod '-' R=prod -> sub(L, R)
+| V=prod -> V
+| L=prod '+' R=sum -> add(L, R)
+| L=prod '-' R=sum -> sub(L, R)
 
 prod:
-| L=pow '*' R=pow -> mul(L, R)
+| V=pow -> V
+| L=pow '*' R=prod -> mul(L, R)
+| L=pow '-' R=prod -> div(L, R)
 
 pow:
-| L=value '**' R=value -> pow(L, R)
+| V=value -> V
+| L=value '**' R=pow -> pow(L, R)
 
 value:
 | '(' V=expr ')' -> V
-| V=DIGITS -> V
+| V=DIGITS -> num(V)
 
 DIGITS:
 | [0-9]+
