@@ -221,11 +221,27 @@ class ctx2lPythonEvaluator(Evaluator):
         else:
             return id
 
-    def evalAtom(self, *, label=None, **_):
-        if label:
+    def evalLiteral(self, **_):
+        id = self.atomInfo['id']
+        return f'ctx.{id}.text'
+
+    def evalRef(self, *, name, **_):
+        id = self.atomInfo['id']
+        if name[0].isupper():
+            return f'ctx.{id}.text'
+        else:
+            return f'self.visit(ctx.{id})'
+
+    def evalAtom(self, *, label=None, ebnf, **_):
+        if label is None:
+            return ()
+        else:
             id = self.eval(label)
-            return ((id, f'ctx.{id}'),)
-        return ()
+            self.atomInfo = {
+                'id': id
+            }
+            value = self.eval(ebnf)
+            return ((id, value),)
 
     def evalAlt(self, *, atoms, expr=None, **_):
         attrs = tuple(chain(*self.evals(atoms)))
