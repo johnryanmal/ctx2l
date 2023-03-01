@@ -1,14 +1,5 @@
 from itertools import chain
 
-def extract(dict, keys):
-    return {key: dict[key] for key in keys}
-
-def retract(dict, keys):
-    return extract(dict, dict.keys() - set(keys))
-
-def destructure(dict, keys):
-    return retract(dict, keys), *extract(dict, keys).values()
-
 def cap(str):
     return str[:1].upper() + str[1:]
 
@@ -26,6 +17,18 @@ def spaced(str):
         return ' ' + str
     else:
         return str
+
+def antlrLabel(name, index):
+    return f'__{name}__{index+1}'
+
+def antlrLabeledAlt(name, index, alt):
+    return f'{alt} #{antlrLabel(name, index)}'
+
+def antlrLabeledAlts(name, alts):
+    return tuple(antlrLabeledAlt(name, index, alt) for index, alt in enumerate(alts))
+
+def antlrLabeledRule(name, alts):
+    return antlrRule(name, antlrLabeledAlts(name, alts))
 
 def antlrRule(name, alts):
     return (
@@ -74,18 +77,29 @@ def pythonKwargs(kwargs):
 def pythonObject(name, items):
     return f"type('{name}', (), {pythonDict(items)})()"
 
-def pythonVisit(name, keys):
+def pythonVisit(name, attrs):
     return (
         f'def visit{cap(name)}(self, ctx):'
         + pythonBlock(
-            'return ' + pythonObject(name, ((key, f'ctx.{key}()') for key in keys))
+            'return ' + pythonObject(name, attrs)
+        )
+    )
+
+def pythonAssign(key, value):
+    return f'{key} = {value}'
+
+def pythonVisitExpr(name, attrs, expr):
+    return (
+        f'def visit{cap(name)}(self, ctx):'
+        + pythonBlock(
+            newlines().join([*(pythonAssign(k, v) for k, v in attrs), 'return' + spaced(expr)])
         )
     )
 
 
 class Evaluator:
     def eval(self, node):
-        node_, type_ = destructure(node, ['type'])
+        type_ = node['type']
         attr = 'eval' + cap(type_)
 
         try:
@@ -93,10 +107,10 @@ class Evaluator:
         except AttributeError:
             raise NotImplementedError(f'{self.__class__.__name__}.{attr}() was not implemented -- could not evaluate node {repr(type_)}')
 
-        return method(**node_)
+        return method(**node)
 
     def evals(self, nodes):
-        return (self.eval(node) for node in nodes)
+        return tuple(self.eval(node) for node in nodes)
 
     def evalable(self, node):
         if type(node) is dict:
@@ -128,7 +142,7 @@ class ctx2lEvaluator(Evaluator):
         return antlrRule(name, self.evals(alts))
 
     def evalRule(self, *, name, alts, **_):
-        return antlrRule(name, self.evals(alts))
+        return antlrLabeledRule(name, self.evals(alts))
 
     def evalProgram(self, *, tokens, rules, **_):
         tokenGrammar = newlines(2).join(self.evals(tokens))
@@ -137,24 +151,44 @@ class ctx2lEvaluator(Evaluator):
 
 
 class ctx2lPythonEvaluator(Evaluator):
+    def __init__(self):
+        self.info = []
+
     def evalLabel(self, *, id, **_):
         return id
 
+    def evalCall(self, *, args=[], **_):
+        return '(' + ', '.join(self.evals(args)) + ')'
+
+    def evalExpr(self, *, id, call='', **_):
+        return id + self.evalable(call)
+
     def evalAtom(self, *, label=None, **_):
         if label:
-            return (self.eval(label),)
+            id = self.eval(label)
+            return ((id, f'ctx.{id}()'),)
         return ()
 
-    def evalAlt(self, *, atoms, **_):
-        return chain.from_iterable(self.evals(atoms))
+    def evalAlt(self, *, atoms, expr=None, **_):
+        attrs = tuple(chain.from_iterable(self.evals(atoms)))
+        self.info.append((attrs, self.evalable(expr)))
+        return attrs
 
     def evalSub(self, *, alts, **_):
         return chain.from_iterable(self.evals(alts))
 
     def evalRule(self, *, name, alts, **_):
-        items = set(chain.from_iterable(self.evals(alts)))
-        return pythonVisit(name, items)
+        self.evals(alts)
+        methods = []
+        for index, args in enumerate(self.info):
+            attrs, expr = args
+            label = antlrLabel(name, index)
+            if expr is None:
+                methods.append(pythonVisit(label, attrs))
+            else:
+                methods.append(pythonVisitExpr(label, attrs, expr))
+        self.info = []
+        return methods
 
     def evalProgram(self, *, rules, **_):
-        methods = newlines(2).join(self.evals(rules))
-        return pythonBlock(methods)
+        return pythonBlock(newlines(2).join(chain.from_iterable(self.evals(rules))))
