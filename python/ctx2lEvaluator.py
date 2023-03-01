@@ -35,7 +35,7 @@ def spaced(str):
         return str
 
 def antlrLabel(name, index):
-    return f'__{name}__{index+1}'
+    return f'{name}__{index+1}'
 
 def antlrLabeledAlt(name, index, alt):
     return f'{alt} #{antlrLabel(name, index)}'
@@ -224,7 +224,7 @@ class ctx2lPythonEvaluator(Evaluator):
     def evalAtom(self, *, label=None, **_):
         if label:
             id = self.eval(label)
-            return ((id, f'ctx.{id}()'),)
+            return ((id, f'ctx.{id}'),)
         return ()
 
     def evalAlt(self, *, atoms, expr=None, **_):
