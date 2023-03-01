@@ -204,7 +204,13 @@ class ctx2lEvaluator(Evaluator):
         }
         tokenDefs = self.evals(tokens)
         ruleDefs = self.evals(rules)
-        literals = self.programInfo['literal_tokens']
+
+        literals = sorted(self.programInfo['literal_tokens'])
+        literals.sort(key=len, reverse=True)
+        literalDefs = tuple(
+            antlrRule(f'LITERAL__{index+1}', (literal,))
+                for index, literal in enumerate(literals)
+        )
 
         lexerName = f'{self.name}Lexer'
         parserName = f'{self.name}Parser'
@@ -212,8 +218,7 @@ class ctx2lEvaluator(Evaluator):
         tokenGrammar = newlines(2).join([
             antlrHeader('lexer', lexerName),
             *tokenDefs,
-            *(antlrRule(f'LITERAL__{index+1}', (literal,))
-              for index, literal in enumerate(literals))
+            *literalDefs
         ])
         ruleGrammar = newlines(2).join([
             antlrHeader('parser', parserName),
@@ -296,6 +301,7 @@ class ctx2lPythonEvaluator(Evaluator):
             'imports': set()
         }
         visitorMethods = newlines(2).join(chain(*self.evals(rules)))
+        imports = sorted(self.programInfo['imports'])
 
         visitor = f'{self.name}Visitor'
         parserVisitor = f'{self.name}ParserVisitor'
@@ -304,7 +310,7 @@ class ctx2lPythonEvaluator(Evaluator):
         return (
             newlines().join([
                 pythonFileImport(parserVisitor),
-                pythonImports(evaluator, self.programInfo['imports'])
+                pythonImports(evaluator, imports)
             ])
             + newlines(3)
             + pythonClass(
