@@ -44,7 +44,10 @@ def antlrLabeledAlts(name, alts):
     return tuple(antlrLabeledAlt(name, index, alt) for index, alt in enumerate(alts))
 
 def antlrLabeledRule(name, alts):
-    return antlrRule(name, antlrLabeledAlts(name, alts))
+    if len(alts) > 1:
+        return antlrRule(name, antlrLabeledAlts(name, alts))
+    else:
+        return antlrRule(name, alts)
 
 def antlrRule(name, alts):
     return (
@@ -88,16 +91,16 @@ def pythonKwargs(kwargs):
 def pythonObject(name, items):
     return f"type('{name}', (), {pythonDict(items)})()"
 
-def pythonVisit(name, attrs):
+def pythonAssign(key, value):
+    return f'{key} = {value}'
+
+def pythonVisitDefault(name, attrs):
     return (
         f'def visit{cap(name)}(self, ctx):'
         + block(
             'return ' + pythonObject(name, attrs)
         )
     )
-
-def pythonAssign(key, value):
-    return f'{key} = {value}'
 
 def pythonVisitExpr(name, attrs, expr):
     return (
@@ -109,6 +112,12 @@ def pythonVisitExpr(name, attrs, expr):
             ])
         )
     )
+
+def pythonVisit(name, attrs, expr=None):
+    if expr is not None:
+        return pythonVisitExpr(name, attrs, expr)
+    else:
+        return pythonVisitDefault(name, attrs)
 
 def pythonImport(module, key=None):
     if key:
@@ -257,15 +266,18 @@ class ctx2lPythonEvaluator(Evaluator):
         }
         self.evals(alts)
 
+        visits = self.ruleInfo['visits']
         methods = []
-        for index, visit in enumerate(self.ruleInfo['visits']):
-            label = antlrLabel(name, index)
-            attrs, expr = visit
-            if expr is None:
-                methods.append(pythonVisit(label, attrs))
-            else:
-                methods.append(pythonVisitExpr(label, attrs, expr))
+        if len(visits) == 1:
+            visit = visits[0]
+            methods.append(pythonVisit(name, *visit))
+        else:
+            for index, visit in enumerate(self.ruleInfo['visits']):
+                label = antlrLabel(name, index)
+                methods.append(pythonVisit(label, *visit))
+
         return methods
+
 
     def evalProgram(self, *, rules, **_):
         self.programInfo = {
