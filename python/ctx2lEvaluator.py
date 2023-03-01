@@ -197,9 +197,9 @@ class ctx2lEvaluator(Evaluator):
         ruleGrammar = newlines(2).join([
             antlrHeader('parser', parserName),
             antlrOptions('options', {
-                'tokenVocab': parserName
+                'tokenVocab': lexerName
             }.items()),
-            *self.evals(tokens)
+            *self.evals(rules)
         ])
         return tokenGrammar, ruleGrammar
 
@@ -215,7 +215,11 @@ class ctx2lPythonEvaluator(Evaluator):
         return '(' + ', '.join(self.evals(args)) + ')'
 
     def evalExpr(self, *, id, call='', **_):
-        return id + self.evalable(call)
+        if applied := self.evalable(call):
+            self.programInfo['imports'].add(id)
+            return id + applied
+        else:
+            return id
 
     def evalAtom(self, *, label=None, **_):
         if label:
@@ -225,20 +229,22 @@ class ctx2lPythonEvaluator(Evaluator):
 
     def evalAlt(self, *, atoms, expr=None, **_):
         attrs = tuple(chain(*self.evals(atoms)))
-        self.info.append((attrs, self.evalable(expr)))
+        self.ruleInfo['visits'].append((attrs, self.evalable(expr)))
         return attrs
 
     def evalSub(self, *, alts, **_):
         return chain(*self.evals(alts))
 
     def evalRule(self, *, name, alts, **_):
-        self.info = []
+        self.ruleInfo = {
+            'visits': []
+        }
         self.evals(alts)
 
         methods = []
-        for index, args in enumerate(self.info):
-            attrs, expr = args
+        for index, visit in enumerate(self.ruleInfo['visits']):
             label = antlrLabel(name, index)
+            attrs, expr = visit
             if expr is None:
                 methods.append(pythonVisit(label, attrs))
             else:
@@ -246,15 +252,24 @@ class ctx2lPythonEvaluator(Evaluator):
         return methods
 
     def evalProgram(self, *, rules, **_):
+        self.programInfo = {
+            'imports': set()
+        }
+        visitorMethods = newlines(2).join(chain(*self.evals(rules)))
+
         visitor = f'{self.name}Visitor'
         parserVisitor = f'{self.name}ParserVisitor'
+        evaluator = f'{self.name}Evaluator'
 
         return (
-            pythonFileImport(parserVisitor)
+            newlines().join([
+                pythonFileImport(parserVisitor),
+                pythonImports(evaluator, self.programInfo['imports'])
+            ])
             + newlines(3)
             + pythonClass(
                 visitor,
                 (parserVisitor,),
-                newlines(2).join(chain(*self.evals(rules)))
+                visitorMethods
             )
         )
