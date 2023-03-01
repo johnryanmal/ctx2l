@@ -9,8 +9,24 @@ def spaces(n=1):
 def newlines(n=1):
     return n*'\n'
 
-def indent(n, str=''):
+def indent(n=4, str=''):
     return '\n' + spaces(n) + str
+
+def block(str):
+    return indent() + str.replace('\n', indent())
+
+def table(iterable):
+    if items := tuple(iterable):
+        return (
+            '{'
+            + block(newlines().join(items))
+            + '\n}'
+        )
+    else:
+        return '{}'
+
+def listed(strs):
+    return ', '.join(strs) if strs else ''
 
 def spaced(str):
     if str:
@@ -33,9 +49,9 @@ def antlrLabeledRule(name, alts):
 def antlrRule(name, alts):
     return (
         name
-        + indent(3, ':')
-        + indent(3, '|').join(map(spaced, alts))
-        + indent(3, ';')
+        + indent(2, ':')
+        + indent(2, '|').join(map(spaced, alts))
+        + indent(2, ';')
     )
 
 def antlrSub(alts):
@@ -45,28 +61,23 @@ def antlrSub(alts):
         + ' )'
     )
 
+def antlrHeader(name, grammar):
+    return f'{grammar} grammar {name + cap(grammar)};'
+
+def antlrOption(key, value):
+    return f'{key} = {value};'
+
+def antlrOptions(title, items):
+    return title + spaced(table(antlrOption(k, v) for k, v in items))
+
 def quote(str):
     return "'" + str + "'"
-
-def pythonIndent(str=''):
-    return indent(4, str)
-
-def pythonBlock(str):
-    return pythonIndent() + str.replace('\n', pythonIndent())
 
 def pythonKeyValue(key, value):
     return f'{quote(key)}: {value},'
 
 def pythonDict(items):
-    pairs = tuple(pythonKeyValue(k, v) for k, v in items)
-    if pairs:
-        return (
-            '{'
-            + pythonBlock(newlines().join(pairs))
-            + '\n}'
-        )
-    else:
-        return '{}'
+    return table(pythonKeyValue(k, v) for k, v in items)
 
 def pythonKwarg(key, value):
     return f'{key}={value},'
@@ -80,7 +91,7 @@ def pythonObject(name, items):
 def pythonVisit(name, attrs):
     return (
         f'def visit{cap(name)}(self, ctx):'
-        + pythonBlock(
+        + block(
             'return ' + pythonObject(name, attrs)
         )
     )
@@ -91,11 +102,40 @@ def pythonAssign(key, value):
 def pythonVisitExpr(name, attrs, expr):
     return (
         f'def visit{cap(name)}(self, ctx):'
-        + pythonBlock(
-            newlines().join([*(pythonAssign(k, v) for k, v in attrs), 'return' + spaced(expr)])
+        + block(
+            newlines().join([
+                *(pythonAssign(k, v) for k, v in attrs),
+                'return' + spaced(expr)
+            ])
         )
     )
 
+def pythonImport(module, key=None):
+    if key:
+        return f'from {module} import {key}'
+    else:
+        return f'import {module}'
+
+def pythonImports(module, keys):
+    return pythonImport(module, listed(keys))
+
+def pythonFileImport(file):
+    return pythonImport(file, file)
+
+def pythonTuple(strs):
+    return '(' + listed(strs) + ')'
+
+def pythonBlock(body):
+    if body:
+        return block(body)
+    else:
+        return indent('pass')
+
+def pythonClass(name, bases=(), body=None):
+    return (
+        f'class {name}{pythonTuple(bases)}:'
+        + pythonBlock(body)
+    )
 
 class Evaluator:
     def eval(self, node):
@@ -120,6 +160,9 @@ class Evaluator:
 
 
 class ctx2lEvaluator(Evaluator):
+    def __init__(self, name):
+        self.name = name
+
     def evalLiteral(self, *, text, **_):
         return text
 
@@ -145,16 +188,28 @@ class ctx2lEvaluator(Evaluator):
         return antlrLabeledRule(name, self.evals(alts))
 
     def evalProgram(self, *, tokens, rules, **_):
-        tokenGrammar = newlines(2).join(self.evals(tokens))
-        ruleGrammar = newlines(2).join(self.evals(rules))
+        tokenGrammar = newlines(2).join([
+            antlrHeader(self.name, 'lexer'),
+            *self.evals(tokens)
+        ])
+        ruleGrammar = newlines(2).join([
+            antlrHeader(self.name, 'parser'),
+            antlrOptions('options', {
+                'tokenVocab': f'{self.name}Lexer'
+            }.items()),
+            *self.evals(tokens)
+        ])
         return tokenGrammar, ruleGrammar
 
 
 class ctx2lPythonEvaluator(Evaluator):
+    def __init__(self, name):
+        self.name = name
+
     def evalLabel(self, *, id, **_):
         return id
 
-    def evalCall(self, *, args=[], **_):
+    def evalCall(self, *, args=(), **_):
         return '(' + ', '.join(self.evals(args)) + ')'
 
     def evalExpr(self, *, id, call='', **_):
@@ -167,12 +222,12 @@ class ctx2lPythonEvaluator(Evaluator):
         return ()
 
     def evalAlt(self, *, atoms, expr=None, **_):
-        attrs = tuple(chain.from_iterable(self.evals(atoms)))
+        attrs = tuple(chain(*self.evals(atoms)))
         self.info.append((attrs, self.evalable(expr)))
         return attrs
 
     def evalSub(self, *, alts, **_):
-        return chain.from_iterable(self.evals(alts))
+        return chain(*self.evals(alts))
 
     def evalRule(self, *, name, alts, **_):
         self.info = []
@@ -189,4 +244,12 @@ class ctx2lPythonEvaluator(Evaluator):
         return methods
 
     def evalProgram(self, *, rules, **_):
-        return pythonBlock(newlines(2).join(chain.from_iterable(self.evals(rules))))
+        return (
+            pythonFileImport(f'{self.name}ParserVisitor')
+            + newlines(3)
+            + pythonClass(
+                f'{self.name}Visitor',
+                (f'{self.name}ParserVisitor',),
+                newlines(2).join(chain(*self.evals(rules)))
+            )
+        )

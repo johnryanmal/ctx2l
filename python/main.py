@@ -15,30 +15,25 @@ def main(path):
     tree = parser.program()
     visitor = ctx2lVisitor()
     ast = visitor.visit(tree)
-    evaluator = ctx2lEvaluator()
-    generator = ctx2lPythonEvaluator()
-    lexerGrammar, parserGrammar = evaluator.eval(ast)
-    visitorMethods = generator.eval(ast)
 
     name = Path(path).stem
+    evaluator = ctx2lEvaluator(name)
+    generator = ctx2lPythonEvaluator(name)
+    lexerFile, parserFile = evaluator.eval(ast)
+    visitorFile = generator.eval(ast)
     
     print(f'=== {name}Lexer.g4 ===')
-    print(f'lexer grammar {name}Lexer;\n')
-    print(lexerGrammar)
+    print(lexerFile)
 
     print()
 
     print(f'=== {name}Parser.g4 ===')
-    print(f'parser grammar {name}Parser;\n')
-    print(f'options {{ tokenVocab = {name}Lexer; }}\n')
-    print(parserGrammar)
+    print(parserFile)
 
     print()
 
     print(f'=== {name}Visitor.py ===')
-    print(f'from {name}ParserVisitor import {name}ParserVisitor\n\n')
-    print(f'class {name}Visitor({name}ParserVisitor):')
-    print(visitorMethods)
+    print(visitorFile)
 
 
 if __name__ == '__main__':
