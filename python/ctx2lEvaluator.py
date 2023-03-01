@@ -151,9 +151,6 @@ class ctx2lEvaluator(Evaluator):
 
 
 class ctx2lPythonEvaluator(Evaluator):
-    def __init__(self):
-        self.info = []
-
     def evalLabel(self, *, id, **_):
         return id
 
@@ -178,7 +175,9 @@ class ctx2lPythonEvaluator(Evaluator):
         return chain.from_iterable(self.evals(alts))
 
     def evalRule(self, *, name, alts, **_):
+        self.info = []
         self.evals(alts)
+
         methods = []
         for index, args in enumerate(self.info):
             attrs, expr = args
@@ -187,7 +186,6 @@ class ctx2lPythonEvaluator(Evaluator):
                 methods.append(pythonVisit(label, attrs))
             else:
                 methods.append(pythonVisitExpr(label, attrs, expr))
-        self.info = []
         return methods
 
     def evalProgram(self, *, rules, **_):
