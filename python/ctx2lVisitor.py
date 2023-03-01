@@ -22,12 +22,14 @@ class ctx2lVisitor(ctx2lParserVisitor):
     def visitRuleLiteral(self, ctx):
         return node(
             type='literal',
+            kind='rule',
             text=ctx.getText()
         )
 
     def visitTokenLiteral(self, ctx):
         return node(
             type='literal',
+            kind='token',
             text=ctx.getText()
         )
 

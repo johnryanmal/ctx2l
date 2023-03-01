@@ -172,7 +172,9 @@ class ctx2lEvaluator(Evaluator):
     def __init__(self, name):
         self.name = name
 
-    def evalLiteral(self, *, text, **_):
+    def evalLiteral(self, *, text, kind, **_):
+        if kind == 'rule':
+            self.programInfo['literal_tokens'].add(text)
         return text
 
     def evalRef(self, *, name, **_):
@@ -197,18 +199,28 @@ class ctx2lEvaluator(Evaluator):
         return antlrLabeledRule(name, self.evals(alts))
 
     def evalProgram(self, *, tokens, rules, **_):
+        self.programInfo = {
+            'literal_tokens': set()
+        }
+        tokenDefs = self.evals(tokens)
+        ruleDefs = self.evals(rules)
+        literals = self.programInfo['literal_tokens']
+
         lexerName = f'{self.name}Lexer'
         parserName = f'{self.name}Parser'
+
         tokenGrammar = newlines(2).join([
             antlrHeader('lexer', lexerName),
-            *self.evals(tokens)
+            *tokenDefs,
+            *(antlrRule(f'LITERAL__{index+1}', (literal,))
+              for index, literal in enumerate(literals))
         ])
         ruleGrammar = newlines(2).join([
             antlrHeader('parser', parserName),
             antlrOptions('options', {
                 'tokenVocab': lexerName
             }.items()),
-            *self.evals(rules)
+            *ruleDefs
         ])
         return tokenGrammar, ruleGrammar
 
