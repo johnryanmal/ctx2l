@@ -139,7 +139,7 @@ def pythonBlock(body):
     if body:
         return block(body)
     else:
-        return indent('pass')
+        return indent() + 'pass'
 
 def pythonClass(name, bases=(), body=None):
     return (
