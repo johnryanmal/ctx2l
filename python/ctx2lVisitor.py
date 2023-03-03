@@ -97,8 +97,7 @@ class ctx2lVisitor(ctx2lParserVisitor):
     def visitTokenAlt(self, ctx):
         return node(
             type='alt',
-            atoms=self.visits(ctx.tokenAtom()),
-            expr=None
+            atoms=self.visits(ctx.tokenAtom())
         )
 
     def visitRuleAlt(self, ctx):

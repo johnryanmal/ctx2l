@@ -185,7 +185,10 @@ class ctx2lEvaluator(Evaluator):
         return id + op
 
     def evalAtom(self, *, label='', ebnf, suffix='', **_):
-        return self.evalable(label) + self.eval(ebnf) + suffix
+        if ebnf['type'] == 'sub':
+            return self.eval(ebnf) + suffix
+        else:
+            return self.evalable(label) + self.eval(ebnf) + suffix
 
     def evalAlt(self, *, atoms, **_):
         return spaces().join(self.evals(atoms))
@@ -274,7 +277,8 @@ class ctx2lPythonEvaluator(Evaluator):
         return attrs
 
     def evalSub(self, *, alts, **_):
-        return chain(*self.evals(alts))
+        attrs = tuple(chain(*self.evals(alts)))
+        return pythonObject(self.atomInfo['id'], attrs)
 
     def evalRule(self, *, name, alts, **_):
         self.ruleInfo = {
