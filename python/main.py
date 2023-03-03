@@ -1,4 +1,5 @@
 import sys
+import subprocess
 from pathlib import Path
 from antlr4 import *
 from ctx2lLexer import ctx2lLexer
@@ -16,7 +17,7 @@ class Writer:
             file.write(content)
 
 
-def main(input_path, output_path=None):
+def main(input_path, output_path=''):
     input_stream = FileStream(input_path)
     lexer = ctx2lLexer(input_stream)
     stream = CommonTokenStream(lexer)
@@ -25,19 +26,22 @@ def main(input_path, output_path=None):
     visitor = ctx2lVisitor()
     ast = visitor.visit(tree)
 
-    path = Path(input_path)
-    name = path.stem
+    src_path = Path(input_path)
+    name = src_path.stem
     evaluator = ctx2lEvaluator(name)
     generator = ctx2lPythonEvaluator(name)
     lexerFile, parserFile = evaluator.eval(ast)
     visitorFile, visitorEvaluatorFile, mainFile = generator.eval(ast)
 
-    writer = Writer(output_path or path.parent)
+    dest_path = Path(output_path)
+    writer = Writer(dest_path)
     writer.write(f'{name}Lexer.g4', lexerFile)
     writer.write(f'{name}Parser.g4', parserFile)
     writer.write(f'{name}Visitor.py', visitorFile)
     writer.write(f'{name}VisitorEvaluator.py', visitorEvaluatorFile)
     writer.write('main.py', mainFile)
+
+    subprocess.run(['antlr4', dest_path / f'{name}Lexer.g4', dest_path / f'{name}Parser.g4', '-no-listener', '-visitor', '-Dlanguage=Python3'])
 
 
 if __name__ == '__main__':

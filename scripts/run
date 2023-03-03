@@ -1,5 +1,4 @@
 #!/bin/sh -eu
 cd "$(dirname "$0")/.."
 python3 python/main.py test/test.ctx2l test/
-find test/ -name "test*.g4" | xargs antlr4 -Dlanguage=Python3 -no-listener -visitor
 python3 test/main.py test/input.txt
