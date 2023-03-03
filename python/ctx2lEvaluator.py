@@ -245,9 +245,12 @@ class ctx2lPythonEvaluator(Evaluator):
         return '(' + ', '.join(self.evals(args)) + ')'
 
     def evalExpr(self, *, external, id, call='', **_):
+        expr = id + self.evalable(call)
         if external:
-            self.programInfo['imports'].add(id)
-        return id + self.evalable(call)
+            self.programInfo['externals'].add(id)
+            return f'self.evaluator.{expr}'
+        else:
+            return expr
 
     def evalLiteral(self, **_):
         id = self.atomInfo['id']
@@ -301,24 +304,53 @@ class ctx2lPythonEvaluator(Evaluator):
 
     def evalProgram(self, *, rules, **_):
         self.programInfo = {
-            'imports': set()
+            'externals': set()
         }
         visitorMethods = newlines(2).join(chain(*self.evals(rules)))
-        imports = sorted(self.programInfo['imports'])
+        externals = sorted(self.programInfo['externals'])
 
-        visitor = f'{self.name}Visitor'
         parserVisitor = f'{self.name}ParserVisitor'
+        visitor = f'{self.name}Visitor'
+        visitorEvaluator = f'{self.name}VisitorEvaluator'
         evaluator = f'{self.name}Evaluator'
 
-        return (
+        visitorModule = (
             newlines().join([
                 pythonFileImport(parserVisitor),
-                pythonImports(evaluator, imports)
+                pythonFileImport(evaluator),
             ])
             + newlines(3)
             + pythonClass(
                 visitor,
                 (parserVisitor,),
-                visitorMethods
+                (
+                    'def __init__(self):'
+                    + block(
+                        pythonAssign('self.evaluator', f'{evaluator}()')
+                    )
+                    + newlines(2)
+                    + visitorMethods
+                )
+
             )
         )
+        visitorEvaluatorModule = (
+            pythonClass(
+                visitorEvaluator,
+                (),
+                (
+                    newlines(2).join(
+                        (
+                            f'def {external}(self, *_):'
+                            + block(
+                                'raise NotImplementedError'
+                            )
+                        )
+                        for external
+                        in externals
+                    )               
+                )
+
+            )
+        )
+        return visitorModule, visitorEvaluatorModule

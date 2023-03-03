@@ -1,17 +1,20 @@
-def add(x, y):
-    return x + y
+from testVisitorEvaluator import testVisitorEvaluator
 
-def sub(x, y):
-    return x - y
+class testEvaluator(testVisitorEvaluator):
+    def add(self, x, y):
+        return x + y
 
-def mul(x, y):
-    return x * y
+    def sub(self, x, y):
+        return x - y
 
-def div(x, y):
-    return x / y
+    def mul(self, x, y):
+        return x * y
 
-def pow(x, y):
-    return x ** y
+    def div(self, x, y):
+        return x / y
 
-def num(str):
-    return int(str)
+    def pow(self, x, y):
+        return x ** y
+
+    def num(self, str):
+        return int(str)

@@ -1,8 +1,11 @@
 from testParserVisitor import testParserVisitor
-from testEvaluator import add, div, mul, num, pow, sub
+from testEvaluator import testEvaluator
 
 
 class testVisitor(testParserVisitor):
+    def __init__(self):
+        self.evaluator = testEvaluator()
+    
     def visitExpr(self, ctx):
         V = self.visit(ctx.V)
         return V
@@ -14,12 +17,12 @@ class testVisitor(testParserVisitor):
     def visitSum__2(self, ctx):
         L = self.visit(ctx.L)
         R = self.visit(ctx.R)
-        return add(L, R)
+        return self.evaluator.add(L, R)
     
     def visitSum__3(self, ctx):
         L = self.visit(ctx.L)
         R = self.visit(ctx.R)
-        return sub(L, R)
+        return self.evaluator.sub(L, R)
     
     def visitProd__1(self, ctx):
         V = self.visit(ctx.V)
@@ -28,12 +31,12 @@ class testVisitor(testParserVisitor):
     def visitProd__2(self, ctx):
         L = self.visit(ctx.L)
         R = self.visit(ctx.R)
-        return mul(L, R)
+        return self.evaluator.mul(L, R)
     
     def visitProd__3(self, ctx):
         L = self.visit(ctx.L)
         R = self.visit(ctx.R)
-        return div(L, R)
+        return self.evaluator.div(L, R)
     
     def visitPow__1(self, ctx):
         V = self.visit(ctx.V)
@@ -42,7 +45,7 @@ class testVisitor(testParserVisitor):
     def visitPow__2(self, ctx):
         L = self.visit(ctx.L)
         R = self.visit(ctx.R)
-        return pow(L, R)
+        return self.evaluator.pow(L, R)
     
     def visitValue__1(self, ctx):
         V = self.visit(ctx.V)
@@ -50,7 +53,7 @@ class testVisitor(testParserVisitor):
     
     def visitValue__2(self, ctx):
         V = ctx.V.text
-        return num(V)
+        return self.evaluator.num(V)
     
     def visitWs(self, ctx):
         return type('ws', (), {})()
