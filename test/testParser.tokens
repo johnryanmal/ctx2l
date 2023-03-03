@@ -1,0 +1,14 @@
+DIGITS=1
+WS=2
+LITERAL__1=3
+LITERAL__2=4
+LITERAL__3=5
+LITERAL__4=6
+LITERAL__5=7
+LITERAL__6=8
+'**'=3
+'('=4
+')'=5
+'*'=6
+'+'=7
+'-'=8
