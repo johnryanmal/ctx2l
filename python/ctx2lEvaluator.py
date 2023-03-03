@@ -107,6 +107,7 @@ def pythonVisitExpr(name, attrs, expr):
         f'def visit{cap(name)}(self, ctx):'
         + block(
             newlines().join([
+                #f'print(\'{name}\')',
                 *(pythonAssign(k, v) for k, v in attrs),
                 'return' + spaced(expr)
             ])

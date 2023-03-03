@@ -5,7 +5,7 @@ options {
 }
 
 expr
-  : ws V=sum ws EOF
+  : ws V=sum ws
   ;
 
 sum
@@ -26,7 +26,7 @@ pow
   ;
 
 value
-  : '(' WS V=expr WS ')' #value__1
+  : '(' ws V=expr ws ')' #value__1
   | V=DIGITS #value__2
   ;
 

@@ -10,27 +10,26 @@ else:
 
 def serializedATN():
     return [
-        4,1,8,69,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,1,0,1,0,
-        1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-        3,1,31,8,1,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,3,
-        2,46,8,2,1,3,1,3,1,3,1,3,1,3,1,3,1,3,3,3,55,8,3,1,4,1,4,1,4,1,4,
-        1,4,1,4,1,4,3,4,64,8,4,1,5,3,5,67,8,5,1,5,0,0,6,0,2,4,6,8,10,0,0,
-        69,0,12,1,0,0,0,2,30,1,0,0,0,4,45,1,0,0,0,6,54,1,0,0,0,8,63,1,0,
-        0,0,10,66,1,0,0,0,12,13,3,10,5,0,13,14,3,2,1,0,14,15,3,10,5,0,15,
-        16,5,0,0,1,16,1,1,0,0,0,17,31,3,4,2,0,18,19,3,4,2,0,19,20,3,10,5,
-        0,20,21,5,7,0,0,21,22,3,10,5,0,22,23,3,2,1,0,23,31,1,0,0,0,24,25,
-        3,4,2,0,25,26,3,10,5,0,26,27,5,8,0,0,27,28,3,10,5,0,28,29,3,2,1,
-        0,29,31,1,0,0,0,30,17,1,0,0,0,30,18,1,0,0,0,30,24,1,0,0,0,31,3,1,
-        0,0,0,32,46,3,6,3,0,33,34,3,6,3,0,34,35,3,10,5,0,35,36,5,6,0,0,36,
-        37,3,10,5,0,37,38,3,4,2,0,38,46,1,0,0,0,39,40,3,6,3,0,40,41,3,10,
-        5,0,41,42,5,8,0,0,42,43,3,10,5,0,43,44,3,4,2,0,44,46,1,0,0,0,45,
-        32,1,0,0,0,45,33,1,0,0,0,45,39,1,0,0,0,46,5,1,0,0,0,47,55,3,8,4,
-        0,48,49,3,8,4,0,49,50,3,10,5,0,50,51,5,3,0,0,51,52,3,10,5,0,52,53,
-        3,6,3,0,53,55,1,0,0,0,54,47,1,0,0,0,54,48,1,0,0,0,55,7,1,0,0,0,56,
-        57,5,4,0,0,57,58,5,2,0,0,58,59,3,0,0,0,59,60,5,2,0,0,60,61,5,5,0,
-        0,61,64,1,0,0,0,62,64,5,1,0,0,63,56,1,0,0,0,63,62,1,0,0,0,64,9,1,
-        0,0,0,65,67,5,2,0,0,66,65,1,0,0,0,66,67,1,0,0,0,67,11,1,0,0,0,5,
-        30,45,54,63,66
+        4,1,8,68,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,1,0,1,0,
+        1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,
+        30,8,1,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,3,2,45,
+        8,2,1,3,1,3,1,3,1,3,1,3,1,3,1,3,3,3,54,8,3,1,4,1,4,1,4,1,4,1,4,1,
+        4,1,4,3,4,63,8,4,1,5,3,5,66,8,5,1,5,0,0,6,0,2,4,6,8,10,0,0,68,0,
+        12,1,0,0,0,2,29,1,0,0,0,4,44,1,0,0,0,6,53,1,0,0,0,8,62,1,0,0,0,10,
+        65,1,0,0,0,12,13,3,10,5,0,13,14,3,2,1,0,14,15,3,10,5,0,15,1,1,0,
+        0,0,16,30,3,4,2,0,17,18,3,4,2,0,18,19,3,10,5,0,19,20,5,7,0,0,20,
+        21,3,10,5,0,21,22,3,2,1,0,22,30,1,0,0,0,23,24,3,4,2,0,24,25,3,10,
+        5,0,25,26,5,8,0,0,26,27,3,10,5,0,27,28,3,2,1,0,28,30,1,0,0,0,29,
+        16,1,0,0,0,29,17,1,0,0,0,29,23,1,0,0,0,30,3,1,0,0,0,31,45,3,6,3,
+        0,32,33,3,6,3,0,33,34,3,10,5,0,34,35,5,6,0,0,35,36,3,10,5,0,36,37,
+        3,4,2,0,37,45,1,0,0,0,38,39,3,6,3,0,39,40,3,10,5,0,40,41,5,8,0,0,
+        41,42,3,10,5,0,42,43,3,4,2,0,43,45,1,0,0,0,44,31,1,0,0,0,44,32,1,
+        0,0,0,44,38,1,0,0,0,45,5,1,0,0,0,46,54,3,8,4,0,47,48,3,8,4,0,48,
+        49,3,10,5,0,49,50,5,3,0,0,50,51,3,10,5,0,51,52,3,6,3,0,52,54,1,0,
+        0,0,53,46,1,0,0,0,53,47,1,0,0,0,54,7,1,0,0,0,55,56,5,4,0,0,56,57,
+        3,10,5,0,57,58,3,0,0,0,58,59,3,10,5,0,59,60,5,5,0,0,60,63,1,0,0,
+        0,61,63,5,1,0,0,62,55,1,0,0,0,62,61,1,0,0,0,63,9,1,0,0,0,64,66,5,
+        2,0,0,65,64,1,0,0,0,65,66,1,0,0,0,66,11,1,0,0,0,5,29,44,53,62,65
     ]
 
 class testParser ( Parser ):
@@ -92,9 +91,6 @@ class testParser ( Parser ):
                 return self.getTypedRuleContext(testParser.WsContext,i)
 
 
-        def EOF(self):
-            return self.getToken(testParser.EOF, 0)
-
         def sum_(self):
             return self.getTypedRuleContext(testParser.SumContext,0)
 
@@ -123,8 +119,6 @@ class testParser ( Parser ):
             localctx.V = self.sum_()
             self.state = 14
             self.ws()
-            self.state = 15
-            self.match(testParser.EOF)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -235,43 +229,43 @@ class testParser ( Parser ):
         localctx = testParser.SumContext(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_sum)
         try:
-            self.state = 30
+            self.state = 29
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,0,self._ctx)
             if la_ == 1:
                 localctx = testParser.Sum__1Context(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 17
+                self.state = 16
                 localctx.V = self.prod()
                 pass
 
             elif la_ == 2:
                 localctx = testParser.Sum__2Context(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 18
+                self.state = 17
                 localctx.L = self.prod()
+                self.state = 18
+                self.ws()
                 self.state = 19
-                self.ws()
-                self.state = 20
                 self.match(testParser.LITERAL__5)
-                self.state = 21
+                self.state = 20
                 self.ws()
-                self.state = 22
+                self.state = 21
                 localctx.R = self.sum_()
                 pass
 
             elif la_ == 3:
                 localctx = testParser.Sum__3Context(self, localctx)
                 self.enterOuterAlt(localctx, 3)
-                self.state = 24
+                self.state = 23
                 localctx.L = self.prod()
+                self.state = 24
+                self.ws()
                 self.state = 25
-                self.ws()
-                self.state = 26
                 self.match(testParser.LITERAL__6)
-                self.state = 27
+                self.state = 26
                 self.ws()
-                self.state = 28
+                self.state = 27
                 localctx.R = self.sum_()
                 pass
 
@@ -386,43 +380,43 @@ class testParser ( Parser ):
         localctx = testParser.ProdContext(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_prod)
         try:
-            self.state = 45
+            self.state = 44
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,1,self._ctx)
             if la_ == 1:
                 localctx = testParser.Prod__1Context(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 32
+                self.state = 31
                 localctx.V = self.pow_()
                 pass
 
             elif la_ == 2:
                 localctx = testParser.Prod__2Context(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 33
+                self.state = 32
                 localctx.L = self.pow_()
+                self.state = 33
+                self.ws()
                 self.state = 34
-                self.ws()
-                self.state = 35
                 self.match(testParser.LITERAL__4)
-                self.state = 36
+                self.state = 35
                 self.ws()
-                self.state = 37
+                self.state = 36
                 localctx.R = self.prod()
                 pass
 
             elif la_ == 3:
                 localctx = testParser.Prod__3Context(self, localctx)
                 self.enterOuterAlt(localctx, 3)
-                self.state = 39
+                self.state = 38
                 localctx.L = self.pow_()
+                self.state = 39
+                self.ws()
                 self.state = 40
-                self.ws()
-                self.state = 41
                 self.match(testParser.LITERAL__6)
-                self.state = 42
+                self.state = 41
                 self.ws()
-                self.state = 43
+                self.state = 42
                 localctx.R = self.prod()
                 pass
 
@@ -507,28 +501,28 @@ class testParser ( Parser ):
         localctx = testParser.PowContext(self, self._ctx, self.state)
         self.enterRule(localctx, 6, self.RULE_pow)
         try:
-            self.state = 54
+            self.state = 53
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
             if la_ == 1:
                 localctx = testParser.Pow__1Context(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 47
+                self.state = 46
                 localctx.V = self.value()
                 pass
 
             elif la_ == 2:
                 localctx = testParser.Pow__2Context(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 48
+                self.state = 47
                 localctx.L = self.value()
+                self.state = 48
+                self.ws()
                 self.state = 49
-                self.ws()
-                self.state = 50
                 self.match(testParser.LITERAL__1)
-                self.state = 51
+                self.state = 50
                 self.ws()
-                self.state = 52
+                self.state = 51
                 localctx.R = self.pow_()
                 pass
 
@@ -568,11 +562,12 @@ class testParser ( Parser ):
 
         def LITERAL__2(self):
             return self.getToken(testParser.LITERAL__2, 0)
-        def WS(self, i:int=None):
+        def ws(self, i:int=None):
             if i is None:
-                return self.getTokens(testParser.WS)
+                return self.getTypedRuleContexts(testParser.WsContext)
             else:
-                return self.getToken(testParser.WS, i)
+                return self.getTypedRuleContext(testParser.WsContext,i)
+
         def LITERAL__3(self):
             return self.getToken(testParser.LITERAL__3, 0)
         def expr(self):
@@ -609,27 +604,27 @@ class testParser ( Parser ):
         localctx = testParser.ValueContext(self, self._ctx, self.state)
         self.enterRule(localctx, 8, self.RULE_value)
         try:
-            self.state = 63
+            self.state = 62
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [4]:
                 localctx = testParser.Value__1Context(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 56
+                self.state = 55
                 self.match(testParser.LITERAL__2)
+                self.state = 56
+                self.ws()
                 self.state = 57
-                self.match(testParser.WS)
-                self.state = 58
                 localctx.V = self.expr()
+                self.state = 58
+                self.ws()
                 self.state = 59
-                self.match(testParser.WS)
-                self.state = 60
                 self.match(testParser.LITERAL__3)
                 pass
             elif token in [1]:
                 localctx = testParser.Value__2Context(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 62
+                self.state = 61
                 localctx.V = self.match(testParser.DIGITS)
                 pass
             else:
@@ -670,14 +665,13 @@ class testParser ( Parser ):
 
         localctx = testParser.WsContext(self, self._ctx, self.state)
         self.enterRule(localctx, 10, self.RULE_ws)
-        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 66
+            self.state = 65
             self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            if _la==2:
-                self.state = 65
+            la_ = self._interp.adaptivePredict(self._input,4,self._ctx)
+            if la_ == 1:
+                self.state = 64
                 self.match(testParser.WS)
 
 

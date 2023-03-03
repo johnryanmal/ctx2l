@@ -1,5 +1,5 @@
 expr:
-| ws V=sum ws EOF -> V
+| ws V=sum ws -> V
 
 sum:
 | V=prod -> V
@@ -16,7 +16,7 @@ pow:
 | L=value ws '**' ws R=pow -> $pow(L, R)
 
 value:
-| '(' WS V=expr WS ')' -> V
+| '(' ws V=expr ws ')' -> V
 | V=DIGITS -> $num(V)
 
 DIGITS:
