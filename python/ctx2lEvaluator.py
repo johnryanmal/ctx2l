@@ -141,9 +141,10 @@ def pythonBlock(body):
     else:
         return indent() + 'pass'
 
-def pythonClass(name, bases=(), body=None):
+def pythonClass(name, bases=None, body=None):
+    inherit = '' if bases is None else pythonTuple(bases)
     return (
-        f'class {name}{pythonTuple(bases)}:'
+        f'class {name}{inherit}:'
         + pythonBlock(body)
     )
 
