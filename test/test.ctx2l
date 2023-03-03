@@ -3,21 +3,21 @@ expr:
 
 sum:
 | V=prod -> V
-| L=prod ws '+' ws R=sum -> add(L, R)
-| L=prod ws '-' ws R=sum -> sub(L, R)
+| L=prod ws '+' ws R=sum -> $add(L, R)
+| L=prod ws '-' ws R=sum -> $sub(L, R)
 
 prod:
 | V=pow -> V
-| L=pow ws '*' ws R=prod -> mul(L, R)
-| L=pow ws '-' ws R=prod -> div(L, R)
+| L=pow ws '*' ws R=prod -> $mul(L, R)
+| L=pow ws '-' ws R=prod -> $div(L, R)
 
 pow:
 | V=value -> V
-| L=value ws '**' ws R=pow -> pow(L, R)
+| L=value ws '**' ws R=pow -> $pow(L, R)
 
 value:
 | '(' WS V=expr WS ')' -> V
-| V=DIGITS -> num(V)
+| V=DIGITS -> $num(V)
 
 DIGITS:
 | [0-9]+

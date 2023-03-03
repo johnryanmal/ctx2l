@@ -240,12 +240,10 @@ class ctx2lPythonEvaluator(Evaluator):
     def evalCall(self, *, args=(), **_):
         return '(' + ', '.join(self.evals(args)) + ')'
 
-    def evalExpr(self, *, id, call='', **_):
-        if applied := self.evalable(call):
+    def evalExpr(self, *, external, id, call='', **_):
+        if external:
             self.programInfo['imports'].add(id)
-            return id + applied
-        else:
-            return id
+        return id + self.evalable(call)
 
     def evalLiteral(self, **_):
         id = self.atomInfo['id']

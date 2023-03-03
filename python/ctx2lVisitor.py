@@ -74,7 +74,8 @@ class ctx2lVisitor(ctx2lParserVisitor):
         return node(
             type='expr',
             id=ctx.identifier().getText(),
-            call=self.visitable(ctx.call())
+            call=self.visitable(ctx.call()),
+            external=ctx.DOLLAR() is not None
         )
 
     def visitTokenAtom(self, ctx):
