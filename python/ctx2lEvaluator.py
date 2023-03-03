@@ -284,6 +284,9 @@ class ctx2lPythonEvaluator(Evaluator):
         return pythonObject(self.atomInfo['id'], attrs)
 
     def evalRule(self, *, name, alts, **_):
+        if self.programInfo['start_rule'] is None:
+            self.programInfo['start_rule'] = name
+
         self.ruleInfo = {
             'visits': []
         }
@@ -304,11 +307,15 @@ class ctx2lPythonEvaluator(Evaluator):
 
     def evalProgram(self, *, rules, **_):
         self.programInfo = {
+            'start_rule': None,
             'externals': set()
         }
         visitorMethods = newlines(2).join(chain(*self.evals(rules)))
+        start_rule = self.programInfo['start_rule']
         externals = sorted(self.programInfo['externals'])
 
+        lexer = f'{self.name}Lexer'
+        parser = f'{self.name}Parser'
         parserVisitor = f'{self.name}ParserVisitor'
         visitor = f'{self.name}Visitor'
         visitorEvaluator = f'{self.name}VisitorEvaluator'
@@ -353,4 +360,33 @@ class ctx2lPythonEvaluator(Evaluator):
 
             )
         )
-        return visitorModule, visitorEvaluatorModule
+        mainModule = (
+            newlines().join([
+                pythonImport('sys'),
+                pythonImport('antlr4', '*'),
+                pythonFileImport(lexer),
+                pythonFileImport(parser),
+                pythonFileImport(visitor)
+            ])
+            + newlines(3)
+            + 'def main(path):'
+            + block(
+                newlines().join([
+                    pythonAssign('input_stream', 'FileStream(path)'),
+                    pythonAssign('lexer', f'{lexer}(input_stream)'),
+                    pythonAssign('stream', 'CommonTokenStream(lexer)'),
+                    pythonAssign('parser', f'{parser}(stream)'),
+                    pythonAssign('tree', f'parser.{start_rule}()'),
+                    pythonAssign('visitor', f'{visitor}()'),
+                    pythonAssign('result', 'visitor.visit(tree)'),
+                    'print(result)'
+                ])
+            )
+            + newlines(3)
+            + "if __name__ == '__main__':"
+            + block(
+                'main(*sys.argv[1:])'
+            )
+            + '\n'
+        )
+        return visitorModule, visitorEvaluatorModule, mainModule

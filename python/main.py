@@ -29,13 +29,14 @@ def main(input_path, output_path):
     evaluator = ctx2lEvaluator(name)
     generator = ctx2lPythonEvaluator(name)
     lexerFile, parserFile = evaluator.eval(ast)
-    visitorFile, visitorEvaluatorFile = generator.eval(ast)
+    visitorFile, visitorEvaluatorFile, mainFile = generator.eval(ast)
 
     writer = Writer(output_path)
     writer.write(f'{name}Lexer.g4', lexerFile)
     writer.write(f'{name}Parser.g4', parserFile)
     writer.write(f'{name}Visitor.py', visitorFile)
     writer.write(f'{name}VisitorEvaluator.py', visitorEvaluatorFile)
+    writer.write('main.py', mainFile)
 
 
 if __name__ == '__main__':
