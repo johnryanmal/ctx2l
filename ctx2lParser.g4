@@ -12,8 +12,8 @@ from RuleContextWithAltNum import RuleContextWithAltNum
 import ANTLRv4Parser;
 
 program: (ruleDef | tokenDef)+ EOF;
-ruleDef: RULE_REF COLON OR ruleAlts;
-tokenDef: TOKEN_REF COLON OR tokenAlts;
+ruleDef: RULE_REF COLON OR? ruleAlts;
+tokenDef: TOKEN_REF COLON OR? tokenAlts;
 
 ruleSub: LPAREN OR? ruleAlts RPAREN;
 tokenSub: LPAREN OR? tokenAlts RPAREN;
