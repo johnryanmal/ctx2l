@@ -17,7 +17,7 @@ class Writer:
             file.write(content)
 
 
-def main(input_path, output_path=''):
+def main(input_path, output_path=None):
     input_stream = FileStream(input_path)
     lexer = ctx2lLexer(input_stream)
     stream = CommonTokenStream(lexer)
@@ -27,13 +27,14 @@ def main(input_path, output_path=''):
     ast = visitor.visit(tree)
 
     src_path = Path(input_path)
+    pathname = src_path.parent
     name = src_path.stem
     evaluator = ctx2lEvaluator(name)
     generator = ctx2lPythonEvaluator(name)
     lexerFile, parserFile = evaluator.eval(ast)
     visitorFile, visitorEvaluatorFile, mainFile = generator.eval(ast)
 
-    dest_path = Path(output_path)
+    dest_path = Path(output_path or pathname)
     writer = Writer(dest_path)
     writer.write(f'{name}Lexer.g4', lexerFile)
     writer.write(f'{name}Parser.g4', parserFile)
