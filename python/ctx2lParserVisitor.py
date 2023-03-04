@@ -24,6 +24,11 @@ class ctx2lParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by ctx2lParser#tokenCommands.
+    def visitTokenCommands(self, ctx:ctx2lParser.TokenCommandsContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by ctx2lParser#ruleSub.
     def visitRuleSub(self, ctx:ctx2lParser.RuleSubContext):
         return self.visitChildren(ctx)

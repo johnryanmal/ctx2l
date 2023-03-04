@@ -161,7 +161,7 @@ def serializedATN():
         0,0,303,306,1,0,0,0,304,302,1,0,0,0,304,305,1,0,0,0,305,9,1,0,0,
         0,306,304,1,0,0,0,307,308,3,170,83,0,308,309,1,0,0,0,309,310,6,3,
         0,0,310,311,6,3,1,0,311,11,1,0,0,0,312,313,3,166,81,0,313,13,1,0,
-        0,0,314,315,3,168,82,0,315,15,1,0,0,0,316,317,5,45,0,0,317,318,5,
+        0,0,314,315,3,168,82,0,315,15,1,0,0,0,316,317,5,62,0,0,317,318,5,
         62,0,0,318,17,1,0,0,0,319,320,3,6,1,0,320,321,1,0,0,0,321,322,6,
         7,2,0,322,19,1,0,0,0,323,324,3,4,0,0,324,325,1,0,0,0,325,326,6,8,
         2,0,326,21,1,0,0,0,327,328,3,8,2,0,328,329,1,0,0,0,329,330,6,9,2,
@@ -320,7 +320,7 @@ class ctx2lLexer(ctx2lLexerAdaptor):
     LEXER_CHAR_SET = 3
     LBRACE = 4
     RBRACE = 5
-    ARROW = 6
+    DIRECT = 6
     DOC_COMMENT = 7
     BLOCK_COMMENT = 8
     LINE_COMMENT = 9
@@ -384,13 +384,13 @@ class ctx2lLexer(ctx2lLexerAdaptor):
     modeNames = [ "DEFAULT_MODE", "Argument", "TargetLanguageAction", "LexerCharSet" ]
 
     literalNames = [ "<INVALID>",
-            "'->'", "'import'", "'fragment'", "'lexer'", "'parser'", "'grammar'", 
+            "'>>'", "'import'", "'fragment'", "'lexer'", "'parser'", "'grammar'", 
             "'protected'", "'public'", "'private'", "'returns'", "'locals'", 
             "'throws'", "'catch'", "'finally'", "'mode'" ]
 
     symbolicNames = [ "<INVALID>",
             "TOKEN_REF", "RULE_REF", "LEXER_CHAR_SET", "LBRACE", "RBRACE", 
-            "ARROW", "DOC_COMMENT", "BLOCK_COMMENT", "LINE_COMMENT", "INT", 
+            "DIRECT", "DOC_COMMENT", "BLOCK_COMMENT", "LINE_COMMENT", "INT", 
             "STRING_LITERAL", "UNTERMINATED_STRING_LITERAL", "BEGIN_ARGUMENT", 
             "BEGIN_ACTION", "OPTIONS", "TOKENS", "CHANNELS", "IMPORT", "FRAGMENT", 
             "LEXER", "PARSER", "GRAMMAR", "PROTECTED", "PUBLIC", "PRIVATE", 
@@ -402,7 +402,7 @@ class ctx2lLexer(ctx2lLexerAdaptor):
             "END_ACTION", "UNTERMINATED_ACTION", "ACTION_CONTENT", "UNTERMINATED_CHAR_SET" ]
 
     ruleNames = [ "BlockComment", "DocComment", "LineComment", "BEGIN_LEXER_CHAR_SET", 
-                  "LBRACE", "RBRACE", "ARROW", "DOC_COMMENT", "BLOCK_COMMENT", 
+                  "LBRACE", "RBRACE", "DIRECT", "DOC_COMMENT", "BLOCK_COMMENT", 
                   "LINE_COMMENT", "INT", "STRING_LITERAL", "UNTERMINATED_STRING_LITERAL", 
                   "BEGIN_ARGUMENT", "BEGIN_ACTION", "OPTIONS", "TOKENS", 
                   "CHANNELS", "WSNLCHARS", "IMPORT", "FRAGMENT", "LEXER", 
