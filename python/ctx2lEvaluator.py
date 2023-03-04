@@ -299,7 +299,7 @@ class ctx2lPythonEvaluator(Evaluator):
             visit = visits[0]
             methods.append(pythonVisit(name, *visit))
         else:
-            for index, visit in enumerate(self.ruleInfo['visits']):
+            for index, visit in enumerate(visits):
                 label = antlrLabel(name, index)
                 methods.append(pythonVisit(label, *visit))
 
@@ -339,8 +339,8 @@ class ctx2lPythonEvaluator(Evaluator):
                     + newlines(2)
                     + visitorMethods
                 )
-
             )
+            + '\n'
         )
         visitorEvaluatorModule = (
             pythonClass(
@@ -358,8 +358,8 @@ class ctx2lPythonEvaluator(Evaluator):
                         in externals
                     )               
                 )
-
             )
+            + '\n'
         )
         mainModule = (
             newlines().join([
