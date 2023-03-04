@@ -125,11 +125,18 @@ class ctx2lVisitor(ctx2lParserVisitor):
             alts=self.visit(ctx.ruleAlts())
         )
 
+    def visitLexerCommand(self, ctx):
+        return ctx.getText()
+
+    def visitTokenCommands(self, ctx):
+        return self.visits(ctx.lexerCommand())
+
     def visitTokenDef(self, ctx):
         return node(
             type='token',
             name=ctx.TOKEN_REF().getText(),
-            alts=self.visit(ctx.tokenAlts())
+            alts=self.visit(ctx.tokenAlts()),
+            cmds=self.visitable(ctx.tokenCommands())
         )
 
     def visitRuleDef(self, ctx):

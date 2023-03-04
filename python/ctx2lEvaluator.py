@@ -57,6 +57,14 @@ def antlrRule(name, alts):
         + indent(2, ';')
     )
 
+def antlrDirectedRule(name, alts, commands):
+    return (
+        name + ':'
+        + indent(2, '(')
+        + indent(2, '|').join(map(spaced, alts))
+        + indent(2, ')') + ' -> ' + listed(commands) + ';'
+    )
+
 def antlrSub(alts):
     return (
         '('
@@ -197,15 +205,19 @@ class ctx2lEvaluator(Evaluator):
     def evalSub(self, *, alts, **_):
         return antlrSub(self.evals(alts))
 
-    def evalToken(self, *, name, alts, **_):
-        return antlrRule(name, self.evals(alts))
+    def evalToken(self, *, name, alts, cmds=None, **_):
+        if cmds:
+            return antlrDirectedRule(name, self.evals(alts), cmds)
+        else:
+            return antlrRule(name, self.evals(alts))
 
     def evalRule(self, *, name, alts, **_):
         return antlrLabeledRule(name, self.evals(alts))
 
     def evalProgram(self, *, tokens, rules, **_):
         self.programInfo = {
-            'literal_tokens': set()
+            'literal_tokens': set(),
+            'unused_tokens': set()
         }
         tokenDefs = self.evals(tokens)
         ruleDefs = self.evals(rules)
