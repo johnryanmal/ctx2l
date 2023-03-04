@@ -28,4 +28,4 @@ RBRACE: RBrace;
 
 // new tokens
 
-ARROW: '->';
+DIRECT: '>>';
