@@ -290,34 +290,34 @@ class ctx2lPythonEvaluator(Evaluator):
 
     def evalAtom(self, *, label=None, ebnf, **_):
         if label is None:
-            return ()
+            id, kind = None, None
         else:
             id, kind = self.eval(label)
-            self.atomInfo = {
-                'id': id,
-                'kind': kind
-            }
-            return self.eval(ebnf)
+
+        self.atomInfo = {
+            'id': id,
+            'kind': kind
+        }
+        return self.eval(ebnf)
 
     def evalAlt(self, *, atoms, expr=None, **_):
-        attrs = tuple(chain(*self.evals(atoms)))
-        self.ruleInfo['visits'].append((attrs, self.evalable(expr)))
-        return attrs
+        attrs = dict(chain(*self.evals(atoms))).items()
+        return attrs, self.evalable(expr)
 
     def evalSub(self, *, alts, **_):
-        attrs = tuple(chain(*self.evals(alts)))
-        return pythonObject(self.atomInfo['id'], attrs)
+        id = self.atomInfo['id']
+        alt_attrs, _ = zip(*self.evals(alts))
+        attrs = dict(chain(*alt_attrs)).items()
+        if id is not None:
+            return (id, pythonObject(id, attrs)),
+        else:
+            return attrs
 
     def evalRule(self, *, name, alts, **_):
         if self.programInfo['start_rule'] is None:
             self.programInfo['start_rule'] = name
 
-        self.ruleInfo = {
-            'visits': []
-        }
-        self.evals(alts)
-
-        visits = self.ruleInfo['visits']
+        visits = self.evals(alts)
         methods = []
         if len(visits) == 1:
             visit = visits[0]
@@ -328,7 +328,6 @@ class ctx2lPythonEvaluator(Evaluator):
                 methods.append(pythonVisit(label, *visit))
 
         return methods
-
 
     def evalProgram(self, *, rules, **_):
         self.programInfo = {
