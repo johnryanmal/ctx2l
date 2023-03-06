@@ -17,7 +17,7 @@ sum
 prod
   : V=pow #prod__1
   | L=pow ws '*' ws R=prod #prod__2
-  | L=pow ws '-' ws R=prod #prod__3
+  | L=pow ws '/' ws R=prod #prod__3
   ;
 
 pow

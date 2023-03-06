@@ -10,7 +10,7 @@ else:
 
 def serializedATN():
     return [
-        4,1,8,68,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,1,0,1,0,
+        4,1,9,68,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,1,0,1,0,
         1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,
         30,8,1,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,3,2,45,
         8,2,1,3,1,3,1,3,1,3,1,3,1,3,1,3,3,3,54,8,3,1,4,1,4,1,4,1,4,1,4,1,
@@ -22,7 +22,7 @@ def serializedATN():
         5,0,25,26,5,8,0,0,26,27,3,10,5,0,27,28,3,2,1,0,28,30,1,0,0,0,29,
         16,1,0,0,0,29,17,1,0,0,0,29,23,1,0,0,0,30,3,1,0,0,0,31,45,3,6,3,
         0,32,33,3,6,3,0,33,34,3,10,5,0,34,35,5,6,0,0,35,36,3,10,5,0,36,37,
-        3,4,2,0,37,45,1,0,0,0,38,39,3,6,3,0,39,40,3,10,5,0,40,41,5,8,0,0,
+        3,4,2,0,37,45,1,0,0,0,38,39,3,6,3,0,39,40,3,10,5,0,40,41,5,9,0,0,
         41,42,3,10,5,0,42,43,3,4,2,0,43,45,1,0,0,0,44,31,1,0,0,0,44,32,1,
         0,0,0,44,38,1,0,0,0,45,5,1,0,0,0,46,54,3,8,4,0,47,48,3,8,4,0,48,
         49,3,10,5,0,49,50,5,3,0,0,50,51,3,10,5,0,51,52,3,6,3,0,52,54,1,0,
@@ -43,10 +43,11 @@ class calculatorParser ( Parser ):
     sharedContextCache = PredictionContextCache()
 
     literalNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "'**'", "'('", 
-                     "')'", "'*'", "'+'", "'-'" ]
+                     "')'", "'*'", "'+'", "'-'", "'/'" ]
 
     symbolicNames = [ "<INVALID>", "DIGITS", "WS", "LITERAL__1", "LITERAL__2", 
-                      "LITERAL__3", "LITERAL__4", "LITERAL__5", "LITERAL__6" ]
+                      "LITERAL__3", "LITERAL__4", "LITERAL__5", "LITERAL__6", 
+                      "LITERAL__7" ]
 
     RULE_expr = 0
     RULE_sum = 1
@@ -66,6 +67,7 @@ class calculatorParser ( Parser ):
     LITERAL__4=6
     LITERAL__5=7
     LITERAL__6=8
+    LITERAL__7=9
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -310,8 +312,8 @@ class calculatorParser ( Parser ):
             else:
                 return self.getTypedRuleContext(calculatorParser.WsContext,i)
 
-        def LITERAL__6(self):
-            return self.getToken(calculatorParser.LITERAL__6, 0)
+        def LITERAL__7(self):
+            return self.getToken(calculatorParser.LITERAL__7, 0)
         def pow_(self):
             return self.getTypedRuleContext(calculatorParser.PowContext,0)
 
@@ -413,7 +415,7 @@ class calculatorParser ( Parser ):
                 self.state = 39
                 self.ws()
                 self.state = 40
-                self.match(calculatorParser.LITERAL__6)
+                self.match(calculatorParser.LITERAL__7)
                 self.state = 41
                 self.ws()
                 self.state = 42

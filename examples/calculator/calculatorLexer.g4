@@ -31,3 +31,7 @@ LITERAL__5
 LITERAL__6
   : '-'
   ;
+
+LITERAL__7
+  : '/'
+  ;
