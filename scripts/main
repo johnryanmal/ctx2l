@@ -1,0 +1,4 @@
+#!/bin/sh -eu
+cd "$(dirname "$0")/.."
+python3 python/main.py "$1"
+find "$(dirname "$1")" -name "sample.*" | head -n 1 | xargs python3 "$(dirname "$1")/main.py"
