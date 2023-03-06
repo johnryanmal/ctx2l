@@ -1,0 +1,44 @@
+json:
+| V=element EOF -> V
+
+value:
+| V=object -> V
+| V=array -> V
+| V=STRING -> $unquote(V)
+| V=NUMBER -> V
+| V='true' -> V
+| V='false' -> V
+| V='null' -> V
+
+object:
+| '{' ws '}'
+| '{' V=members '}' -> V
+
+members:
+| VS+=member (',' VS+=member)* -> $dict(VS)
+
+member:
+| ws K=STRING ws ':' V=element -> $pair($unquote(K), V)
+
+array:
+| '[' ws ']'
+| '[' V=elements ']' -> V
+
+elements:
+| V+=element (',' V+=element)* -> V
+
+element:
+| ws V=value ws -> V
+
+STRING:
+| '"' [a-zA-Z_0-9 ]* '"'
+
+NUMBER:
+| [0-9]
+| [1-9] [0-9]*
+
+WS:
+| [ \t\r\n\f]+
+
+ws:
+| WS?
