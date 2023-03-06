@@ -1,4 +1,4 @@
-# Generated from test/testParser.g4 by ANTLR 4.12.0
+# Generated from examples/calculator/calculatorParser.g4 by ANTLR 4.12.0
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -32,9 +32,9 @@ def serializedATN():
         2,0,0,65,64,1,0,0,0,65,66,1,0,0,0,66,11,1,0,0,0,5,29,44,53,62,65
     ]
 
-class testParser ( Parser ):
+class calculatorParser ( Parser ):
 
-    grammarFileName = "testParser.g4"
+    grammarFileName = "calculatorParser.g4"
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
@@ -86,17 +86,17 @@ class testParser ( Parser ):
 
         def ws(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(testParser.WsContext)
+                return self.getTypedRuleContexts(calculatorParser.WsContext)
             else:
-                return self.getTypedRuleContext(testParser.WsContext,i)
+                return self.getTypedRuleContext(calculatorParser.WsContext,i)
 
 
         def sum_(self):
-            return self.getTypedRuleContext(testParser.SumContext,0)
+            return self.getTypedRuleContext(calculatorParser.SumContext,0)
 
 
         def getRuleIndex(self):
-            return testParser.RULE_expr
+            return calculatorParser.RULE_expr
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitExpr" ):
@@ -109,7 +109,7 @@ class testParser ( Parser ):
 
     def expr(self):
 
-        localctx = testParser.ExprContext(self, self._ctx, self.state)
+        localctx = calculatorParser.ExprContext(self, self._ctx, self.state)
         self.enterRule(localctx, 0, self.RULE_expr)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -137,7 +137,7 @@ class testParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return testParser.RULE_sum
+            return calculatorParser.RULE_sum
 
      
         def copyFrom(self, ctx:ParserRuleContext):
@@ -147,7 +147,7 @@ class testParser ( Parser ):
 
     class Sum__2Context(SumContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a testParser.SumContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a calculatorParser.SumContext
             super().__init__(parser)
             self.L = None # ProdContext
             self.R = None # SumContext
@@ -155,17 +155,17 @@ class testParser ( Parser ):
 
         def ws(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(testParser.WsContext)
+                return self.getTypedRuleContexts(calculatorParser.WsContext)
             else:
-                return self.getTypedRuleContext(testParser.WsContext,i)
+                return self.getTypedRuleContext(calculatorParser.WsContext,i)
 
         def LITERAL__5(self):
-            return self.getToken(testParser.LITERAL__5, 0)
+            return self.getToken(calculatorParser.LITERAL__5, 0)
         def prod(self):
-            return self.getTypedRuleContext(testParser.ProdContext,0)
+            return self.getTypedRuleContext(calculatorParser.ProdContext,0)
 
         def sum_(self):
-            return self.getTypedRuleContext(testParser.SumContext,0)
+            return self.getTypedRuleContext(calculatorParser.SumContext,0)
 
 
         def accept(self, visitor:ParseTreeVisitor):
@@ -177,13 +177,13 @@ class testParser ( Parser ):
 
     class Sum__1Context(SumContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a testParser.SumContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a calculatorParser.SumContext
             super().__init__(parser)
             self.V = None # ProdContext
             self.copyFrom(ctx)
 
         def prod(self):
-            return self.getTypedRuleContext(testParser.ProdContext,0)
+            return self.getTypedRuleContext(calculatorParser.ProdContext,0)
 
 
         def accept(self, visitor:ParseTreeVisitor):
@@ -195,7 +195,7 @@ class testParser ( Parser ):
 
     class Sum__3Context(SumContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a testParser.SumContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a calculatorParser.SumContext
             super().__init__(parser)
             self.L = None # ProdContext
             self.R = None # SumContext
@@ -203,17 +203,17 @@ class testParser ( Parser ):
 
         def ws(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(testParser.WsContext)
+                return self.getTypedRuleContexts(calculatorParser.WsContext)
             else:
-                return self.getTypedRuleContext(testParser.WsContext,i)
+                return self.getTypedRuleContext(calculatorParser.WsContext,i)
 
         def LITERAL__6(self):
-            return self.getToken(testParser.LITERAL__6, 0)
+            return self.getToken(calculatorParser.LITERAL__6, 0)
         def prod(self):
-            return self.getTypedRuleContext(testParser.ProdContext,0)
+            return self.getTypedRuleContext(calculatorParser.ProdContext,0)
 
         def sum_(self):
-            return self.getTypedRuleContext(testParser.SumContext,0)
+            return self.getTypedRuleContext(calculatorParser.SumContext,0)
 
 
         def accept(self, visitor:ParseTreeVisitor):
@@ -226,28 +226,28 @@ class testParser ( Parser ):
 
     def sum_(self):
 
-        localctx = testParser.SumContext(self, self._ctx, self.state)
+        localctx = calculatorParser.SumContext(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_sum)
         try:
             self.state = 29
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,0,self._ctx)
             if la_ == 1:
-                localctx = testParser.Sum__1Context(self, localctx)
+                localctx = calculatorParser.Sum__1Context(self, localctx)
                 self.enterOuterAlt(localctx, 1)
                 self.state = 16
                 localctx.V = self.prod()
                 pass
 
             elif la_ == 2:
-                localctx = testParser.Sum__2Context(self, localctx)
+                localctx = calculatorParser.Sum__2Context(self, localctx)
                 self.enterOuterAlt(localctx, 2)
                 self.state = 17
                 localctx.L = self.prod()
                 self.state = 18
                 self.ws()
                 self.state = 19
-                self.match(testParser.LITERAL__5)
+                self.match(calculatorParser.LITERAL__5)
                 self.state = 20
                 self.ws()
                 self.state = 21
@@ -255,14 +255,14 @@ class testParser ( Parser ):
                 pass
 
             elif la_ == 3:
-                localctx = testParser.Sum__3Context(self, localctx)
+                localctx = calculatorParser.Sum__3Context(self, localctx)
                 self.enterOuterAlt(localctx, 3)
                 self.state = 23
                 localctx.L = self.prod()
                 self.state = 24
                 self.ws()
                 self.state = 25
-                self.match(testParser.LITERAL__6)
+                self.match(calculatorParser.LITERAL__6)
                 self.state = 26
                 self.ws()
                 self.state = 27
@@ -288,7 +288,7 @@ class testParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return testParser.RULE_prod
+            return calculatorParser.RULE_prod
 
      
         def copyFrom(self, ctx:ParserRuleContext):
@@ -298,7 +298,7 @@ class testParser ( Parser ):
 
     class Prod__3Context(ProdContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a testParser.ProdContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a calculatorParser.ProdContext
             super().__init__(parser)
             self.L = None # PowContext
             self.R = None # ProdContext
@@ -306,17 +306,17 @@ class testParser ( Parser ):
 
         def ws(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(testParser.WsContext)
+                return self.getTypedRuleContexts(calculatorParser.WsContext)
             else:
-                return self.getTypedRuleContext(testParser.WsContext,i)
+                return self.getTypedRuleContext(calculatorParser.WsContext,i)
 
         def LITERAL__6(self):
-            return self.getToken(testParser.LITERAL__6, 0)
+            return self.getToken(calculatorParser.LITERAL__6, 0)
         def pow_(self):
-            return self.getTypedRuleContext(testParser.PowContext,0)
+            return self.getTypedRuleContext(calculatorParser.PowContext,0)
 
         def prod(self):
-            return self.getTypedRuleContext(testParser.ProdContext,0)
+            return self.getTypedRuleContext(calculatorParser.ProdContext,0)
 
 
         def accept(self, visitor:ParseTreeVisitor):
@@ -328,7 +328,7 @@ class testParser ( Parser ):
 
     class Prod__2Context(ProdContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a testParser.ProdContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a calculatorParser.ProdContext
             super().__init__(parser)
             self.L = None # PowContext
             self.R = None # ProdContext
@@ -336,17 +336,17 @@ class testParser ( Parser ):
 
         def ws(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(testParser.WsContext)
+                return self.getTypedRuleContexts(calculatorParser.WsContext)
             else:
-                return self.getTypedRuleContext(testParser.WsContext,i)
+                return self.getTypedRuleContext(calculatorParser.WsContext,i)
 
         def LITERAL__4(self):
-            return self.getToken(testParser.LITERAL__4, 0)
+            return self.getToken(calculatorParser.LITERAL__4, 0)
         def pow_(self):
-            return self.getTypedRuleContext(testParser.PowContext,0)
+            return self.getTypedRuleContext(calculatorParser.PowContext,0)
 
         def prod(self):
-            return self.getTypedRuleContext(testParser.ProdContext,0)
+            return self.getTypedRuleContext(calculatorParser.ProdContext,0)
 
 
         def accept(self, visitor:ParseTreeVisitor):
@@ -358,13 +358,13 @@ class testParser ( Parser ):
 
     class Prod__1Context(ProdContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a testParser.ProdContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a calculatorParser.ProdContext
             super().__init__(parser)
             self.V = None # PowContext
             self.copyFrom(ctx)
 
         def pow_(self):
-            return self.getTypedRuleContext(testParser.PowContext,0)
+            return self.getTypedRuleContext(calculatorParser.PowContext,0)
 
 
         def accept(self, visitor:ParseTreeVisitor):
@@ -377,28 +377,28 @@ class testParser ( Parser ):
 
     def prod(self):
 
-        localctx = testParser.ProdContext(self, self._ctx, self.state)
+        localctx = calculatorParser.ProdContext(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_prod)
         try:
             self.state = 44
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,1,self._ctx)
             if la_ == 1:
-                localctx = testParser.Prod__1Context(self, localctx)
+                localctx = calculatorParser.Prod__1Context(self, localctx)
                 self.enterOuterAlt(localctx, 1)
                 self.state = 31
                 localctx.V = self.pow_()
                 pass
 
             elif la_ == 2:
-                localctx = testParser.Prod__2Context(self, localctx)
+                localctx = calculatorParser.Prod__2Context(self, localctx)
                 self.enterOuterAlt(localctx, 2)
                 self.state = 32
                 localctx.L = self.pow_()
                 self.state = 33
                 self.ws()
                 self.state = 34
-                self.match(testParser.LITERAL__4)
+                self.match(calculatorParser.LITERAL__4)
                 self.state = 35
                 self.ws()
                 self.state = 36
@@ -406,14 +406,14 @@ class testParser ( Parser ):
                 pass
 
             elif la_ == 3:
-                localctx = testParser.Prod__3Context(self, localctx)
+                localctx = calculatorParser.Prod__3Context(self, localctx)
                 self.enterOuterAlt(localctx, 3)
                 self.state = 38
                 localctx.L = self.pow_()
                 self.state = 39
                 self.ws()
                 self.state = 40
-                self.match(testParser.LITERAL__6)
+                self.match(calculatorParser.LITERAL__6)
                 self.state = 41
                 self.ws()
                 self.state = 42
@@ -439,7 +439,7 @@ class testParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return testParser.RULE_pow
+            return calculatorParser.RULE_pow
 
      
         def copyFrom(self, ctx:ParserRuleContext):
@@ -449,7 +449,7 @@ class testParser ( Parser ):
 
     class Pow__2Context(PowContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a testParser.PowContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a calculatorParser.PowContext
             super().__init__(parser)
             self.L = None # ValueContext
             self.R = None # PowContext
@@ -457,17 +457,17 @@ class testParser ( Parser ):
 
         def ws(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(testParser.WsContext)
+                return self.getTypedRuleContexts(calculatorParser.WsContext)
             else:
-                return self.getTypedRuleContext(testParser.WsContext,i)
+                return self.getTypedRuleContext(calculatorParser.WsContext,i)
 
         def LITERAL__1(self):
-            return self.getToken(testParser.LITERAL__1, 0)
+            return self.getToken(calculatorParser.LITERAL__1, 0)
         def value(self):
-            return self.getTypedRuleContext(testParser.ValueContext,0)
+            return self.getTypedRuleContext(calculatorParser.ValueContext,0)
 
         def pow_(self):
-            return self.getTypedRuleContext(testParser.PowContext,0)
+            return self.getTypedRuleContext(calculatorParser.PowContext,0)
 
 
         def accept(self, visitor:ParseTreeVisitor):
@@ -479,13 +479,13 @@ class testParser ( Parser ):
 
     class Pow__1Context(PowContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a testParser.PowContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a calculatorParser.PowContext
             super().__init__(parser)
             self.V = None # ValueContext
             self.copyFrom(ctx)
 
         def value(self):
-            return self.getTypedRuleContext(testParser.ValueContext,0)
+            return self.getTypedRuleContext(calculatorParser.ValueContext,0)
 
 
         def accept(self, visitor:ParseTreeVisitor):
@@ -498,28 +498,28 @@ class testParser ( Parser ):
 
     def pow_(self):
 
-        localctx = testParser.PowContext(self, self._ctx, self.state)
+        localctx = calculatorParser.PowContext(self, self._ctx, self.state)
         self.enterRule(localctx, 6, self.RULE_pow)
         try:
             self.state = 53
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
             if la_ == 1:
-                localctx = testParser.Pow__1Context(self, localctx)
+                localctx = calculatorParser.Pow__1Context(self, localctx)
                 self.enterOuterAlt(localctx, 1)
                 self.state = 46
                 localctx.V = self.value()
                 pass
 
             elif la_ == 2:
-                localctx = testParser.Pow__2Context(self, localctx)
+                localctx = calculatorParser.Pow__2Context(self, localctx)
                 self.enterOuterAlt(localctx, 2)
                 self.state = 47
                 localctx.L = self.value()
                 self.state = 48
                 self.ws()
                 self.state = 49
-                self.match(testParser.LITERAL__1)
+                self.match(calculatorParser.LITERAL__1)
                 self.state = 50
                 self.ws()
                 self.state = 51
@@ -545,7 +545,7 @@ class testParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return testParser.RULE_value
+            return calculatorParser.RULE_value
 
      
         def copyFrom(self, ctx:ParserRuleContext):
@@ -555,23 +555,23 @@ class testParser ( Parser ):
 
     class Value__1Context(ValueContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a testParser.ValueContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a calculatorParser.ValueContext
             super().__init__(parser)
             self.V = None # ExprContext
             self.copyFrom(ctx)
 
         def LITERAL__2(self):
-            return self.getToken(testParser.LITERAL__2, 0)
+            return self.getToken(calculatorParser.LITERAL__2, 0)
         def ws(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(testParser.WsContext)
+                return self.getTypedRuleContexts(calculatorParser.WsContext)
             else:
-                return self.getTypedRuleContext(testParser.WsContext,i)
+                return self.getTypedRuleContext(calculatorParser.WsContext,i)
 
         def LITERAL__3(self):
-            return self.getToken(testParser.LITERAL__3, 0)
+            return self.getToken(calculatorParser.LITERAL__3, 0)
         def expr(self):
-            return self.getTypedRuleContext(testParser.ExprContext,0)
+            return self.getTypedRuleContext(calculatorParser.ExprContext,0)
 
 
         def accept(self, visitor:ParseTreeVisitor):
@@ -583,13 +583,13 @@ class testParser ( Parser ):
 
     class Value__2Context(ValueContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a testParser.ValueContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a calculatorParser.ValueContext
             super().__init__(parser)
             self.V = None # Token
             self.copyFrom(ctx)
 
         def DIGITS(self):
-            return self.getToken(testParser.DIGITS, 0)
+            return self.getToken(calculatorParser.DIGITS, 0)
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitValue__2" ):
@@ -601,17 +601,17 @@ class testParser ( Parser ):
 
     def value(self):
 
-        localctx = testParser.ValueContext(self, self._ctx, self.state)
+        localctx = calculatorParser.ValueContext(self, self._ctx, self.state)
         self.enterRule(localctx, 8, self.RULE_value)
         try:
             self.state = 62
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [4]:
-                localctx = testParser.Value__1Context(self, localctx)
+                localctx = calculatorParser.Value__1Context(self, localctx)
                 self.enterOuterAlt(localctx, 1)
                 self.state = 55
-                self.match(testParser.LITERAL__2)
+                self.match(calculatorParser.LITERAL__2)
                 self.state = 56
                 self.ws()
                 self.state = 57
@@ -619,13 +619,13 @@ class testParser ( Parser ):
                 self.state = 58
                 self.ws()
                 self.state = 59
-                self.match(testParser.LITERAL__3)
+                self.match(calculatorParser.LITERAL__3)
                 pass
             elif token in [1]:
-                localctx = testParser.Value__2Context(self, localctx)
+                localctx = calculatorParser.Value__2Context(self, localctx)
                 self.enterOuterAlt(localctx, 2)
                 self.state = 61
-                localctx.V = self.match(testParser.DIGITS)
+                localctx.V = self.match(calculatorParser.DIGITS)
                 pass
             else:
                 raise NoViableAltException(self)
@@ -647,10 +647,10 @@ class testParser ( Parser ):
             self.parser = parser
 
         def WS(self):
-            return self.getToken(testParser.WS, 0)
+            return self.getToken(calculatorParser.WS, 0)
 
         def getRuleIndex(self):
-            return testParser.RULE_ws
+            return calculatorParser.RULE_ws
 
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitWs" ):
@@ -663,7 +663,7 @@ class testParser ( Parser ):
 
     def ws(self):
 
-        localctx = testParser.WsContext(self, self._ctx, self.state)
+        localctx = calculatorParser.WsContext(self, self._ctx, self.state)
         self.enterRule(localctx, 10, self.RULE_ws)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -672,7 +672,7 @@ class testParser ( Parser ):
             la_ = self._interp.adaptivePredict(self._input,4,self._ctx)
             if la_ == 1:
                 self.state = 64
-                self.match(testParser.WS)
+                self.match(calculatorParser.WS)
 
 
         except RecognitionException as re:

@@ -1,4 +1,4 @@
-# Generated from test/testLexer.g4 by ANTLR 4.12.0
+# Generated from examples/calculator/calculatorLexer.g4 by ANTLR 4.12.0
 from antlr4 import *
 from io import StringIO
 import sys
@@ -25,7 +25,7 @@ def serializedATN():
         0,0,37,14,1,0,0,0,38,39,5,45,0,0,39,16,1,0,0,0,3,0,20,25,0
     ]
 
-class testLexer(Lexer):
+class calculatorLexer(Lexer):
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
@@ -54,7 +54,7 @@ class testLexer(Lexer):
     ruleNames = [ "DIGITS", "WS", "LITERAL__1", "LITERAL__2", "LITERAL__3", 
                   "LITERAL__4", "LITERAL__5", "LITERAL__6" ]
 
-    grammarFileName = "testLexer.g4"
+    grammarFileName = "calculatorLexer.g4"
 
     def __init__(self, input=None, output:TextIO = sys.stdout):
         super().__init__(input, output)

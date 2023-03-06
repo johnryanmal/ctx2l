@@ -1,4 +1,4 @@
-lexer grammar testLexer;
+lexer grammar calculatorLexer;
 
 DIGITS
   : [0-9]+

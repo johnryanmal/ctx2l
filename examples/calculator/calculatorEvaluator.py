@@ -1,6 +1,6 @@
-from testVisitorEvaluator import testVisitorEvaluator
+from calculatorVisitorEvaluator import calculatorVisitorEvaluator
 
-class testEvaluator(testVisitorEvaluator):
+class calculatorEvaluator(calculatorVisitorEvaluator):
     def add(self, x, y):
         return x + y
 

@@ -1,10 +1,10 @@
-from testParserVisitor import testParserVisitor
-from testEvaluator import testEvaluator
+from calculatorParserVisitor import calculatorParserVisitor
+from calculatorEvaluator import calculatorEvaluator
 
 
-class testVisitor(testParserVisitor):
+class calculatorVisitor(calculatorParserVisitor):
     def __init__(self):
-        self.evaluator = testEvaluator()
+        self.evaluator = calculatorEvaluator()
     
     def visitExpr(self, ctx):
         V = self.visit(ctx.V)

@@ -1,17 +1,17 @@
 import sys
 from antlr4 import *
-from testLexer import testLexer
-from testParser import testParser
-from testVisitor import testVisitor
+from calculatorLexer import calculatorLexer
+from calculatorParser import calculatorParser
+from calculatorVisitor import calculatorVisitor
 
 
 def main(path):
     input_stream = FileStream(path)
-    lexer = testLexer(input_stream)
+    lexer = calculatorLexer(input_stream)
     stream = CommonTokenStream(lexer)
-    parser = testParser(stream)
+    parser = calculatorParser(stream)
     tree = parser.expr()
-    visitor = testVisitor()
+    visitor = calculatorVisitor()
     result = visitor.visit(tree)
     print(result)
 

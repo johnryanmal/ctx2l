@@ -1,7 +1,7 @@
-parser grammar testParser;
+parser grammar calculatorParser;
 
 options {
-    tokenVocab = testLexer;
+    tokenVocab = calculatorLexer;
 }
 
 expr

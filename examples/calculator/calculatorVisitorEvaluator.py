@@ -1,4 +1,4 @@
-class testVisitorEvaluator():
+class calculatorVisitorEvaluator():
     def add(self, *_):
         raise NotImplementedError
     
