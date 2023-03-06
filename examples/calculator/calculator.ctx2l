@@ -9,7 +9,7 @@ sum:
 prod:
 | V=pow -> V
 | L=pow ws '*' ws R=prod -> $mul(L, R)
-| L=pow ws '-' ws R=prod -> $div(L, R)
+| L=pow ws '/' ws R=prod -> $div(L, R)
 
 pow:
 | V=value -> V
