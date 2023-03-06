@@ -251,8 +251,8 @@ class ctx2lPythonEvaluator(Evaluator):
     def __init__(self, name):
         self.name = name
 
-    def evalLabel(self, *, id, **_):
-        return id
+    def evalLabel(self, *, id, op, **_):
+        return id, ('list' if op == '+=' else 'value')
 
     def evalCall(self, *, args=(), **_):
         return '(' + ', '.join(self.evals(args)) + ')'
@@ -267,25 +267,37 @@ class ctx2lPythonEvaluator(Evaluator):
 
     def evalLiteral(self, **_):
         id = self.atomInfo['id']
-        return f'ctx.{id}.text'
+        kind = self.atomInfo['kind']
+        if kind == 'value':
+            return (id, f'ctx.{id}.text'),
+        elif kind == 'list':
+            return (id, f'tuple(token.text for token in ctx.{id})'),
+        else:
+            return ()
 
     def evalRef(self, *, name, **_):
-        id = self.atomInfo['id']
         if name[0].isupper():
-            return f'ctx.{id}.text'
+            return self.evalLiteral()
+
+        id = self.atomInfo['id']
+        kind = self.atomInfo['kind']
+        if kind == 'value':
+            return (id, f'self.visit(ctx.{id})'),
+        elif kind == 'list':
+            return (id, f'tuple(self.visit(rule) for rule in ctx.{id})'),
         else:
-            return f'self.visit(ctx.{id})'
+            return ()
 
     def evalAtom(self, *, label=None, ebnf, **_):
         if label is None:
             return ()
         else:
-            id = self.eval(label)
+            id, kind = self.eval(label)
             self.atomInfo = {
-                'id': id
+                'id': id,
+                'kind': kind
             }
-            value = self.eval(ebnf)
-            return ((id, value),)
+            return self.eval(ebnf)
 
     def evalAlt(self, *, atoms, expr=None, **_):
         attrs = tuple(chain(*self.evals(atoms)))
@@ -368,7 +380,7 @@ class ctx2lPythonEvaluator(Evaluator):
                         )
                         for external
                         in externals
-                    )               
+                    )
                 )
             )
             + '\n'
