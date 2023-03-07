@@ -9,7 +9,7 @@ def main(path):
     for token in lexer.getAllTokens():
         type = lexer.symbolicNames[token.type]
         text = repr(token.text)[1:-1]
-        print(f"{text:10}{type}")
+        print(f"{text:^20} {type}")
 
 
 if __name__ == '__main__':
