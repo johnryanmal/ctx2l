@@ -23,6 +23,7 @@ pip install antlr4-tools
 ```
 
 2. Clone the repository
+
 ```shell
 git clone https://github.com/johnryanmal/ctx2l ~/ctx2l
 ```
@@ -141,6 +142,7 @@ $ python main.py sample.txt
 ## Updating
 
 1. Pull from the repository
+
 ```shell
 git -C ~/ctx2l pull origin main
 ```
@@ -148,11 +150,14 @@ git -C ~/ctx2l pull origin main
 ## Uninstallation
 
 1. Update rc file
+
+`.zshrc`
 ```zsh
 grep -v 'alias ctx2l="python ~/ctx2l/python/main.py"' ~/.zshrc > ~/.zshrc
 ```
 
 2. Remove the repository
+
 ```shell
 rm -rf ~/ctx2l
 ```
