@@ -149,6 +149,8 @@ git -C ~/ctx2l pull origin main
 
 ## Uninstallation
 
+### Python
+
 1. Update rc file
 
 `.zshrc`
