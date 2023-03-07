@@ -54,6 +54,3 @@ class calculatorVisitor(calculatorParserVisitor):
     def visitValue__2(self, ctx):
         V = ctx.V.text
         return self.evaluator.num(V)
-    
-    def visitWs(self, ctx):
-        return type('ws', (), {})()

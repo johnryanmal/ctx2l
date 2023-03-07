@@ -64,10 +64,5 @@ class calculatorParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by calculatorParser#ws.
-    def visitWs(self, ctx:calculatorParser.WsContext):
-        return self.visitChildren(ctx)
-
-
 
 del calculatorParser

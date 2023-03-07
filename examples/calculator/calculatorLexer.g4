@@ -4,9 +4,9 @@ DIGITS
   : [0-9]+
   ;
 
-WS
-  : [ \t\r\n\f]+
-  ;
+WS:
+  ( [ \t\r\n\f]+
+  ) -> skip;
 
 LITERAL__1
   : '**'
