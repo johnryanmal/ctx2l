@@ -2,11 +2,13 @@
 ctx2l (pronounced "contextual") is a parser generator intended for use in small projects and prototypes.
 
 ctx2l is an abstraction on top of [ANTLR](https://www.antlr.org/).
-Its purpose is bind together parsing and evaluating in source code, so that both aspects are considered at the same time.
+Its purpose is bind together parsing and evaluating in source code, so that both aspects can be written at the same time.
 
-Rather than generating code directly, ctx2l is translated into a language agnostic ANTLR grammar and native code in a target language.
-The grammar is used to generate a parser, and the native code is used to generate a visitor.
+Rather than generating code directly, ctx2l is translated into a language agnostic ANTLR grammar and a language specific ANTLR visitor.
+The grammar is then compiled by ANTLR into code that works with the visitor.
 Because the parser generation is handled entirely by ANTLR, it may be more accurate to call ctx2l a "visitor generator."
+
+Additionally, the name has another meaning: ctx2l can be read as "Context To Language." It is the intermediary step between [parsing context](https://www.antlr.org/api/Java/org/antlr/v4/runtime/ParserRuleContext.html) and a target language.
 
 ## Installation
 Currently, only python as a target language is supported.
@@ -65,6 +67,7 @@ At minimum, three files are needed to generate a working program.
 `calculator.ctx2l`
 
 ```antlr
+
 expr:
 | V=sum -> V
 
