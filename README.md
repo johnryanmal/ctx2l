@@ -22,7 +22,7 @@ pip install antlr4-python3-runtime
 pip install antlr4-tools
 ```
 
-2. Clone the reponsitory
+2. Clone the repository
 ```shell
 git clone https://github.com/johnryanmal/ctx2l ~/ctx2l
 ```
@@ -35,12 +35,6 @@ echo 'alias ctx2l="python ~/ctx2l/python/main.py"' >> ~/.zshrc
 ```
 
 After restarting your shell, you should be able to use the `ctx2l` command.
-
-## Updating
-1. Pull from the repository
-```shell
-git -C ~/ctx2l pull origin main
-```
 
 ## Usage
 
@@ -142,4 +136,23 @@ And the correct output is given:
 $ ctx2l calculator.ctx2l
 $ python main.py sample.txt
 -19.0
+```
+
+## Updating
+
+1. Pull from the repository
+```shell
+git -C ~/ctx2l pull origin main
+```
+
+## Uninstallation
+
+1. Update rc file
+```zsh
+grep -v 'alias ctx2l="python ~/ctx2l/python/main.py"' ~/.zshrc > ~/.zshrc
+```
+
+2. Remove the repository
+```shell
+rm -rf ~/ctx2l
 ```
