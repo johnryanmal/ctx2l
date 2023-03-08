@@ -155,7 +155,8 @@ git -C ~/ctx2l pull origin main
 
 `.zshrc`
 ```zsh
-grep -v 'alias ctx2l="python ~/ctx2l/python/main.py"' ~/.zshrc > ~/.zshrc
+grep -v 'alias ctx2l="python ~/ctx2l/python/main.py"' ~/.zshrc > /tmp/.zshrc
+mv -f /tmp/.zshrc ~/.zshrc
 ```
 
 2. Remove the repository
