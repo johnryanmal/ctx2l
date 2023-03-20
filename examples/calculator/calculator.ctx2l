@@ -1,3 +1,6 @@
+calculation:
+| V=expr EOF -> V
+
 expr:
 | V=sum -> V
 
