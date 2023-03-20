@@ -10,21 +10,22 @@ else:
 
 def serializedATN():
     return [
-        4,1,9,49,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,1,0,1,0,1,1,1,1,
-        1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,22,8,1,1,2,1,2,1,2,1,2,1,2,1,2,1,
-        2,1,2,1,2,3,2,33,8,2,1,3,1,3,1,3,1,3,1,3,3,3,40,8,3,1,4,1,4,1,4,
-        1,4,1,4,3,4,47,8,4,1,4,0,0,5,0,2,4,6,8,0,0,49,0,10,1,0,0,0,2,21,
-        1,0,0,0,4,32,1,0,0,0,6,39,1,0,0,0,8,46,1,0,0,0,10,11,3,2,1,0,11,
-        1,1,0,0,0,12,22,3,4,2,0,13,14,3,4,2,0,14,15,5,7,0,0,15,16,3,2,1,
-        0,16,22,1,0,0,0,17,18,3,4,2,0,18,19,5,8,0,0,19,20,3,2,1,0,20,22,
-        1,0,0,0,21,12,1,0,0,0,21,13,1,0,0,0,21,17,1,0,0,0,22,3,1,0,0,0,23,
-        33,3,6,3,0,24,25,3,6,3,0,25,26,5,6,0,0,26,27,3,4,2,0,27,33,1,0,0,
-        0,28,29,3,6,3,0,29,30,5,9,0,0,30,31,3,4,2,0,31,33,1,0,0,0,32,23,
-        1,0,0,0,32,24,1,0,0,0,32,28,1,0,0,0,33,5,1,0,0,0,34,40,3,8,4,0,35,
-        36,3,8,4,0,36,37,5,3,0,0,37,38,3,6,3,0,38,40,1,0,0,0,39,34,1,0,0,
-        0,39,35,1,0,0,0,40,7,1,0,0,0,41,42,5,4,0,0,42,43,3,0,0,0,43,44,5,
-        5,0,0,44,47,1,0,0,0,45,47,5,1,0,0,46,41,1,0,0,0,46,45,1,0,0,0,47,
-        9,1,0,0,0,4,21,32,39,46
+        4,1,9,54,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,1,0,1,0,
+        1,0,1,1,1,1,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,3,2,27,8,2,1,3,1,
+        3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,3,3,38,8,3,1,4,1,4,1,4,1,4,1,4,3,4,
+        45,8,4,1,5,1,5,1,5,1,5,1,5,3,5,52,8,5,1,5,0,0,6,0,2,4,6,8,10,0,0,
+        53,0,12,1,0,0,0,2,15,1,0,0,0,4,26,1,0,0,0,6,37,1,0,0,0,8,44,1,0,
+        0,0,10,51,1,0,0,0,12,13,3,2,1,0,13,14,5,0,0,1,14,1,1,0,0,0,15,16,
+        3,4,2,0,16,3,1,0,0,0,17,27,3,6,3,0,18,19,3,6,3,0,19,20,5,7,0,0,20,
+        21,3,4,2,0,21,27,1,0,0,0,22,23,3,6,3,0,23,24,5,8,0,0,24,25,3,4,2,
+        0,25,27,1,0,0,0,26,17,1,0,0,0,26,18,1,0,0,0,26,22,1,0,0,0,27,5,1,
+        0,0,0,28,38,3,8,4,0,29,30,3,8,4,0,30,31,5,6,0,0,31,32,3,6,3,0,32,
+        38,1,0,0,0,33,34,3,8,4,0,34,35,5,9,0,0,35,36,3,6,3,0,36,38,1,0,0,
+        0,37,28,1,0,0,0,37,29,1,0,0,0,37,33,1,0,0,0,38,7,1,0,0,0,39,45,3,
+        10,5,0,40,41,3,10,5,0,41,42,5,3,0,0,42,43,3,8,4,0,43,45,1,0,0,0,
+        44,39,1,0,0,0,44,40,1,0,0,0,45,9,1,0,0,0,46,47,5,4,0,0,47,48,3,2,
+        1,0,48,49,5,5,0,0,49,52,1,0,0,0,50,52,5,1,0,0,51,46,1,0,0,0,51,50,
+        1,0,0,0,52,11,1,0,0,0,4,26,37,44,51
     ]
 
 class calculatorParser ( Parser ):
@@ -44,13 +45,14 @@ class calculatorParser ( Parser ):
                       "LITERAL__3", "LITERAL__4", "LITERAL__5", "LITERAL__6", 
                       "LITERAL__7" ]
 
-    RULE_expr = 0
-    RULE_sum = 1
-    RULE_prod = 2
-    RULE_pow = 3
-    RULE_value = 4
+    RULE_calculation = 0
+    RULE_expr = 1
+    RULE_sum = 2
+    RULE_prod = 3
+    RULE_pow = 4
+    RULE_value = 5
 
-    ruleNames =  [ "expr", "sum", "prod", "pow", "value" ]
+    ruleNames =  [ "calculation", "expr", "sum", "prod", "pow", "value" ]
 
     EOF = Token.EOF
     DIGITS=1
@@ -70,6 +72,52 @@ class calculatorParser ( Parser ):
         self._predicates = None
 
 
+
+
+    class CalculationContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+            self.V = None # ExprContext
+
+        def EOF(self):
+            return self.getToken(calculatorParser.EOF, 0)
+
+        def expr(self):
+            return self.getTypedRuleContext(calculatorParser.ExprContext,0)
+
+
+        def getRuleIndex(self):
+            return calculatorParser.RULE_calculation
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCalculation" ):
+                return visitor.visitCalculation(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def calculation(self):
+
+        localctx = calculatorParser.CalculationContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 0, self.RULE_calculation)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 12
+            localctx.V = self.expr()
+            self.state = 13
+            self.match(calculatorParser.EOF)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
 
 
     class ExprContext(ParserRuleContext):
@@ -99,10 +147,10 @@ class calculatorParser ( Parser ):
     def expr(self):
 
         localctx = calculatorParser.ExprContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 0, self.RULE_expr)
+        self.enterRule(localctx, 2, self.RULE_expr)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 10
+            self.state = 15
             localctx.V = self.sum_()
         except RecognitionException as re:
             localctx.exception = re
@@ -200,37 +248,37 @@ class calculatorParser ( Parser ):
     def sum_(self):
 
         localctx = calculatorParser.SumContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 2, self.RULE_sum)
+        self.enterRule(localctx, 4, self.RULE_sum)
         try:
-            self.state = 21
+            self.state = 26
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,0,self._ctx)
             if la_ == 1:
                 localctx = calculatorParser.Sum__1Context(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 12
+                self.state = 17
                 localctx.V = self.prod()
                 pass
 
             elif la_ == 2:
                 localctx = calculatorParser.Sum__2Context(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 13
+                self.state = 18
                 localctx.L = self.prod()
-                self.state = 14
+                self.state = 19
                 self.match(calculatorParser.LITERAL__5)
-                self.state = 15
+                self.state = 20
                 localctx.R = self.sum_()
                 pass
 
             elif la_ == 3:
                 localctx = calculatorParser.Sum__3Context(self, localctx)
                 self.enterOuterAlt(localctx, 3)
-                self.state = 17
+                self.state = 22
                 localctx.L = self.prod()
-                self.state = 18
+                self.state = 23
                 self.match(calculatorParser.LITERAL__6)
-                self.state = 19
+                self.state = 24
                 localctx.R = self.sum_()
                 pass
 
@@ -331,37 +379,37 @@ class calculatorParser ( Parser ):
     def prod(self):
 
         localctx = calculatorParser.ProdContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 4, self.RULE_prod)
+        self.enterRule(localctx, 6, self.RULE_prod)
         try:
-            self.state = 32
+            self.state = 37
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,1,self._ctx)
             if la_ == 1:
                 localctx = calculatorParser.Prod__1Context(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 23
+                self.state = 28
                 localctx.V = self.pow_()
                 pass
 
             elif la_ == 2:
                 localctx = calculatorParser.Prod__2Context(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 24
+                self.state = 29
                 localctx.L = self.pow_()
-                self.state = 25
+                self.state = 30
                 self.match(calculatorParser.LITERAL__4)
-                self.state = 26
+                self.state = 31
                 localctx.R = self.prod()
                 pass
 
             elif la_ == 3:
                 localctx = calculatorParser.Prod__3Context(self, localctx)
                 self.enterOuterAlt(localctx, 3)
-                self.state = 28
+                self.state = 33
                 localctx.L = self.pow_()
-                self.state = 29
+                self.state = 34
                 self.match(calculatorParser.LITERAL__7)
-                self.state = 30
+                self.state = 35
                 localctx.R = self.prod()
                 pass
 
@@ -438,26 +486,26 @@ class calculatorParser ( Parser ):
     def pow_(self):
 
         localctx = calculatorParser.PowContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 6, self.RULE_pow)
+        self.enterRule(localctx, 8, self.RULE_pow)
         try:
-            self.state = 39
+            self.state = 44
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
             if la_ == 1:
                 localctx = calculatorParser.Pow__1Context(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 34
+                self.state = 39
                 localctx.V = self.value()
                 pass
 
             elif la_ == 2:
                 localctx = calculatorParser.Pow__2Context(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 35
+                self.state = 40
                 localctx.L = self.value()
-                self.state = 36
+                self.state = 41
                 self.match(calculatorParser.LITERAL__1)
-                self.state = 37
+                self.state = 42
                 localctx.R = self.pow_()
                 pass
 
@@ -531,25 +579,25 @@ class calculatorParser ( Parser ):
     def value(self):
 
         localctx = calculatorParser.ValueContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 8, self.RULE_value)
+        self.enterRule(localctx, 10, self.RULE_value)
         try:
-            self.state = 46
+            self.state = 51
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [4]:
                 localctx = calculatorParser.Value__1Context(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 41
+                self.state = 46
                 self.match(calculatorParser.LITERAL__2)
-                self.state = 42
+                self.state = 47
                 localctx.V = self.expr()
-                self.state = 43
+                self.state = 48
                 self.match(calculatorParser.LITERAL__3)
                 pass
             elif token in [1]:
                 localctx = calculatorParser.Value__2Context(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 45
+                self.state = 50
                 localctx.V = self.match(calculatorParser.DIGITS)
                 pass
             else:

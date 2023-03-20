@@ -9,6 +9,11 @@ else:
 
 class calculatorParserVisitor(ParseTreeVisitor):
 
+    # Visit a parse tree produced by calculatorParser#calculation.
+    def visitCalculation(self, ctx:calculatorParser.CalculationContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by calculatorParser#expr.
     def visitExpr(self, ctx:calculatorParser.ExprContext):
         return self.visitChildren(ctx)

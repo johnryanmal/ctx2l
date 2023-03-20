@@ -4,6 +4,10 @@ options {
     tokenVocab = calculatorLexer;
 }
 
+calculation
+  : V=expr EOF
+  ;
+
 expr
   : V=sum
   ;

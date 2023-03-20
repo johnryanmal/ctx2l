@@ -10,7 +10,7 @@ def main(path):
     lexer = calculatorLexer(input_stream)
     stream = CommonTokenStream(lexer)
     parser = calculatorParser(stream)
-    tree = parser.expr()
+    tree = parser.calculation()
     visitor = calculatorVisitor()
     result = visitor.visit(tree)
     print(result)

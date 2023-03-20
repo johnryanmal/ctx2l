@@ -6,6 +6,10 @@ class calculatorVisitor(calculatorParserVisitor):
     def __init__(self):
         self.evaluator = calculatorEvaluator()
     
+    def visitCalculation(self, ctx):
+        V = self.visit(ctx.V)
+        return V
+    
     def visitExpr(self, ctx):
         V = self.visit(ctx.V)
         return V
