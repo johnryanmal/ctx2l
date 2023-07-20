@@ -392,7 +392,6 @@ class ctx2lPythonEvaluator(Evaluator):
             newlines().join([
                 pythonImport('sys'),
                 pythonImport('antlr4', '*'),
-                pythonImport('antlr4.error.ErrorListener', '*'),
                 pythonFileImport(lexer),
                 pythonFileImport(parser),
                 pythonFileImport(visitor),
