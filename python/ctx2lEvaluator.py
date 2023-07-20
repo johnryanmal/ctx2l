@@ -102,6 +102,9 @@ def pythonObject(name, items):
 def pythonAssign(key, value):
     return f'{key} = {value}'
 
+def pythonCall(func, arg=''):
+    return f'{func}({arg})'
+
 def pythonVisitDefault(name, attrs):
     return (
         f'def visit{cap(name)}(self, ctx):'
@@ -248,8 +251,9 @@ class ctx2lEvaluator(Evaluator):
 
 
 class ctx2lPythonEvaluator(Evaluator):
-    def __init__(self, name):
+    def __init__(self, name, dependencies={}):
         self.name = name
+        self.dependencies = dependencies
 
     def evalLabel(self, *, id, op, **_):
         return id, ('list' if op == '+=' else 'value')
@@ -388,9 +392,11 @@ class ctx2lPythonEvaluator(Evaluator):
             newlines().join([
                 pythonImport('sys'),
                 pythonImport('antlr4', '*'),
+                pythonImport('antlr4.error.ErrorListener', '*'),
                 pythonFileImport(lexer),
                 pythonFileImport(parser),
-                pythonFileImport(visitor)
+                pythonFileImport(visitor),
+                *(pythonImport(module, key) for module, key in self.dependencies.items())
             ])
             + newlines(3)
             + 'def main(path):'
@@ -398,12 +404,16 @@ class ctx2lPythonEvaluator(Evaluator):
                 newlines().join([
                     pythonAssign('input_stream', 'FileStream(path)'),
                     pythonAssign('lexer', f'{lexer}(input_stream)'),
+                    pythonCall('lexer.removeErrorListeners'),
+                    pythonCall('lexer.addErrorListener', 'ThrowingErrorListener()'),
                     pythonAssign('stream', 'CommonTokenStream(lexer)'),
                     pythonAssign('parser', f'{parser}(stream)'),
+                    pythonCall('parser.removeErrorListeners'),
+                    pythonCall('parser.addErrorListener', 'ThrowingErrorListener()'),
                     pythonAssign('tree', f'parser.{start_rule}()'),
                     pythonAssign('visitor', f'{visitor}()'),
                     pythonAssign('result', 'visitor.visit(tree)'),
-                    'print(result)'
+                    pythonCall('print', 'result')
                 ])
             )
             + newlines(3)
