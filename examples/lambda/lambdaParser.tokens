@@ -1,0 +1,9 @@
+LAMBDA=1
+SYMBOL=2
+DOT=3
+WS=4
+LITERAL__1=5
+LITERAL__2=6
+'.'=3
+'('=5
+')'=6
