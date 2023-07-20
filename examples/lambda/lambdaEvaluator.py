@@ -1,5 +1,4 @@
 from lambdaVisitorEvaluator import lambdaVisitorEvaluator
-from collections import defaultdict
 
 
 class lambdaEvaluator(lambdaVisitorEvaluator):
