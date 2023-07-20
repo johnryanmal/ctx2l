@@ -42,7 +42,7 @@ def main(input_path, output_path=None):
     writer.write(f'{name}VisitorEvaluator.py', visitorEvaluatorFile)
     writer.write('main.py', mainFile)
 
-    subprocess.run(['antlr4', dest_path / f'{name}Lexer.g4', dest_path / f'{name}Parser.g4', '-no-listener', '-visitor', '-Dlanguage=Python3'])
+    subprocess.run(['antlr4', '-v', '4.13.0', dest_path / f'{name}Lexer.g4', dest_path / f'{name}Parser.g4', '-no-listener', '-visitor', '-Dlanguage=Python3'])
 
 
 if __name__ == '__main__':
