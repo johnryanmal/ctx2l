@@ -1,0 +1,17 @@
+calculus:
+| V=terms EOF -> $eval(V)
+
+terms:
+| F=terms V=term -> $apply(F, V) -- application is left associative
+| V=term -> V
+
+term:
+| '(' V=terms ')' -> V
+| LAMBDA X=SYMBOL DOT Y=terms -> $abstract(X, Y)
+| V=SYMBOL -> $symbol(V)
+
+LAMBDA: '\\' | '\u03BB'
+SYMBOL: [A-Za-z_]+
+DOT: '.'
+
+WS >> skip: [ \t\r\n\f]+
