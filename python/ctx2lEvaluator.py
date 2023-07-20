@@ -152,12 +152,25 @@ def pythonBlock(body):
     else:
         return indent() + 'pass'
 
+def pythonDef(name, params=None, body=None):
+    paramdef = '()' if params is None else pythonTuple(params)
+    return (
+        f'def {name}{paramdef}:'
+        + pythonBlock(body)
+    )
+    
+def pythonReturn(val):
+    return f'return {val}'
+
 def pythonClass(name, bases=None, body=None):
     inherit = '' if bases is None else pythonTuple(bases)
     return (
         f'class {name}{inherit}:'
         + pythonBlock(body)
     )
+
+def pythonShebang():
+    return '#!/usr/bin/env python3\n'
 
 class Evaluator:
     def eval(self, node):
@@ -348,6 +361,7 @@ class ctx2lPythonEvaluator(Evaluator):
         visitor = f'{self.name}Visitor'
         visitorEvaluator = f'{self.name}VisitorEvaluator'
         evaluator = f'{self.name}Evaluator'
+        runner = 'runner'
 
         visitorModule = (
             newlines().join([
@@ -388,9 +402,8 @@ class ctx2lPythonEvaluator(Evaluator):
             )
             + '\n'
         )
-        mainModule = (
+        runnerModule = (
             newlines().join([
-                pythonImport('sys'),
                 pythonImport('antlr4', '*'),
                 pythonFileImport(lexer),
                 pythonFileImport(parser),
@@ -398,28 +411,51 @@ class ctx2lPythonEvaluator(Evaluator):
                 *(pythonImport(module, key) for module, key in self.dependencies.items())
             ])
             + newlines(3)
-            + 'def main(path):'
-            + block(
-                newlines().join([
-                    pythonAssign('input_stream', 'FileStream(path)'),
-                    pythonAssign('lexer', f'{lexer}(input_stream)'),
-                    pythonCall('lexer.removeErrorListeners'),
-                    pythonCall('lexer.addErrorListener', 'ThrowingErrorListener()'),
-                    pythonAssign('stream', 'CommonTokenStream(lexer)'),
-                    pythonAssign('parser', f'{parser}(stream)'),
-                    pythonCall('parser.removeErrorListeners'),
-                    pythonCall('parser.addErrorListener', 'ThrowingErrorListener()'),
-                    pythonAssign('tree', f'parser.{start_rule}()'),
-                    pythonAssign('visitor', f'{visitor}()'),
-                    pythonAssign('result', 'visitor.visit(tree)'),
-                    pythonCall('print', 'result')
-                ])
-            )
+            + newlines(2).join([
+                pythonDef('_evaluate', ('input_stream',), (
+                    newlines().join([
+                        pythonAssign('lexer', f'{lexer}(input_stream)'),
+                        pythonCall('lexer.removeErrorListeners'),
+                        pythonCall('lexer.addErrorListener', 'ThrowingErrorListener()'),
+                        pythonAssign('stream', 'CommonTokenStream(lexer)'),
+                        pythonAssign('parser', f'{parser}(stream)'),
+                        pythonCall('parser.removeErrorListeners'),
+                        pythonCall('parser.addErrorListener', 'ThrowingErrorListener()'),
+                        pythonAssign('tree', f'parser.{start_rule}()'),
+                        pythonAssign('visitor', f'{visitor}()'),
+                        pythonAssign('result', 'visitor.visit(tree)'),
+                        pythonReturn('result')
+                    ])
+                )),
+                pythonDef('evaluate', ('text',), (
+                    pythonReturn(
+                        pythonCall('_evaluate', pythonCall('InputStream', 'text'))
+                    )
+                )),
+                pythonDef('evaluate_file', ('path',), (
+                    pythonReturn(
+                        pythonCall('_evaluate', pythonCall('FileStream', 'path'))
+                    )
+                ))
+            ])
+            + '\n'
+        )
+        mainModule = (
+            pythonShebang()
+            + newlines().join([
+                pythonImport('sys'),
+                pythonImport(runner, 'evaluate_file')
+            ])
             + newlines(3)
             + "if __name__ == '__main__':"
             + block(
-                'main(*sys.argv[1:])'
+                pythonAssign('result', pythonCall('evaluate_file', '*sys.argv[1:]'))
+                + newlines(2)
+                + 'if result:'
+                + block(
+                    pythonCall('print', 'result')
+                )
             )
             + '\n'
         )
-        return visitorModule, visitorEvaluatorModule, mainModule
+        return visitorModule, visitorEvaluatorModule, runnerModule, mainModule

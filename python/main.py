@@ -43,7 +43,7 @@ def main(input_path, output_path=None):
     evaluator = ctx2lEvaluator(name)
     generator = ctx2lPythonEvaluator(name, dependencies={ 'ThrowingErrorListener': 'ThrowingErrorListener' })
     lexerFile, parserFile = evaluator.eval(ast)
-    visitorFile, visitorEvaluatorFile, mainFile = generator.eval(ast)
+    visitorFile, visitorEvaluatorFile, runnerFile, mainFile = generator.eval(ast)
 
     dest_path = Path(output_path or pathname)
     writer = Writer(dest_path)
@@ -55,6 +55,8 @@ def main(input_path, output_path=None):
     writer.write(f'{name}Visitor.py', visitorFile)
     writer.write(f'{name}VisitorEvaluator.py', visitorEvaluatorFile)
     writer.write('main.py', mainFile)
+    writer.write('runner.py', runnerFile)
+
 
     process = subprocess.run(['antlr4', '-v', '4.13.0', dest_path / f'{name}Lexer.g4', dest_path / f'{name}Parser.g4', '-no-listener', '-visitor', '-Dlanguage=Python3', '-package', 'test'], capture_output=True)
 
