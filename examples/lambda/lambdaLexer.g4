@@ -6,7 +6,7 @@ LAMBDA
   ;
 
 SYMBOL
-  : [A-Za-z_]+
+  : [A-Za-z_] [A-Za-z0-9_]*
   ;
 
 DOT

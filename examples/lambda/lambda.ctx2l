@@ -11,7 +11,7 @@ term:
 | V=SYMBOL -> $symbol(V)
 
 LAMBDA: '\\' | '\u03BB'
-SYMBOL: [A-Za-z_]+
+SYMBOL: [A-Za-z_] [A-Za-z0-9_]*
 DOT: '.'
 
 WS >> skip: [ \t\r\n\f]+
