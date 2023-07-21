@@ -13,13 +13,17 @@ class Writer:
     def __init__(self, path):
         self.path = path
 
-    def write_file(self, filename, contentpath):
-        with open(Path(__file__).parent / contentpath, 'r') as file:
-            self.write(filename, file.read())
+    def write_file(self, filename, contentpath, **kwargs):
+        src = Path(__file__).parent / contentpath
+        with open(src, 'r') as srcfile:
+            self.write(filename, srcfile.read(), **kwargs)
 
-    def write(self, filename, content):
-        with open(Path(self.path) / filename, 'w') as file:
-            file.write(content)
+    def write(self, filename, content, overwrite=False):
+        filepath = Path(self.path) / filename
+        nofile = filepath.exists()
+        if nofile or overwrite:
+            with open(filepath, 'w') as file:
+                file.write(content)
 
 
 def main(input_path, output_path=None):
@@ -50,12 +54,12 @@ def main(input_path, output_path=None):
 
     writer.write_file('ThrowingErrorListener.py', 'ThrowingErrorListener.py')
 
-    writer.write(f'{name}Lexer.g4', lexerFile)
-    writer.write(f'{name}Parser.g4', parserFile)
-    writer.write(f'{name}Visitor.py', visitorFile)
-    writer.write(f'{name}VisitorEvaluator.py', visitorEvaluatorFile)
+    writer.write(f'{name}Lexer.g4', lexerFile, overwrite=True)
+    writer.write(f'{name}Parser.g4', parserFile, overwrite=True)
+    writer.write(f'{name}Visitor.py', visitorFile, overwrite=True)
+    writer.write(f'{name}VisitorEvaluator.py', visitorEvaluatorFile, overwrite=True)
     writer.write('main.py', mainFile)
-    writer.write('runner.py', runnerFile)
+    writer.write('runner.py', runnerFile, overwrite=True)
 
 
     process = subprocess.run(['antlr4', '-v', '4.13.0', dest_path / f'{name}Lexer.g4', dest_path / f'{name}Parser.g4', '-no-listener', '-visitor', '-Dlanguage=Python3', '-package', 'test'], capture_output=True)
