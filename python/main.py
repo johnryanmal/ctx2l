@@ -52,7 +52,7 @@ def main(input_path, output_path=None):
     dest_path = Path(output_path or pathname)
     writer = Writer(dest_path)
 
-    writer.write_file('ThrowingErrorListener.py', 'ThrowingErrorListener.py')
+    writer.write_file('ThrowingErrorListener.py', 'ThrowingErrorListener.py', overwrite=True)
 
     writer.write(f'{name}Lexer.g4', lexerFile, overwrite=True)
     writer.write(f'{name}Parser.g4', parserFile, overwrite=True)
