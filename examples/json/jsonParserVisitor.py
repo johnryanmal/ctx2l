@@ -1,6 +1,6 @@
-# Generated from examples/json/jsonParser.g4 by ANTLR 4.12.0
+# Generated from examples/json/jsonParser.g4 by ANTLR 4.13.0
 from antlr4 import *
-if __name__ is not None and "." in __name__:
+if "." in __name__:
     from .jsonParser import jsonParser
 else:
     from jsonParser import jsonParser

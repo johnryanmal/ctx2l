@@ -1,20 +1,10 @@
+#!/usr/bin/env python3
 import sys
-from antlr4 import *
-from calculatorLexer import calculatorLexer
-from calculatorParser import calculatorParser
-from calculatorVisitor import calculatorVisitor
-
-
-def main(path):
-    input_stream = FileStream(path)
-    lexer = calculatorLexer(input_stream)
-    stream = CommonTokenStream(lexer)
-    parser = calculatorParser(stream)
-    tree = parser.calculation()
-    visitor = calculatorVisitor()
-    result = visitor.visit(tree)
-    print(result)
+from runner import evaluate_file
 
 
 if __name__ == '__main__':
-    main(*sys.argv[1:])
+    result = evaluate_file(*sys.argv[1:])
+    
+    if result:
+        print(result)

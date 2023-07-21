@@ -1,10 +1,9 @@
 from calculatorParserVisitor import calculatorParserVisitor
-from calculatorEvaluator import calculatorEvaluator
 
 
 class calculatorVisitor(calculatorParserVisitor):
-    def __init__(self):
-        self.evaluator = calculatorEvaluator()
+    def __init__(self, evaluator):
+        self.evaluator = evaluator
     
     def visitCalculation(self, ctx):
         V = self.visit(ctx.V)

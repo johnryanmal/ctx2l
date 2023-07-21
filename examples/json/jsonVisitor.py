@@ -1,10 +1,9 @@
 from jsonParserVisitor import jsonParserVisitor
-from jsonEvaluator import jsonEvaluator
 
 
 class jsonVisitor(jsonParserVisitor):
-    def __init__(self):
-        self.evaluator = jsonEvaluator()
+    def __init__(self, evaluator):
+        self.evaluator = evaluator
     
     def visitJson(self, ctx):
         V = self.visit(ctx.V)
