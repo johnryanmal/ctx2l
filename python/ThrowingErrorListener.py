@@ -25,7 +25,8 @@ class ThrowingErrorListener(ErrorListener):
         errmsg = ''
         if source:
             errmsg += ' '*2 + source + '\n'
-        errmsg += ' '*4 + snippet + '\n'
-        errmsg += ' '*4 + caret + '\n'
+        if snippet or caret:
+            errmsg += ' '*4 + snippet + '\n'
+            errmsg += ' '*4 + caret + '\n'
         errmsg += f'SyntaxError: {msg}'
         raise SystemExit(errmsg)
