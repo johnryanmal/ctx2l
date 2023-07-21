@@ -453,11 +453,11 @@ class ctx2lPythonEvaluator(Evaluator):
             + newlines(3)
             + "if __name__ == '__main__':"
             + block(
-                pythonAssign('result', pythonCall('evaluate_file', '*sys.argv[1:]'))
+                pythonAssign('result', pythonApply('evaluate_file', '*sys.argv[1:]'))
                 + newlines(2)
                 + 'if result:'
                 + block(
-                    pythonCall('print', 'result')
+                    pythonApply('print', 'result')
                 )
             )
             + '\n'
