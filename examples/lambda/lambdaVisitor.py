@@ -1,10 +1,9 @@
 from lambdaParserVisitor import lambdaParserVisitor
-from lambdaEvaluator import lambdaEvaluator
 
 
 class lambdaVisitor(lambdaParserVisitor):
-    def __init__(self):
-        self.evaluator = lambdaEvaluator()
+    def __init__(self, evaluator):
+        self.evaluator = evaluator
     
     def visitCalculus(self, ctx):
         V = self.visit(ctx.V)

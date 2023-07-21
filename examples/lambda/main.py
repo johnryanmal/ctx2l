@@ -1,20 +1,17 @@
+#!/usr/bin/env python3
 import sys
-from antlr4 import *
-from lambdaLexer import lambdaLexer
-from lambdaParser import lambdaParser
-from lambdaVisitor import lambdaVisitor
-
-
-def main(path):
-    input_stream = FileStream(path)
-    lexer = lambdaLexer(input_stream)
-    stream = CommonTokenStream(lexer)
-    parser = lambdaParser(stream)
-    tree = parser.calculus()
-    visitor = lambdaVisitor()
-    result = visitor.visit(tree)
-    print(result)
-
+from runner import evaluate, evaluate_file
+import lambdaEnv
 
 if __name__ == '__main__':
-    main(*sys.argv[1:])
+    env = {
+        name: evaluate(getattr(lambdaEnv, name))
+        for name
+        in dir(lambdaEnv)
+        if not name.startswith("__")
+    }
+
+    result = evaluate_file(*sys.argv[1:], env)
+    
+    if result:
+        print(result)

@@ -1,1 +1,1 @@
-(\p.\q.p q p) (\x.\y.x) (\x.\y.y)
+KI x y
