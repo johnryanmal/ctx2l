@@ -11,7 +11,21 @@ class ThrowingErrorListener(ErrorListener):
             input_stream = recognizer.inputStream
             length = 1
 
-        filepath = Path(input_stream.fileName).resolve()
+        try:
+            filename = input_stream.fileName
+        except AttributeError:
+            source = None
+        else:
+            filepath = Path(filename).resolve()
+            source = f'File "{filepath}", line {line}, column {column+1}'
+        
         snippet = input_stream.strdata.split('\n')[line-1]
         caret = ' '*column + '^'*length
-        raise SystemExit(f'  File "{filepath}", line {line}, column {column+1}\n    {snippet}\n    {caret}\nSyntaxError: {msg}')
+
+        errmsg = ''
+        if source:
+            errmsg += ' '*2 + source + '\n'
+        errmsg += ' '*4 + snippet + '\n'
+        errmsg += ' '*4 + caret + '\n'
+        errmsg += f'SyntaxError: {msg}'
+        raise SystemExit(errmsg)
