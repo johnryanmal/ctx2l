@@ -102,8 +102,11 @@ def pythonObject(name, items):
 def pythonAssign(key, value):
     return f'{key} = {value}'
 
-def pythonCall(func, arg=''):
+def pythonApply(func, arg=''):
     return f'{func}({arg})'
+
+def pythonCall(func, args):
+    return pythonApply(func, listed(args))
 
 def pythonVisitDefault(name, attrs):
     return (
@@ -365,17 +368,16 @@ class ctx2lPythonEvaluator(Evaluator):
 
         visitorModule = (
             newlines().join([
-                pythonFileImport(parserVisitor),
-                pythonFileImport(evaluator),
+                pythonFileImport(parserVisitor)
             ])
             + newlines(3)
             + pythonClass(
                 visitor,
                 (parserVisitor,),
                 (
-                    'def __init__(self):'
+                    'def __init__(self, evaluator):'
                     + block(
-                        pythonAssign('self.evaluator', f'{evaluator}()')
+                        pythonAssign('self.evaluator', 'evaluator')
                     )
                     + newlines(2)
                     + visitorMethods
@@ -408,33 +410,35 @@ class ctx2lPythonEvaluator(Evaluator):
                 pythonFileImport(lexer),
                 pythonFileImport(parser),
                 pythonFileImport(visitor),
+                pythonFileImport(evaluator),
                 *(pythonImport(module, key) for module, key in self.dependencies.items())
             ])
             + newlines(3)
             + newlines(2).join([
-                pythonDef('_evaluate', ('input_stream',), (
+                pythonDef('_evaluate', ('input_stream', '*args', '**kwargs'), (
                     newlines().join([
                         pythonAssign('lexer', f'{lexer}(input_stream)'),
-                        pythonCall('lexer.removeErrorListeners'),
-                        pythonCall('lexer.addErrorListener', 'ThrowingErrorListener()'),
+                        pythonApply('lexer.removeErrorListeners'),
+                        pythonApply('lexer.addErrorListener', 'ThrowingErrorListener()'),
                         pythonAssign('stream', 'CommonTokenStream(lexer)'),
                         pythonAssign('parser', f'{parser}(stream)'),
-                        pythonCall('parser.removeErrorListeners'),
-                        pythonCall('parser.addErrorListener', 'ThrowingErrorListener()'),
+                        pythonApply('parser.removeErrorListeners'),
+                        pythonApply('parser.addErrorListener', 'ThrowingErrorListener()'),
                         pythonAssign('tree', f'parser.{start_rule}()'),
-                        pythonAssign('visitor', f'{visitor}()'),
+                        pythonAssign('evaluator', f'{evaluator}(*args, **kwargs)'),
+                        pythonAssign('visitor', f'{visitor}(evaluator)'),
                         pythonAssign('result', 'visitor.visit(tree)'),
                         pythonReturn('result')
                     ])
                 )),
-                pythonDef('evaluate', ('text',), (
+                pythonDef('evaluate', ('text', '*args', '**kwargs'), (
                     pythonReturn(
-                        pythonCall('_evaluate', pythonCall('InputStream', 'text'))
+                        pythonCall('_evaluate', [pythonApply('InputStream', 'text'), '*args', '**kwargs'])
                     )
                 )),
-                pythonDef('evaluate_file', ('path',), (
+                pythonDef('evaluate_file', ('path', '*args', '**kwargs'), (
                     pythonReturn(
-                        pythonCall('_evaluate', pythonCall('FileStream', 'path'))
+                        pythonCall('_evaluate', [pythonApply('FileStream', 'path'), '*args', '**kwargs'])
                     )
                 ))
             ])

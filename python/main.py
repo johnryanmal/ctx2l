@@ -20,7 +20,7 @@ class Writer:
 
     def write(self, filename, content, overwrite=False):
         filepath = Path(self.path) / filename
-        nofile = filepath.exists()
+        nofile = not filepath.exists()
         if nofile or overwrite:
             with open(filepath, 'w') as file:
                 file.write(content)
