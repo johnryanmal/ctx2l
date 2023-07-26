@@ -29,6 +29,20 @@ class lambdaEvaluator(lambdaVisitorEvaluator):
         return lambdaEval(ast, self.env)
 
 
+def is_digit(char):
+    return '0' <= char <= '9'
+
+def mangle(name, env):
+    if name not in env:
+        return name
+    cursor = len(name)
+    while cursor >= 0 and is_digit(name[cursor-1]):
+        cursor -= 1
+    symbol = name[:cursor]
+    index = name[cursor:] or '1'
+    return symbol + str(int(index) + 1)
+
+
 class Abstraction:
     def __init__(self, bind, expr, env):
         self.bind = bind
@@ -38,8 +52,15 @@ class Abstraction:
     def __call__(self, arg):
         return lambdaEval(self.expr, {**self.env, self.bind: arg})
 
+    def repr(self, env):
+        repr_bind = mangle(self.bind, env)
+        repr_env = {**env, repr_bind: repr_bind}
+        value = self(repr_bind)
+        repr_expr = value if type(value) is str else value.repr(repr_env)
+        return f'\\{repr_bind}.{repr_expr}'
+
     def __repr__(self):
-        return f'\\{self.bind}.{self.__call__(self.bind)}'
+        return self.repr({})
 
 
 class Application:
@@ -47,11 +68,16 @@ class Application:
         self.func = func
         self.arg = arg
 
-    def __repr__(self):
+    def repr(self, env):
+        repr_func = self.func if type(self.func) is str else self.func.repr(env)
+        repr_arg = self.arg if type(self.arg) is str else self.arg.repr(env)
         if type(self.arg) in [Abstraction, Application]:
-            return f'{self.func} ({self.arg})'
+            return f'{repr_func} ({repr_arg})'
         else:
-            return f'{self.func} {self.arg}'
+            return f'{repr_func} {repr_arg}'
+    
+    def __repr__(self):
+        return self.repr({})
 
 
 def lambdaEval(node, env):
@@ -82,7 +108,3 @@ def lambdaEval(node, env):
 
     else:
         raise ValueError('Invalid lambda AST node')
-
-
-
-
