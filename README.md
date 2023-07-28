@@ -40,14 +40,14 @@ After restarting your shell, you should be able to use the `ctx2l` command.
 ## Usage
 
 ### Command Line
-`ctx2l <file> [output directory]`
+`ctx2l <file> [<dir>]`
 
 Generates a lexer, parser, and visitor from a `.ctx2l` source file.
 
 | Option | Description |
 | --- | --- |
 | `file` | The `.ctx2l` file to generate from. |
-| `output directory` | The directory where all output is generated. |
+| `dir` | The directory where all output is generated. |
 
 ### Source
 
