@@ -14,7 +14,10 @@ def _evaluate(input_stream, *args, **kwargs):
     parser = lambdaParser(stream)
     parser.removeErrorListeners()
     parser.addErrorListener(ThrowingErrorListener())
-    tree = parser.calculus()
+    try:
+        tree = parser.calculus()
+    except ThrowingErrorListener.Exception as e:
+        raise SyntaxError(str(e))
     evaluator = lambdaEvaluator(*args, **kwargs)
     visitor = lambdaVisitor(evaluator)
     result = visitor.visit(tree)
