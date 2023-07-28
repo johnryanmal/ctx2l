@@ -1,4 +1,6 @@
+#!/usr/bin/env python3
 import sys
+import argparse
 import subprocess
 from pathlib import Path
 from antlr4 import *
@@ -26,7 +28,7 @@ class Writer:
                 file.write(content)
 
 
-def main(input_path, output_path=None):
+def main(input_path, output_path):
     input_stream = FileStream(input_path)
     lexer = ctx2lLexer(input_stream)
     lexer.removeErrorListeners()
@@ -69,4 +71,11 @@ def main(input_path, output_path=None):
     
 
 if __name__ == '__main__':
-    main(*sys.argv[1:])
+    argp = argparse.ArgumentParser(
+        prog='ctx2l',
+        description='Generates a lexer, parser, and visitor from a .ctx2l source file.',
+    )
+    argp.add_argument('file', help='The .ctx2l file to generate from.')
+    argp.add_argument('dir', nargs='?', help='The directory where all output is generated.')
+    args = argp.parse_args()
+    main(args.file, args.dir)
