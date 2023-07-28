@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import sys
 import argparse
 import subprocess
 from pathlib import Path
@@ -39,7 +38,12 @@ def main(input_path, output_path):
     parser.removeErrorListeners()
     parser.addErrorListener(DiagnosticErrorListener())
     parser.addErrorListener(ThrowingErrorListener())
-    tree = parser.program()
+
+    try:
+        tree = parser.program()
+    except ThrowingErrorListener.Exception as e:
+        raise SystemExit(e)
+
     visitor = ctx2lVisitor()
     ast = visitor.visit(tree)
 
@@ -64,11 +68,11 @@ def main(input_path, output_path):
     writer.write('runner.py', runnerFile, overwrite=True)
 
 
-    process = subprocess.run(['antlr4', '-v', '4.13.0', dest_path / f'{name}Lexer.g4', dest_path / f'{name}Parser.g4', '-no-listener', '-visitor', '-Dlanguage=Python3', '-package', 'test'], capture_output=True)
+    out = subprocess.check_output(['antlr4', '-v', '4.13.0', dest_path / f'{name}Lexer.g4', dest_path / f'{name}Parser.g4', '-no-listener', '-visitor', '-Dlanguage=Python3'])
 
-    if process.stdout:
-        raise SystemExit(process.stdout.decode()[:-1])
-    
+    if out:
+        raise SystemExit(out.decode()[:-1])
+
 
 if __name__ == '__main__':
     argp = argparse.ArgumentParser(

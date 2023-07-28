@@ -427,7 +427,7 @@ class ctx2lPythonEvaluator(Evaluator):
                         ),
                         'except ThrowingErrorListener.Exception as e:'
                         + pythonBlock(
-                            'raise SyntaxError(str(e))'
+                            'raise SyntaxError(e)'
                         ),
                         pythonAssign('evaluator', f'{evaluator}(*args, **kwargs)'),
                         pythonAssign('visitor', f'{visitor}(evaluator)'),
