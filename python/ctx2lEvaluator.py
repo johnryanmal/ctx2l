@@ -102,11 +102,8 @@ def pythonObject(name, items):
 def pythonAssign(key, value):
     return f'{key} = {value}'
 
-def pythonApply(func, arg=''):
-    return f'{func}({arg})'
-
-def pythonCall(func, args):
-    return pythonApply(func, listed(args))
+def pythonCall(func, *args):
+    return f'{func}({listed(args)})'
 
 def pythonVisitDefault(name, attrs):
     return (
@@ -418,12 +415,12 @@ class ctx2lPythonEvaluator(Evaluator):
                 pythonDef('_evaluate', ('input_stream', '*args', '**kwargs'), (
                     newlines().join([
                         pythonAssign('lexer', f'{lexer}(input_stream)'),
-                        pythonApply('lexer.removeErrorListeners'),
-                        pythonApply('lexer.addErrorListener', 'ThrowingErrorListener()'),
+                        pythonCall('lexer.removeErrorListeners'),
+                        pythonCall('lexer.addErrorListener', 'ThrowingErrorListener()'),
                         pythonAssign('stream', 'CommonTokenStream(lexer)'),
                         pythonAssign('parser', f'{parser}(stream)'),
-                        pythonApply('parser.removeErrorListeners'),
-                        pythonApply('parser.addErrorListener', 'ThrowingErrorListener()'),
+                        pythonCall('parser.removeErrorListeners'),
+                        pythonCall('parser.addErrorListener', 'ThrowingErrorListener()'),
                         'try:'
                         + pythonBlock(
                             pythonAssign('tree', f'parser.{start_rule}()'),
@@ -440,12 +437,12 @@ class ctx2lPythonEvaluator(Evaluator):
                 )),
                 pythonDef('evaluate', ('text', '*args', '**kwargs'), (
                     pythonReturn(
-                        pythonCall('_evaluate', [pythonApply('InputStream', 'text'), '*args', '**kwargs'])
+                        pythonCall('_evaluate', pythonCall('InputStream', 'text'), '*args', '**kwargs')
                     )
                 )),
                 pythonDef('evaluate_file', ('path', '*args', '**kwargs'), (
                     pythonReturn(
-                        pythonCall('_evaluate', [pythonApply('FileStream', 'path'), '*args', '**kwargs'])
+                        pythonCall('_evaluate', pythonCall('FileStream', 'path'), '*args', '**kwargs')
                     )
                 ))
             ])
@@ -455,16 +452,72 @@ class ctx2lPythonEvaluator(Evaluator):
             pythonShebang()
             + newlines().join([
                 pythonImport('sys'),
-                pythonImport(runner, 'evaluate_file')
+                pythonImports(runner, ['evaluate', 'evaluate_file'])
             ])
             + newlines(3)
             + "if __name__ == '__main__':"
-            + block(
-                pythonAssign('result', pythonApply('evaluate_file', '*sys.argv[1:]'))
+            + pythonBlock(
+                newlines().join([
+                    'if (files:=sys.argv[1:]):'
+                    + pythonBlock(
+                        'for file in files:'
+                        + pythonBlock(
+                            newlines().join([
+                                pythonAssign('result', pythonCall('evaluate_file', 'file')),
+                                'if result:'
+                                + pythonBlock(
+                                    pythonCall('print', 'result')
+                                )
+                            ])
+                        )
+                    )
+                ])
                 + newlines(2)
-                + 'if result:'
-                + block(
-                    pythonApply('print', 'result')
+                + 'else:'
+                + pythonBlock(
+                    'while True:'
+                    + pythonBlock(
+                        newlines().join([
+                            'try:'
+                            + pythonBlock(
+                                pythonAssign('text', pythonCall('input', "'> '"))
+                            ),
+                            'except KeyboardInterrupt:'
+                            + pythonBlock(
+                                pythonCall('print')
+                            ),
+                            'except EOFError:'
+                            + pythonBlock(
+                                newlines().join([
+                                    pythonCall('print'),
+                                    'break'
+                                ])
+                            ),
+                            'else:'
+                            + pythonBlock(
+                                newlines().join([
+                                    'try:'
+                                    + pythonBlock(
+                                        pythonAssign('result', pythonCall('evaluate', 'text'))
+                                    ),
+                                    'except SyntaxError as e:'
+                                    + pythonBlock(
+                                        pythonCall('print', 'e')
+                                    ),
+                                    'else:'
+                                    + pythonBlock(
+                                        newlines().join([
+                                            'if result:'
+                                            + pythonBlock(
+                                                pythonCall('print', 'result')
+                                            )
+                                        ])
+                                    )
+                                ])
+                            )
+
+                        ])
+                    )
                 )
             )
             + '\n'
