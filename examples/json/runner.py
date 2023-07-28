@@ -17,7 +17,7 @@ def _evaluate(input_stream, *args, **kwargs):
     try:
         tree = parser.json()
     except ThrowingErrorListener.Exception as e:
-        raise SyntaxError(str(e))
+        raise SyntaxError(e)
     evaluator = jsonEvaluator(*args, **kwargs)
     visitor = jsonVisitor(evaluator)
     result = visitor.visit(tree)

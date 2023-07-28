@@ -17,7 +17,7 @@ def _evaluate(input_stream, *args, **kwargs):
     try:
         tree = parser.calculus()
     except ThrowingErrorListener.Exception as e:
-        raise SyntaxError(str(e))
+        raise SyntaxError(e)
     evaluator = lambdaEvaluator(*args, **kwargs)
     visitor = lambdaVisitor(evaluator)
     result = visitor.visit(tree)
