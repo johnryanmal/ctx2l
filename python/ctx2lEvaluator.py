@@ -161,7 +161,7 @@ def pythonDef(name, params=None, body=None):
         f'def {name}{paramdef}:'
         + pythonBlock(body)
     )
-    
+
 def pythonReturn(val):
     return f'return {val}'
 
@@ -424,7 +424,14 @@ class ctx2lPythonEvaluator(Evaluator):
                         pythonAssign('parser', f'{parser}(stream)'),
                         pythonApply('parser.removeErrorListeners'),
                         pythonApply('parser.addErrorListener', 'ThrowingErrorListener()'),
-                        pythonAssign('tree', f'parser.{start_rule}()'),
+                        'try:'
+                        + pythonBlock(
+                            pythonAssign('tree', f'parser.{start_rule}()'),
+                        ),
+                        'except ThrowingErrorListener.Exception as e:'
+                        + pythonBlock(
+                            'raise SyntaxError(str(e))'
+                        ),
                         pythonAssign('evaluator', f'{evaluator}(*args, **kwargs)'),
                         pythonAssign('visitor', f'{visitor}(evaluator)'),
                         pythonAssign('result', 'visitor.visit(tree)'),
