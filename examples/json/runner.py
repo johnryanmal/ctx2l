@@ -14,7 +14,10 @@ def _evaluate(input_stream, *args, **kwargs):
     parser = jsonParser(stream)
     parser.removeErrorListeners()
     parser.addErrorListener(ThrowingErrorListener())
-    tree = parser.json()
+    try:
+        tree = parser.json()
+    except ThrowingErrorListener.Exception as e:
+        raise SyntaxError(str(e))
     evaluator = jsonEvaluator(*args, **kwargs)
     visitor = jsonVisitor(evaluator)
     result = visitor.visit(tree)

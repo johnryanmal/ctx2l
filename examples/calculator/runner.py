@@ -14,7 +14,10 @@ def _evaluate(input_stream, *args, **kwargs):
     parser = calculatorParser(stream)
     parser.removeErrorListeners()
     parser.addErrorListener(ThrowingErrorListener())
-    tree = parser.calculation()
+    try:
+        tree = parser.calculation()
+    except ThrowingErrorListener.Exception as e:
+        raise SyntaxError(str(e))
     evaluator = calculatorEvaluator(*args, **kwargs)
     visitor = calculatorVisitor(evaluator)
     result = visitor.visit(tree)

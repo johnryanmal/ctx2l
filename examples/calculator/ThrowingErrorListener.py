@@ -1,8 +1,11 @@
 from pathlib import Path
 from antlr4.error.ErrorListener import *
+from antlr4.error.Errors import *
 
 
 class ThrowingErrorListener(ErrorListener):
+    Exception = ParseCancellationException
+
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
         if offendingSymbol:
             input_stream = offendingSymbol.getInputStream()
@@ -29,4 +32,4 @@ class ThrowingErrorListener(ErrorListener):
             errmsg += ' '*4 + snippet + '\n'
             errmsg += ' '*4 + caret + '\n'
         errmsg += f'SyntaxError: {msg}'
-        raise SystemExit(errmsg)
+        raise self.Exception(errmsg)
