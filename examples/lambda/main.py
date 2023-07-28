@@ -14,7 +14,26 @@ if __name__ == '__main__':
     for name, value in attrs.items():
         env[name] = evaluate(value, env)
 
-    result = evaluate_file(*sys.argv[1:], env)
-    
-    if result:
-        print(result)
+    if (files:=sys.argv[1:]):
+        for file in files:
+            result = evaluate_file(file, env)
+            if result:
+                print(result)
+
+    else:
+        while True:
+            try:
+                text = input('> ')
+            except KeyboardInterrupt:
+                print()
+            except EOFError:
+                print()
+                break
+            else:
+                try:
+                    result = evaluate(text, env)
+                except SyntaxError as e:
+                    print(e)
+                else:
+                    if result:
+                        print(result)
