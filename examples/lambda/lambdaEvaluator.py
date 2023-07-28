@@ -33,14 +33,17 @@ def is_digit(char):
     return '0' <= char <= '9'
 
 def mangle(name, env):
-    if name not in env:
-        return name
     cursor = len(name)
     while cursor >= 0 and is_digit(name[cursor-1]):
         cursor -= 1
     symbol = name[:cursor]
-    index = name[cursor:] or '1'
-    return symbol + str(int(index) + 1)
+    index = int(name[cursor:] or '1')
+
+    newname = name
+    while newname in env:
+        index += 1
+        newname = symbol + str(index)
+    return newname
 
 
 class Abstraction:
