@@ -1,3 +1,3 @@
 #!/bin/sh -eu
 cd "$(dirname "$0")/.."
-find ./examples -name "$1" | head -n 1 | xargs scripts/main "./examples/${1}/${1}.ctx2l"
+scripts/main "./examples/${1}/${1}.ctx2l" "${@:2}"
