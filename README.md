@@ -51,11 +51,11 @@ Generates a lexer, parser, and visitor from a `.ctx2l` source file.
 
 ### Source
 
-At minimum, three files are needed to generate a working program.
+At minimum, three things are needed to generate a working program.
 
 - A ctx2l file (grammar)
 - An evaluator file (functionality)
-- An input file (text)
+- An input (text)
 
 ### Example ([source](/examples/calculator))
 
@@ -138,6 +138,44 @@ $ ctx2l calculator.ctx2l
 $ python main.py sample.txt
 -19.0
 ```
+
+If you want to read from stdin instead, running `main.py` without any arguments will open up a simple repl:
+```shell
+$ python main.py
+> 1 + 1
+2
+> 2 * 3
+6
+> text
+    text
+    ^
+SyntaxError: token recognition error at: 't'
+```
+
+### Executable
+
+If you wish, you can make the script executable:
+```shell
+$ chmod +x main.py
+$ ./main.py sample.txt
+-19.0
+$ ./main.py
+> 1 + 1
+2
+```
+
+And symlink it for your own use:
+```shell
+$ sudo ln -s "$PWD/main.py" /usr/local/bin/calculator
+$ calculator sample.txt
+-19.0
+$ calculator
+> 2 + 2
+4
+```
+
+But if you're a little more ambitious, you can use a tool like [PyInstaller](https://pyinstaller.org/en/stable/) and make an executable you can distribute to other people as well!
+
 
 ## Updating
 
