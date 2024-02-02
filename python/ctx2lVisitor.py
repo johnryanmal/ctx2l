@@ -82,7 +82,7 @@ class ctx2lVisitor(ctx2lParserVisitor):
         return node(
             type='atom',
             label=self.visitable(ctx.label()),
-            ebnf=self.visit(ctx.tokenEbnf()),
+            term=self.visit(ctx.tokenTerm()),
             suffix=self.visitable(ctx.ebnfSuffix())
         )
 
@@ -90,7 +90,7 @@ class ctx2lVisitor(ctx2lParserVisitor):
         return node(
             type='atom',
             label=self.visitable(ctx.label()),
-            ebnf=self.visit(ctx.ruleEbnf()),
+            term=self.visit(ctx.ruleTerm()),
             suffix=self.visitable(ctx.ebnfSuffix())
         )
 

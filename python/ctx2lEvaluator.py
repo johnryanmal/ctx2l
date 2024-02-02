@@ -209,11 +209,11 @@ class ctx2lEvaluator(Evaluator):
     def evalLabel(self, *, id, op, **_):
         return id + op
 
-    def evalAtom(self, *, label='', ebnf, suffix='', **_):
-        if ebnf['type'] == 'sub':
-            return self.eval(ebnf) + suffix
+    def evalAtom(self, *, label='', term, suffix='', **_):
+        if term['type'] == 'sub':
+            return self.eval(term) + suffix
         else:
-            return self.evalable(label) + self.eval(ebnf) + suffix
+            return self.evalable(label) + self.eval(term) + suffix
 
     def evalAlt(self, *, atoms, **_):
         return spaces().join(self.evals(atoms))
@@ -306,13 +306,13 @@ class ctx2lPythonEvaluator(Evaluator):
         else:
             return ()
 
-    def evalAtom(self, *, label=None, ebnf, **_):
+    def evalAtom(self, *, label=None, term, **_):
         self.atomInfo = {
             'id': None,
             'kind': None
         }
         self.evalable(label)
-        return self.eval(ebnf)
+        return self.eval(term)
 
     def evalAlt(self, *, atoms, expr=None, **_):
         attrs = dict(chain(*self.evals(atoms))).items()
