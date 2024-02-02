@@ -269,7 +269,8 @@ class ctx2lPythonEvaluator(Evaluator):
         self.dependencies = dependencies
 
     def evalLabel(self, *, id, op, **_):
-        return id, ('list' if op == '+=' else 'value')
+        self.atomInfo['id'] = id
+        self.atomInfo['kind'] = 'list' if op == '+=' else 'value'
 
     def evalCall(self, *, args=(), **_):
         return '(' + ', '.join(self.evals(args)) + ')'
@@ -306,15 +307,11 @@ class ctx2lPythonEvaluator(Evaluator):
             return ()
 
     def evalAtom(self, *, label=None, ebnf, **_):
-        if label is None:
-            id, kind = None, None
-        else:
-            id, kind = self.eval(label)
-
         self.atomInfo = {
-            'id': id,
-            'kind': kind
+            'id': None,
+            'kind': None
         }
+        self.evalable(label)
         return self.eval(ebnf)
 
     def evalAlt(self, *, atoms, expr=None, **_):
