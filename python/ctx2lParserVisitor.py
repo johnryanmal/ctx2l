@@ -64,8 +64,8 @@ class ctx2lParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ctx2lParser#ruleEbnf.
-    def visitRuleEbnf(self, ctx:ctx2lParser.RuleEbnfContext):
+    # Visit a parse tree produced by ctx2lParser#ruleTerm.
+    def visitRuleTerm(self, ctx:ctx2lParser.RuleTermContext):
         return self.visitChildren(ctx)
 
 
@@ -99,8 +99,8 @@ class ctx2lParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ctx2lParser#tokenEbnf.
-    def visitTokenEbnf(self, ctx:ctx2lParser.TokenEbnfContext):
+    # Visit a parse tree produced by ctx2lParser#tokenTerm.
+    def visitTokenTerm(self, ctx:ctx2lParser.TokenTermContext):
         return self.visitChildren(ctx)
 
 

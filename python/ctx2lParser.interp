@@ -140,14 +140,14 @@ tokenAlts
 ruleAlt
 tokenAlt
 ruleAtom
-ruleEbnf
+ruleTerm
 ruleRef
 ruleLiteral
 expr
 call
 args
 tokenAtom
-tokenEbnf
+tokenTerm
 tokenRef
 tokenLiteral
 label

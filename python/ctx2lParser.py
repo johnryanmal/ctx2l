@@ -359,14 +359,14 @@ class ctx2lParser ( Parser ):
     RULE_ruleAlt = 8
     RULE_tokenAlt = 9
     RULE_ruleAtom = 10
-    RULE_ruleEbnf = 11
+    RULE_ruleTerm = 11
     RULE_ruleRef = 12
     RULE_ruleLiteral = 13
     RULE_expr = 14
     RULE_call = 15
     RULE_args = 16
     RULE_tokenAtom = 17
-    RULE_tokenEbnf = 18
+    RULE_tokenTerm = 18
     RULE_tokenRef = 19
     RULE_tokenLiteral = 20
     RULE_label = 21
@@ -438,8 +438,8 @@ class ctx2lParser ( Parser ):
 
     ruleNames =  [ "program", "ruleDef", "tokenDef", "tokenCommands", "ruleSub", 
                    "tokenSub", "ruleAlts", "tokenAlts", "ruleAlt", "tokenAlt", 
-                   "ruleAtom", "ruleEbnf", "ruleRef", "ruleLiteral", "expr", 
-                   "call", "args", "tokenAtom", "tokenEbnf", "tokenRef", 
+                   "ruleAtom", "ruleTerm", "ruleRef", "ruleLiteral", "expr", 
+                   "call", "args", "tokenAtom", "tokenTerm", "tokenRef", 
                    "tokenLiteral", "label", "assign", "grammarSpec", "grammarDecl", 
                    "grammarType", "prequelConstruct", "optionsSpec", "option", 
                    "optionValue", "delegateGrammars", "delegateGrammar", 
@@ -1195,8 +1195,8 @@ class ctx2lParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def ruleEbnf(self):
-            return self.getTypedRuleContext(ctx2lParser.RuleEbnfContext,0)
+        def ruleTerm(self):
+            return self.getTypedRuleContext(ctx2lParser.RuleTermContext,0)
 
 
         def label(self):
@@ -1235,7 +1235,7 @@ class ctx2lParser ( Parser ):
 
 
             self.state = 255
-            self.ruleEbnf()
+            self.ruleTerm()
             self.state = 257
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -1253,7 +1253,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class RuleEbnfContext(RuleContextWithAltNum):
+    class RuleTermContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1273,21 +1273,21 @@ class ctx2lParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return ctx2lParser.RULE_ruleEbnf
+            return ctx2lParser.RULE_ruleTerm
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitRuleEbnf" ):
-                return visitor.visitRuleEbnf(self)
+            if hasattr( visitor, "visitRuleTerm" ):
+                return visitor.visitRuleTerm(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def ruleEbnf(self):
+    def ruleTerm(self):
 
-        localctx = ctx2lParser.RuleEbnfContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 22, self.RULE_ruleEbnf)
+        localctx = ctx2lParser.RuleTermContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 22, self.RULE_ruleTerm)
         try:
             self.state = 262
             self._errHandler.sync(self)
@@ -1605,8 +1605,8 @@ class ctx2lParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def tokenEbnf(self):
-            return self.getTypedRuleContext(ctx2lParser.TokenEbnfContext,0)
+        def tokenTerm(self):
+            return self.getTypedRuleContext(ctx2lParser.TokenTermContext,0)
 
 
         def label(self):
@@ -1645,7 +1645,7 @@ class ctx2lParser ( Parser ):
 
 
             self.state = 295
-            self.tokenEbnf()
+            self.tokenTerm()
             self.state = 297
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -1663,7 +1663,7 @@ class ctx2lParser ( Parser ):
         return localctx
 
 
-    class TokenEbnfContext(RuleContextWithAltNum):
+    class TokenTermContext(RuleContextWithAltNum):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1683,21 +1683,21 @@ class ctx2lParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return ctx2lParser.RULE_tokenEbnf
+            return ctx2lParser.RULE_tokenTerm
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTokenEbnf" ):
-                return visitor.visitTokenEbnf(self)
+            if hasattr( visitor, "visitTokenTerm" ):
+                return visitor.visitTokenTerm(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def tokenEbnf(self):
+    def tokenTerm(self):
 
-        localctx = ctx2lParser.TokenEbnfContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 36, self.RULE_tokenEbnf)
+        localctx = ctx2lParser.TokenTermContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 36, self.RULE_tokenTerm)
         try:
             self.state = 302
             self._errHandler.sync(self)
